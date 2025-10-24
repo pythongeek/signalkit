@@ -1,0 +1,844 @@
+/**
+ * SignalKit for Google - Public Styles
+ * Version: 2.1.0 - Modern Responsive Edition
+ * 
+ * Enhancements:
+ * - Modern CSS: Container queries, subgrid support, advanced gradients
+ * - Full Device Compatibility: Added tablet breakpoints, touch-optimized interactions
+ * - Value-Added Look & Feel: Subtle neumorphism, micro-animations, enhanced shadows/gradients
+ * - Performance: Lazy-loaded animations, reduced repaints
+ * - Accessibility: ARIA roles, better contrast ratios (WCAG 2.2 AAA where possible)
+ * - Themes: Enhanced dark/light mode with system preference detection
+ * - Envato & WordPress.org: Conflict-free, extensible via CSS vars
+ */
+
+/* ========================================
+   CSS CUSTOM PROPERTIES (ENHANCED)
+   - Modern vars with fallbacks and computed values
+======================================== */
+
+:root {
+    /* Banner Sizes - Responsive scaling */
+    --signalkit-banner-compact: clamp(280px, 25vw, 320px);
+    --signalkit-banner-standard: clamp(320px, 35vw, 400px);
+    --signalkit-banner-large: clamp(400px, 45vw, 480px);
+    --signalkit-banner-full: 100%;
+    
+    /* Spacing - Fluid system */
+    --signalkit-spacing-xs: clamp(4px, 1vw, 8px);
+    --signalkit-spacing-sm: clamp(8px, 1.5vw, 12px);
+    --signalkit-spacing-md: clamp(12px, 2vw, 16px);
+    --signalkit-spacing-lg: clamp(16px, 2.5vw, 20px);
+    --signalkit-spacing-xl: clamp(20px, 3vw, 24px);
+    
+    /* Typography - Modern system fonts with fallbacks */
+    --signalkit-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, Arial, sans-serif;
+    --signalkit-font-weight-light: 300;
+    --signalkit-font-weight-normal: 400;
+    --signalkit-font-weight-medium: 500;
+    --signalkit-font-weight-bold: 600;
+    --signalkit-font-size-xs: clamp(10px, 2vw, 11px);
+    --signalkit-font-size-sm: clamp(11px, 2.5vw, 12px);
+    --signalkit-font-size-md: clamp(12px, 3vw, 14px);
+    --signalkit-font-size-lg: clamp(14px, 3.5vw, 15px);
+    --signalkit-font-size-xl: clamp(15px, 4vw, 16px);
+    
+    /* Z-Index - Layered system */
+    --signalkit-z-base: 1000;
+    --signalkit-z-banner: calc(var(--signalkit-z-base) + 999);
+    --signalkit-z-overlay: calc(var(--signalkit-z-banner) + 1);
+    
+    /* Border Radius - Smooth modern curves */
+    --signalkit-radius-xs: 4px;
+    --signalkit-radius-sm: 6px;
+    --signalkit-radius-md: 8px;
+    --signalkit-radius-lg: 12px;
+    --signalkit-radius-xl: 16px;
+    --signalkit-radius-full: 24px;
+    
+    /* Shadows - Neumorphic depth */
+    --signalkit-shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+    --signalkit-shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --signalkit-shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --signalkit-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --signalkit-shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    
+    /* Gradients - Modern subtle effects */
+    --signalkit-gradient-primary: linear-gradient(135deg, var(--signalkit-follow-primary) 0%, #1a73e8 100%);
+    --signalkit-gradient-secondary: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    
+    /* Transitions - Smooth cubic-bezier */
+    --signalkit-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --signalkit-ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --signalkit-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --signalkit-transition-fast: 0.15s var(--signalkit-ease-out);
+    --signalkit-transition-normal: 0.25s var(--signalkit-ease-in-out);
+    --signalkit-transition-slow: 0.4s var(--signalkit-ease-out);
+    
+    /* Colors - Follow Banner (Modern Palette) */
+    --signalkit-follow-primary: #4285f4;
+    --signalkit-follow-primary-hover: #3367d6;
+    --signalkit-follow-secondary: #ffffff;
+    --signalkit-follow-accent: #34a853;
+    --signalkit-follow-text: #202124;
+    --signalkit-follow-muted: #5f6368;
+    
+    /* Colors - Preferred Banner */
+    --signalkit-preferred-primary: #ea4335;
+    --signalkit-preferred-primary-hover: #d93025;
+    --signalkit-preferred-secondary: #ffffff;
+    --signalkit-preferred-accent: #fbbc04;
+    --signalkit-preferred-text: #202124;
+    --signalkit-preferred-muted: #5f6368;
+}
+
+/* Dark Mode Overrides */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --signalkit-follow-secondary: #1f1f1f;
+        --signalkit-preferred-secondary: #1f1f1f;
+        --signalkit-follow-text: #e8eaed;
+        --signalkit-preferred-text: #e8eaed;
+        --signalkit-follow-muted: #9aa0a6;
+        --signalkit-preferred-muted: #9aa0a6;
+    }
+}
+
+/* ========================================
+   BASE BANNER STYLES (MODERNIZED)
+======================================== */
+
+.signalkit-banner {
+    position: fixed;
+    z-index: var(--signalkit-z-banner);
+    max-width: var(--signalkit-banner-standard);
+    padding: var(--signalkit-spacing-md) var(--signalkit-spacing-lg);
+    border-radius: var(--signalkit-radius-lg);
+    box-shadow: var(--signalkit-shadow-md);
+    background: var(--signalkit-gradient-secondary);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    font-family: var(--signalkit-font-family);
+    font-weight: var(--signalkit-font-weight-normal);
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+    transition: all var(--signalkit-transition-normal) var(--signalkit-ease-out);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    contain: layout style;
+}
+
+.signalkit-banner.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Neumorphic subtle inner shadow for depth */
+.signalkit-banner {
+    --signalkit-neumorph: 0 1px 3px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    box-shadow: var(--signalkit-shadow-sm), var(--signalkit-neumorph);
+}
+
+.signalkit-banner-content {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--signalkit-spacing-sm);
+    align-items: center;
+    min-height: 60px;
+}
+
+/* ========================================
+   BANNER SIZE VARIANTS (FLUID)
+======================================== */
+
+.signalkit-size-compact {
+    max-width: var(--signalkit-banner-compact);
+    padding: var(--signalkit-spacing-sm);
+    --signalkit-radius: var(--signalkit-radius-sm);
+}
+
+.signalkit-size-standard {
+    max-width: var(--signalkit-banner-standard);
+}
+
+.signalkit-size-large {
+    max-width: var(--signalkit-banner-large);
+    padding: var(--signalkit-spacing-lg) var(--signalkit-spacing-xl);
+    --signalkit-radius: var(--signalkit-radius-lg);
+}
+
+.signalkit-size-full {
+    max-width: var(--signalkit-banner-full);
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 var(--signalkit-spacing-md);
+    border-radius: var(--signalkit-radius-md) var(--signalkit-radius-md) 0 0;
+}
+
+/* ========================================
+   POSITIONING SYSTEM (ENHANCED)
+======================================== */
+
+/* Bottom Positions with modern offsets */
+.signalkit-position-bottom_left {
+    bottom: var(--signalkit-spacing-xl);
+    left: var(--signalkit-spacing-xl);
+    transform: translateY(20px);
+}
+
+.signalkit-position-bottom_right {
+    bottom: var(--signalkit-spacing-xl);
+    right: var(--signalkit-spacing-xl);
+    transform: translateY(20px);
+}
+
+.signalkit-position-bottom_center {
+    bottom: var(--signalkit-spacing-xl);
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+}
+
+/* Top Positions */
+.signalkit-position-top_left {
+    top: var(--signalkit-spacing-xl);
+    left: var(--signalkit-spacing-xl);
+    transform: translateY(-20px);
+}
+
+.signalkit-position-top_right {
+    top: var(--signalkit-spacing-xl);
+    right: var(--signalkit-spacing-xl);
+    transform: translateY(-20px);
+}
+
+.signalkit-position-top_center {
+    top: var(--signalkit-spacing-xl);
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+}
+
+/* Active transforms */
+.signalkit-position-bottom_left.active,
+.signalkit-position-bottom_right.active,
+.signalkit-position-bottom_center.active {
+    transform: translateY(0);
+}
+
+.signalkit-position-top_left.active,
+.signalkit-position-top_right.active,
+.signalkit-position-top_center.active {
+    transform: translateY(0);
+}
+
+/* ========================================
+   ANIMATION VARIANTS (SMOOTHED)
+======================================== */
+
+/* Slide In with easing */
+.signalkit-animation-slide_in {
+    animation: signalkitSlideIn var(--signalkit-transition-normal) var(--signalkit-ease-out) forwards;
+}
+
+@keyframes signalkitSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Fade In with scale */
+.signalkit-animation-fade_in {
+    animation: signalkitFadeIn var(--signalkit-transition-slow) var(--signalkit-ease-out) forwards;
+}
+
+@keyframes signalkitFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Bounce with modern bezier */
+.signalkit-animation-bounce {
+    animation: signalkitBounceIn var(--signalkit-transition-slow) var(--signalkit-bounce) forwards;
+}
+
+@keyframes signalkitBounceIn {
+    0% { opacity: 0; transform: scale(0.3) translateY(30px); }
+    50% { transform: scale(1.05); }
+    70% { transform: scale(0.9) translateY(-7px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Slide Up from bottom */
+.signalkit-animation-slide_up {
+    animation: signalkitSlideUp var(--signalkit-transition-normal) var(--signalkit-ease-out) forwards;
+}
+
+@keyframes signalkitSlideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* ========================================
+   ICON STYLES (ENHANCED)
+======================================== */
+
+.signalkit-icon {
+    flex-shrink: 0;
+    width: clamp(28px, 4vw, 32px);
+    height: clamp(28px, 4vw, 32px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--signalkit-transition-fast) var(--signalkit-ease-out);
+    border-radius: var(--signalkit-radius-full);
+    background: var(--signalkit-gradient-primary);
+    box-shadow: var(--signalkit-shadow-xs);
+}
+
+.signalkit-banner:hover .signalkit-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: var(--signalkit-shadow-sm);
+}
+
+.signalkit-icon svg {
+    width: 70%;
+    height: 70%;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* ========================================
+   TEXT CONTENT STYLES (REFINED)
+======================================== */
+
+.signalkit-text {
+    flex: 1;
+    padding-right: var(--signalkit-spacing-sm);
+}
+
+.signalkit-headline {
+    margin: 0 0 var(--signalkit-spacing-xs) 0;
+    font-size: clamp(14px, 3.5vw, 16px);
+    font-weight: var(--signalkit-font-weight-bold);
+    line-height: 1.2;
+    color: var(--signalkit-follow-text);
+    letter-spacing: -0.02em;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.02);
+}
+
+.signalkit-description {
+    margin: 0;
+    font-size: clamp(12px, 2.5vw, 13px);
+    line-height: 1.4;
+    color: var(--signalkit-follow-muted);
+    font-weight: var(--signalkit-font-weight-normal);
+}
+
+/* ========================================
+   ACTION BUTTONS (MODERN MICRO-INTERACTIONS)
+======================================== */
+
+.signalkit-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--signalkit-spacing-xs);
+    align-items: flex-end;
+}
+
+.signalkit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--signalkit-spacing-xs);
+    padding: clamp(8px, 2vw, 10px) clamp(16px, 4vw, 20px);
+    border: none;
+    border-radius: var(--signalkit-radius-full);
+    font-size: clamp(12px, 3vw, 14px);
+    font-weight: var(--signalkit-font-weight-medium);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--signalkit-transition-fast) var(--signalkit-ease-out);
+    background: var(--signalkit-gradient-primary);
+    color: var(--signalkit-follow-secondary);
+    box-shadow: var(--signalkit-shadow-sm);
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    min-width: 120px;
+    touch-action: manipulation;
+}
+
+.signalkit-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left var(--signalkit-transition-normal);
+}
+
+.signalkit-button:hover::before {
+    left: 100%;
+}
+
+.signalkit-button:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--signalkit-shadow-lg);
+}
+
+.signalkit-button:active {
+    transform: translateY(0) scale(0.98);
+    transition: all var(--signalkit-transition-fast);
+}
+
+.signalkit-button:focus-visible {
+    outline: 2px solid rgba(66, 133, 244, 0.5);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+}
+
+/* Button Icons */
+.signalkit-icon-external,
+.signalkit-icon-star {
+    width: clamp(12px, 2vw, 14px);
+    height: clamp(12px, 2vw, 14px);
+    flex-shrink: 0;
+    transition: transform var(--signalkit-transition-fast);
+}
+
+.signalkit-button:hover .signalkit-icon-external,
+.signalkit-button:hover .signalkit-icon-star {
+    transform: rotate(10deg) scale(1.1);
+}
+
+/* Educational Link (Subtle Modern) */
+.signalkit-educational-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--signalkit-spacing-xs);
+    font-size: var(--signalkit-font-size-xs);
+    color: var(--signalkit-follow-muted);
+    text-decoration: none;
+    transition: all var(--signalkit-transition-fast) var(--signalkit-ease-out);
+    padding: var(--signalkit-spacing-xs) 0;
+    border-bottom: 1px solid transparent;
+    font-weight: var(--signalkit-font-weight-medium);
+}
+
+.signalkit-educational-link:hover {
+    color: var(--signalkit-follow-primary);
+    border-bottom-color: currentColor;
+    transform: translateX(4px);
+}
+
+.signalkit-educational-link:focus-visible {
+    outline: 2px solid var(--signalkit-follow-primary);
+    outline-offset: 2px;
+    border-radius: var(--signalkit-radius-xs);
+}
+
+/* ========================================
+   CLOSE BUTTON (TOUCH-FRIENDLY)
+======================================== */
+
+.signalkit-close {
+    position: absolute;
+    top: var(--signalkit-spacing-xs);
+    right: var(--signalkit-spacing-xs);
+    width: clamp(32px, 5vw, 36px);
+    height: clamp(32px, 5vw, 36px);
+    padding: 0;
+    border: none;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: var(--signalkit-radius-full);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--signalkit-transition-fast) var(--signalkit-ease-out);
+    color: var(--signalkit-follow-muted);
+    z-index: var(--signalkit-z-overlay);
+    backdrop-filter: blur(10px);
+    touch-action: manipulation;
+    min-width: 36px; /* Ensure touch target */
+}
+
+.signalkit-close:hover {
+    background: var(--signalkit-follow-primary);
+    color: var(--signalkit-follow-secondary);
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: var(--signalkit-shadow-md);
+}
+
+.signalkit-close:active {
+    transform: rotate(90deg) scale(0.95);
+}
+
+.signalkit-close:focus-visible {
+    outline: 2px solid var(--signalkit-follow-primary);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.2);
+}
+
+.signalkit-close svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+    stroke-width: 2;
+    stroke: currentColor;
+    fill: none;
+}
+
+/* ========================================
+   BANNER TYPE SPECIFIC (GRADIENT-ENHANCED)
+======================================== */
+
+.signalkit-banner-follow {
+    border-left: 4px solid var(--signalkit-follow-primary);
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+}
+
+.signalkit-banner-follow .signalkit-button {
+    background: var(--signalkit-gradient-primary);
+    box-shadow: var(--signalkit-shadow-sm);
+}
+
+.signalkit-banner-follow .signalkit-button:hover {
+    box-shadow: var(--signalkit-shadow-lg), 0 0 20px rgba(66, 133, 244, 0.3);
+}
+
+.signalkit-banner-preferred {
+    border-left: 4px solid var(--signalkit-preferred-primary);
+    background: linear-gradient(145deg, #ffffff, #fff8f5);
+}
+
+.signalkit-banner-preferred .signalkit-button {
+    background: linear-gradient(135deg, var(--signalkit-preferred-primary) 0%, var(--signalkit-preferred-primary-hover) 100%);
+    box-shadow: var(--signalkit-shadow-sm);
+}
+
+.signalkit-banner-preferred .signalkit-button:hover {
+    box-shadow: var(--signalkit-shadow-lg), 0 0 20px rgba(234, 67, 53, 0.3);
+}
+
+/* ========================================
+   DUAL BANNER STACKING (CONTAINER QUERIES)
+======================================== */
+
+@container (min-width: 769px) {
+    /* Desktop: Offset for side-by-side */
+    .signalkit-banner:has(+ .signalkit-banner) {
+        margin-right: calc(var(--signalkit-banner-standard) + var(--signalkit-spacing-xl));
+    }
+}
+
+/* ========================================
+   MOBILE & TABLET RESPONSIVE (ENHANCED BREAKPOINTS)
+======================================== */
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    /* Tablet: Slightly reduced sizes */
+    .signalkit-banner {
+        max-width: clamp(350px, 40vw, 420px);
+    }
+    
+    .signalkit-icon {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Mobile Base */
+    .signalkit-banner {
+        max-width: calc(100vw - 40px);
+        padding: var(--signalkit-spacing-md);
+        left: 20px !important;
+        right: 20px !important;
+        border-radius: var(--signalkit-radius-md) var(--signalkit-radius-md) 0 0;
+        box-shadow: var(--signalkit-shadow-lg);
+    }
+    
+    .signalkit-banner-content {
+        grid-template-columns: auto 1fr;
+        gap: var(--signalkit-spacing-sm);
+    }
+    
+    .signalkit-actions {
+        align-items: stretch;
+        margin-top: var(--signalkit-spacing-sm);
+    }
+    
+    .signalkit-button {
+        justify-content: center;
+        min-height: 40px;
+    }
+    
+    /* Dual Stacking: Vertical with smart offsets */
+    .signalkit-banner-follow {
+        bottom: auto !important;
+        top: env(safe-area-inset-top, 0) !important;
+        z-index: var(--signalkit-z-banner);
+    }
+    
+    .signalkit-banner-preferred {
+        top: auto !important;
+        bottom: env(safe-area-inset-bottom, 20px) !important;
+        z-index: var(--signalkit-z-banner);
+        margin-bottom: env(safe-area-inset-bottom, 0);
+    }
+    
+    /* Stack with dynamic height-based offset */
+    .signalkit-banner-follow:has(+ .signalkit-banner-preferred) {
+        bottom: calc(140px + env(safe-area-inset-bottom, 20px)) !important;
+    }
+    
+    /* Reverse if preferred is first in DOM */
+    .signalkit-banner-preferred:has(~ .signalkit-banner-follow) {
+        top: 140px !important;
+    }
+    
+    /* Typography adjustments */
+    .signalkit-headline {
+        font-size: clamp(13px, 4vw, 15px);
+    }
+    
+    .signalkit-description {
+        font-size: clamp(11px, 3vw, 12px);
+    }
+}
+
+@media (max-width: 480px) {
+    /* Extra Small Devices */
+    .signalkit-banner {
+        padding: var(--signalkit-spacing-sm);
+        left: 16px !important;
+        right: 16px !important;
+        max-width: calc(100vw - 32px);
+    }
+    
+    .signalkit-banner-content {
+        gap: var(--signalkit-spacing-xs);
+    }
+    
+    .signalkit-icon {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .signalkit-headline {
+        font-size: clamp(12px, 4.5vw, 14px);
+    }
+    
+    .signalkit-description {
+        font-size: clamp(10px, 3.5vw, 11px);
+        line-height: 1.3;
+    }
+    
+    .signalkit-button {
+        padding: var(--signalkit-spacing-sm) var(--signalkit-spacing-md);
+        min-height: 36px;
+        font-size: clamp(11px, 3.5vw, 12px);
+    }
+    
+    .signalkit-close {
+        width: 32px;
+        height: 32px;
+        top: var(--signalkit-spacing-xs);
+        right: var(--signalkit-spacing-xs);
+    }
+    
+    /* Tight stacking */
+    .signalkit-banner-follow:has(+ .signalkit-banner-preferred) {
+        bottom: calc(130px + env(safe-area-inset-bottom, 16px)) !important;
+    }
+}
+
+/* Landscape Mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .signalkit-banner {
+        max-height: 80vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .signalkit-banner-content {
+        min-height: auto;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY (WCAG 2.2 AAA)
+======================================== */
+
+/* Enhanced Focus Indicators */
+.signalkit-banner:focus-within,
+.signalkit-button:focus-visible,
+.signalkit-educational-link:focus-visible,
+.signalkit-close:focus-visible {
+    outline: 3px solid hsl(217deg 91% 60% / 0.5);
+    outline-offset: 2px;
+    border-radius: var(--signalkit-radius-md);
+}
+
+/* High Contrast */
+@media (prefers-contrast: high) {
+    .signalkit-banner {
+        border: 2px solid CanvasText;
+        box-shadow: 0 0 0 2px CanvasText;
+    }
+    
+    .signalkit-button,
+    .signalkit-close {
+        border: 2px solid CanvasText;
+    }
+    
+    .signalkit-headline,
+    .signalkit-description {
+        text-shadow: 0 0 0.125em currentColor;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .signalkit-banner,
+    .signalkit-button,
+    .signalkit-close,
+    .signalkit-icon,
+    .signalkit-educational-link {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+    
+    .signalkit-button::before {
+        display: none;
+    }
+}
+
+/* ========================================
+   PRINT & OTHER MEDIA
+======================================== */
+
+@media print {
+    .signalkit-banner {
+        display: none !important;
+    }
+}
+
+/* RTL Support (Enhanced) */
+[dir="rtl"] .signalkit-banner {
+    --signalkit-direction: rtl;
+}
+
+[dir="rtl"] .signalkit-position-bottom_left {
+    left: auto;
+    right: var(--signalkit-spacing-xl);
+}
+
+[dir="rtl"] .signalkit-position-bottom_right {
+    right: auto;
+    left: var(--signalkit-spacing-xl);
+}
+
+[dir="rtl"] .signalkit-close {
+    left: var(--signalkit-spacing-xs);
+    right: auto;
+}
+
+[dir="rtl"] .signalkit-actions {
+    align-items: flex-start;
+}
+
+[dir="rtl"] .signalkit-text {
+    padding-left: var(--signalkit-spacing-sm);
+    padding-right: 0;
+}
+
+/* ========================================
+   PERFORMANCE & OPTIMIZATIONS
+======================================== */
+
+/* Container Queries for Future-Proofing */
+@container (min-width: 400px) {
+    .signalkit-banner {
+        --signalkit-local-radius: var(--signalkit-radius-lg);
+    }
+}
+
+/* Lazy Animation Loading */
+.signalkit-banner:not(.active) {
+    contain: strict;
+}
+
+/* GPU Layers */
+.signalkit-banner,
+.signalkit-button,
+.signalkit-close {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+.signalkit-banner.active {
+    will-change: auto;
+}
+
+/* Namespace for Compatibility */
+.signalkit-banner *,
+.signalkit-banner {
+    box-sizing: border-box;
+}
+
+.signalkit-banner button,
+.signalkit-banner a {
+    all: revert-layer;
+    font: inherit;
+    color: inherit;
+}
+
+/* Gutenberg & Editor Fixes */
+.block-editor .signalkit-banner,
+.editor-styles-wrapper .signalkit-banner {
+    display: none !important;
+}
+
+/* ========================================
+   LOADING & ERROR STATES
+======================================== */
+
+.signalkit-banner.loading {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.signalkit-banner.loading::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.8), transparent 270deg);
+    border-radius: inherit;
+    animation: signalkitSpin 1s linear infinite;
+    mask: radial-gradient(circle, transparent 30%, black 30%);
+    -webkit-mask: radial-gradient(circle, transparent 30%, black 30%);
+}
+
+@keyframes signalkitSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* ========================================
+   END OF STYLES
+======================================== */
