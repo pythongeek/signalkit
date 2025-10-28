@@ -1,0 +1,351 @@
+# SignalKit for Google - Complete Installation Guide
+
+## 📦 Complete File Structure
+
+```
+signalkit-for-google/
+├── signalkit-for-google.php          # Main plugin file
+├── README.txt                         # WordPress.org readme
+├── uninstall.php                      # Uninstall handler
+├── INSTALLATION-GUIDE.md             # This file
+│
+├── admin/
+│   ├── class-signalkit-admin.php
+│   ├── class-signalkit-settings.php
+│   ├── partials/
+│   │   └── settings-page.php
+│   ├── css/
+│   │   └── signalkit-admin.css
+│   └── js/
+│       └── signalkit-admin.js
+│
+├── public/
+│   ├── class-signalkit-public.php
+│   ├── partials/
+│   │   ├── banner-follow.php
+│   │   └── banner-preferred.php
+│   ├── css/
+│   │   └── signalkit-public.css
+│   └── js/
+│       └── signalkit-public.js
+│
+├── includes/
+│   ├── class-signalkit-core.php
+│   ├── class-signalkit-loader.php
+│   ├── class-signalkit-activator.php
+│   ├── class-signalkit-deactivator.php
+│   ├── class-signalkit-analytics.php
+│   └── class-signalkit-display-rules.php
+│
+└── languages/
+    └── signalkit-for-google.pot
+```
+
+---
+
+## 🚀 Installation Steps
+
+### Method 1: Manual Installation
+
+1. **Download/Create all files** with the code provided above
+2. **Upload to WordPress:**
+   - Via FTP: Upload the entire `signalkit-for-google` folder to `/wp-content/plugins/`
+   - Via WordPress Admin: Zip the folder and upload via Plugins > Add New > Upload Plugin
+3. **Activate the plugin** from Plugins menu
+4. **Configure settings** at SignalKit menu in WordPress admin
+
+### Method 2: Direct File Creation
+
+If you're creating files directly on your server:
+
+```bash
+# Navigate to plugins directory
+cd /path/to/wordpress/wp-content/plugins/
+
+# Create main directory
+mkdir signalkit-for-google
+cd signalkit-for-google
+
+# Create subdirectories
+mkdir -p admin/css admin/js admin/partials
+mkdir -p public/css public/js public/partials
+mkdir -p includes
+mkdir -p languages
+
+# Create empty files (you'll paste the code into these)
+touch signalkit-for-google.php
+touch README.txt
+touch uninstall.php
+touch admin/class-signalkit-admin.php
+touch admin/class-signalkit-settings.php
+touch admin/partials/settings-page.php
+touch admin/css/signalkit-admin.css
+touch admin/js/signalkit-admin.js
+touch public/class-signalkit-public.php
+touch public/partials/banner-follow.php
+touch public/partials/banner-preferred.php
+touch public/css/signalkit-public.css
+touch public/js/signalkit-public.js
+touch includes/class-signalkit-core.php
+touch includes/class-signalkit-loader.php
+touch includes/class-signalkit-activator.php
+touch includes/class-signalkit-deactivator.php
+touch includes/class-signalkit-analytics.php
+touch includes/class-signalkit-display-rules.php
+
+# Set proper permissions
+chmod -R 755 .
+```
+
+---
+
+## ⚙️ Configuration Guide
+
+### Step 1: Get Your Google News URLs
+
+#### For Follow Banner:
+1. Visit Google News: https://news.google.com
+2. Search for your publication
+3. Click on your publication name
+4. Copy the URL (format: `https://news.google.com/publications/CAAqB...`)
+
+#### For Preferred Source Banner:
+1. Google News Preferences URL: https://news.google.com/preferences
+2. Or create a direct link to add your source
+
+### Step 2: Configure Follow Banner
+
+1. Go to **WordPress Admin > SignalKit**
+2. Click **Follow Banner** tab
+3. Enable the banner
+4. Paste your Google News URL
+5. Customize:
+   - **Headline:** "Stay Updated with [site_name]"
+   - **Description:** Your custom message
+   - **Button Text:** "Follow Us On Google News"
+   - **Colors:** Choose your brand colors
+   - **Position:** Choose where to display
+   - **Animation:** Select animation style
+   - **Device Settings:** Mobile/Desktop
+   - **Page Types:** Where to show
+
+### Step 3: Configure Preferred Source Banner
+
+1. Click **Preferred Source Banner** tab
+2. Enable the banner
+3. Paste Google Preferences URL
+4. Optional: Add educational post URL
+5. Customize all settings (similar to Follow Banner)
+
+### Step 4: Set Display Rules
+
+**For Each Banner:**
+- ✅ Enable/Disable
+- 📱 Device: Mobile, Desktop, or Both
+- 📄 Page Types: Posts, Pages, Homepage, Archives
+- 🔄 Frequency: Always, Once per session, Once per day
+- ⏰ Dismiss Duration: 1-365 days
+
+---
+
+## 🎨 Customization Examples
+
+### Example 1: News Site Setup
+```
+Follow Banner:
+- Position: Bottom Left
+- Colors: Blue gradient (#4285f4 to #34a853)
+- Show on: All Posts and Homepage
+- Frequency: Once per day
+
+Preferred Source Banner:
+- Position: Bottom Right  
+- Colors: Red gradient (#4285f4 to #ea4335)
+- Show on: All Posts only
+- Frequency: Once per day
+```
+
+### Example 2: Blog Setup
+```
+Follow Banner:
+- Position: Top Center
+- Colors: Custom brand colors
+- Show on: Posts and Pages
+- Frequency: Once per session
+
+Preferred Source Banner:
+- Position: Bottom Center
+- Show on: Homepage only
+- Frequency: Always
+```
+
+---
+
+## 📊 Using Analytics
+
+Access analytics at **SignalKit > Analytics**
+
+**Metrics Available:**
+- 📊 Impressions (how many times shown)
+- 👆 Clicks (CTA button clicks)
+- ❌ Dismissals (times closed)
+- 📈 Click-Through Rate (CTR %)
+
+**Reset Analytics:**
+- Reset individual banner data
+- Reset all analytics at once
+
+---
+
+## 🔧 Troubleshooting
+
+### Banners Not Showing?
+
+1. **Check if enabled:** Settings > Ensure banner is enabled
+2. **Check URLs:** Make sure Google URLs are correctly entered
+3. **Check display rules:** Verify page type and device settings match
+4. **Clear cookies:** Delete browser cookies to test frequency rules
+5. **Check browser console:** Look for JavaScript errors
+6. **Enable debug:** Add to wp-config.php: `define('WP_DEBUG', true);`
+
+### Styling Issues?
+
+1. **Clear cache:** Clear WordPress and browser cache
+2. **Check theme conflicts:** Try with a default WordPress theme
+3. **Inspect CSS:** Use browser dev tools to check applied styles
+4. **Check color settings:** Ensure valid hex colors
+
+### Analytics Not Tracking?
+
+1. **Check AJAX:** Ensure WordPress AJAX is working
+2. **Browser console:** Look for AJAX errors
+3. **Cookie restrictions:** Some browsers block cookies
+4. **Ad blockers:** May interfere with tracking
+
+---
+
+## 🛡️ Security Notes
+
+- All inputs are sanitized and validated
+- AJAX requests use WordPress nonces
+- Only admin users can change settings
+- No external API calls (privacy-friendly)
+- GDPR compliant (functional cookies only)
+
+---
+
+## 🔄 Updating the Plugin
+
+When updating:
+1. **Backup first:** Always backup your WordPress site
+2. **Deactivate:** Deactivate the plugin
+3. **Replace files:** Upload new files
+4. **Reactivate:** Activate the plugin
+5. **Check settings:** Verify settings are intact
+
+**Note:** Settings are preserved during updates
+
+---
+
+## 🗑️ Uninstalling
+
+The plugin cleans up after itself:
+
+**What gets deleted:**
+- All plugin options
+- Analytics data
+- Transients and cache
+
+**What stays:**
+- No database tables created
+- No files outside plugin directory
+
+To uninstall:
+1. Deactivate the plugin
+2. Delete from Plugins page
+3. All data is automatically removed
+
+---
+
+## 📝 Shortcodes (Future Feature)
+
+Currently not available, but you can manually add banners to specific locations using:
+
+```php
+<?php
+// In your theme template
+if (function_exists('signalkit_display_banner')) {
+    signalkit_display_banner('follow'); // or 'preferred'
+}
+?>
+```
+
+---
+
+## 🆘 Support
+
+- **Documentation:** Check README.txt
+- **Debug Mode:** Enable WP_DEBUG to see detailed logs
+- **Browser Console:** Check for JavaScript errors
+- **Network Tab:** Verify AJAX requests are successful
+
+---
+
+## ✅ Pre-Launch Checklist
+
+Before going live:
+
+- [ ] Both banners configured with correct URLs
+- [ ] Colors match your brand
+- [ ] Tested on mobile and desktop
+- [ ] Display rules set correctly
+- [ ] Frequency settings configured
+- [ ] Analytics tracking verified
+- [ ] Tested banner dismissal
+- [ ] Cleared all caches
+- [ ] Tested on different browsers
+- [ ] Checked for conflicts with other plugins
+
+---
+
+## 🎯 Best Practices
+
+1. **Don't show both banners in the same position**
+2. **Use contrasting colors for each banner**
+3. **Test frequency settings** before going live
+4. **Monitor analytics regularly** to optimize performance
+5. **A/B test different messages** to see what works
+6. **Keep dismiss duration reasonable** (7 days recommended)
+7. **Show on relevant pages only** (don't overwhelm users)
+8. **Make sure CTAs are clear** and action-oriented
+
+---
+
+## 🚀 Next Steps After Installation
+
+1. **Test both banners** on your site
+2. **Monitor analytics** for first week
+3. **Adjust settings** based on performance
+4. **Create educational content** about preferred sources
+5. **Share with your audience** on social media
+
+---
+
+## 📞 Need Help?
+
+If you encounter issues:
+1. Check this guide thoroughly
+2. Enable WP_DEBUG and check error logs
+3. Test with default WordPress theme
+4. Disable other plugins to check for conflicts
+5. Check browser console for errors
+
+---
+
+**Version:** 1.0.0  
+**Last Updated:** 2024  
+**Compatibility:** WordPress 5.0+ | PHP 7.2+
+
+---
+
+**Happy Publishing! 🎉**
