@@ -1,6 +1,6 @@
 /**
- * SignalKit for Google - Public JavaScript
- * Version: 2.5.1 - MOBILE STACKING FIX
+ * SignalKit - Public JavaScript
+ * Version: 1.0.0 - MOBILE STACKING FIX
  * 
  * SECURITY ENHANCEMENTS:
  * - Session token validation for all AJAX requests
@@ -471,5 +471,6 @@
             resizeTimer = setTimeout(updateMobileLayout, 100);
         });
     });
+
 
 })(jQuery);
