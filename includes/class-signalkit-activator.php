@@ -3,7 +3,7 @@
  * Fired during plugin activation.
  *
  * @package SignalKit_For_Google
- * @version 2.0.0
+ * @version 1.0.0
  */
 
 if (!defined('ABSPATH')) {
@@ -329,4 +329,5 @@ class SignalKit_Activator {
         
         return true;
     }
+
 }
