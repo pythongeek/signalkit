@@ -1,6 +1,6 @@
 /**
- * SignalKit for Google - Admin JavaScript
- * Version: 2.5.1 - SECURITY: File upload validation hardened
+ * SignalKit - Admin JavaScript
+ * Version: 1.0.0 - SECURITY: File upload validation hardened
  * 
  * @package SignalKit_For_Google
  * @since 1.0.0
@@ -870,5 +870,6 @@
 
         signalkitLog('✓ SignalKit admin initialization complete - All customization controls ready');
     });
+
 
 })(jQuery);
