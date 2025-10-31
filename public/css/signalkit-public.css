@@ -1,6 +1,6 @@
 /**
- * SignalKit for Google - Public Styles
- * Version: 2.5.1 - FIXED: Mobile banner stacking - removed hardcoded heights
+ * SignalKit - Public Styles
+ * Version: 1.0.0 - FIXED: Mobile banner stacking - removed hardcoded heights
  * 
  * CRITICAL FIXES:
  * - Removed CSS-based banner stacking with hardcoded --signalkit-banner-height
@@ -1002,4 +1002,5 @@
 
 /* ========================================
    END OF STYLESHEET
+
 ======================================== */
