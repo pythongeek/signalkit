@@ -1,7 +1,7 @@
 <?php
 /**
  * Google Preferred Source Banner Template
- * Version: 2.3.0 - XSS HARDENED: Stricter content filtering
+ * Version: 1.0.0 - XSS HARDENED: Stricter content filtering
  *
  * @package SignalKit_For_Google
  */
@@ -250,4 +250,5 @@ $banner_classes = implode(' ', array_filter([
 
 <?php
 do_action('signalkit_after_preferred_banner', $banner, $banner_id);
+
 ?>
