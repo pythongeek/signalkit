@@ -1,7 +1,7 @@
 <?php
 /**
  * Banner Preview Template for Admin Live Preview
- * Version: 2.0.0 - IMPROVED: Better styling, responsive design, visual enhancements
+ * Version: 1.0.0 - IMPROVED: Better styling, responsive design, visual enhancements
  * 
  * Security: All output is properly escaped
  * WordPress Compatible: Uses WP escaping functions
@@ -177,4 +177,5 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
             grid-template-columns: repeat(2, 1fr) !important;
         }
     }
+
 </style>
