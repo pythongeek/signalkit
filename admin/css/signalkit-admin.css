@@ -1,8 +1,8 @@
 /**
- * SignalKit for Google - Admin Styles with Live Preview
+ * SignalKit - Admin Styles with Live Preview
  * 
  * @package SignalKit_For_Google
- * @version 2.3.1 - FIXED: Preview CSS conflicts resolved, !important removed
+ * @version 1.0.0 - FIXED: Preview CSS conflicts resolved, !important removed
  */
 
 /* ========================================
@@ -677,4 +677,5 @@
         transition: none !important;
         animation: none !important;
     }
+
 }
