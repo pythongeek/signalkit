@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: SignalKit for Google
+ * Plugin Name: SignalKit
  * Plugin URI: https://yoursite.com/signalkit-for-google
  * Description: Display customizable Google News Follow and Preferred Source banners to boost your publication's visibility and engagement.
  * Version: 1.0.0
@@ -10,7 +10,7 @@
  * Author URI: https://yoursite.com
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: signalkit-for-google
+ * Text Domain: signalkit
  * Domain Path: /languages
  *
  * @package SignalKit_For_Google
@@ -94,4 +94,5 @@ function run_signalkit() {
 }
 
 // Run the plugin after all plugins are loaded
+
 add_action('plugins_loaded', 'run_signalkit');
