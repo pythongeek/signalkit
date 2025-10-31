@@ -3,7 +3,7 @@
  * The admin-specific functionality of the plugin.
  *
  * @package SignalKit_For_Google
- * @version 2.5.2 - SECURITY: Added audit logging for critical admin actions
+ * @version 1.0.0 - SECURITY: Added audit logging for critical admin actions
  * 
  * IMPORTANT SECURITY NOTES FOR DEVELOPERS:
  * ========================================
@@ -758,4 +758,5 @@ class SignalKit_Admin {
         
         signalkit_log('Admin: AJAX handlers registered');
     }
+
 }
