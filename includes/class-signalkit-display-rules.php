@@ -1,7 +1,7 @@
 <?php
 /**
  * Handle display rules and conditional logic.
- * Version: 2.5.0 - SECURITY HARDENED: Enhanced cookie security with SameSite
+ * Version: 1.0.0 - SECURITY HARDENED: Enhanced cookie security with SameSite
  *
  * @package SignalKit_For_Google
  */
@@ -294,4 +294,5 @@ class SignalKit_Display_Rules {
         }
         unset($_COOKIE[$name]);
     }
+
 }
