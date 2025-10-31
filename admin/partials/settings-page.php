@@ -3,7 +3,7 @@
  * Settings Page Template - ENHANCED WITH LIVE PREVIEW
  *
  * @package SignalKit_For_Google
- * @version 2.0.0
+ * @version 1.0.0
  * @link https://developer.wordpress.org/plugins/settings/
  * @link https://developer.wordpress.org/reference/functions/settings_fields/
  */
