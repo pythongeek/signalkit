@@ -3,7 +3,7 @@
  * The core plugin class.
  *
  * @package SignalKit_For_Google
- * @version 2.4.0 - FIXED: Added missing impression AJAX handler registration
+ * @version 1.0.0 - FIXED: Added missing impression AJAX handler registration
  * 
  * Security: Proper hook registration, capability checks
  * WordPress Compatible: Follows WP coding standards
@@ -170,4 +170,5 @@ class SignalKit_Core {
     public function get_version() {
         return $this->version;
     }
+
 }
