@@ -3,7 +3,7 @@
  * Handle analytics and tracking.
  *
  * @package SignalKit_For_Google
- * @version 2.5.1 - SECURITY: Race condition protection added
+ * @version 1.0.0 - SECURITY: Race condition protection added
  * 
  * IMPORTANT SECURITY NOTES FOR DEVELOPERS:
  * ========================================
@@ -535,4 +535,5 @@ class SignalKit_Analytics {
         
         return round(($total_clicks / $total_impressions) * 100, 2);
     }
+
 }
