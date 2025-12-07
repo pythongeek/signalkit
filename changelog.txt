@@ -1,6 +1,0 @@
-Version 1.0.0 (January 2025)
-- Initial public release
-- Two independent banner systems
-- Full customization controls
-- Built-in analytics
-- Security hardened
