@@ -1,0 +1,280 @@
+/**
+ * SignalKit Branding Logo Styles
+ *
+ * Optimized CSS for the animated SignalKit logo.
+ * Loaded only on admin pages where the logo is displayed.
+ *
+ * @package SignalKit
+ * @version 2.0.0
+ */
+
+/* ================================
+   GOOGLE FONT - ORBITRON
+   Font is enqueued via PHP wp_enqueue_style()
+   in class-signalkit-admin.php for CodeCanyon compliance
+   ================================ */
+
+/* ================================
+   LOGO WRAPPER
+   ================================ */
+.signalkit-branding-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 20px;
+    z-index: 1;
+}
+
+/* Responsive sizing */
+.signalkit-branding-logo[data-size="small"] {
+    padding: 10px;
+}
+
+.signalkit-branding-logo[data-size="hero"] {
+    padding: 40px;
+}
+
+/* ================================
+   SVG ICON
+   ================================ */
+.signalkit-logo-icon {
+    filter: drop-shadow(0px 10px 20px rgba(66, 133, 244, 0.3));
+    z-index: 10;
+    transition: transform 0.3s ease;
+}
+
+/* Float animation - only if data-animate="true" */
+.signalkit-branding-logo[data-animate="true"] .signalkit-logo-icon {
+    animation: signalkit-float 6s ease-in-out infinite;
+}
+
+@keyframes signalkit-float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+/* Hover effect */
+.signalkit-logo-icon:hover {
+    transform: scale(1.05);
+}
+
+/* ================================
+   PULSE RING ANIMATION
+   ================================ */
+.signalkit-pulse-ring {
+    transform-origin: center;
+    animation: signalkit-pulse-ring 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes signalkit-pulse-ring {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.6;
+        stroke-width: 2px;
+    }
+
+    100% {
+        transform: scale(1.6);
+        opacity: 0;
+        stroke-width: 0px;
+    }
+}
+
+/* ================================
+   BRAND TEXT
+   ================================ */
+.signalkit-brand-text-container {
+    position: relative;
+    margin-top: 10px;
+    z-index: 5;
+}
+
+.signalkit-brand-text {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    text-transform: uppercase;
+    position: relative;
+    display: block;
+
+    /* Base Metallic Look */
+    background: linear-gradient(180deg, #334155 0%, #0f172a 40%, #020617 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    /* Sharp Drop Shadow for depth */
+    filter: drop-shadow(0 2px 0px rgba(255, 255, 255, 0.5)) drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+}
+
+/* The Lighter "KIT" part */
+.signalkit-text-light {
+    font-weight: 400;
+    color: #94a3b8;
+    background: none;
+    -webkit-text-fill-color: #94a3b8;
+}
+
+/* ================================
+   LIGHTNING / EDGE GLINT LAYER
+   ================================ */
+.signalkit-brand-text::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+
+    /* Transparent fill with gradient-colored stroke */
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px transparent;
+
+    /* Moving gradient across the stroke */
+    background: linear-gradient(120deg,
+            transparent 35%,
+            rgba(255, 255, 255, 0.9) 45%,
+            #3b82f6 48%,
+            rgba(255, 255, 255, 0.9) 52%,
+            transparent 60%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: signalkit-shine-crisp 4s cubic-bezier(0.19, 1, 0.22, 1) infinite;
+    filter: brightness(1.5);
+    pointer-events: none;
+}
+
+@keyframes signalkit-shine-crisp {
+    0% {
+        background-position: 150% 0;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        background-position: -150% 0;
+        opacity: 0;
+    }
+}
+
+/* ================================
+   RESPONSIVE ADJUSTMENTS
+   ================================ */
+@media screen and (max-width: 782px) {
+    .signalkit-branding-logo {
+        padding: 15px;
+    }
+
+    .signalkit-brand-text {
+        letter-spacing: -0.03em;
+    }
+}
+
+/* ================================
+   REDUCED MOTION SUPPORT
+   ================================ */
+@media (prefers-reduced-motion: reduce) {
+
+    .signalkit-logo-icon,
+    .signalkit-pulse-ring,
+    .signalkit-brand-text::before {
+        animation: none !important;
+    }
+
+    .signalkit-branding-logo[data-animate="true"] .signalkit-logo-icon {
+        animation: none !important;
+    }
+}
+
+/* ================================
+   PRINT STYLES
+   ================================ */
+@media print {
+    .signalkit-branding-logo {
+        padding: 10px;
+    }
+
+    .signalkit-logo-icon {
+        filter: none;
+    }
+
+    .signalkit-pulse-ring {
+        display: none;
+    }
+
+    .signalkit-brand-text::before {
+        display: none;
+    }
+}
+
+/* ================================
+   ADMIN HEADER INTEGRATION
+   ================================ */
+.signalkit-admin-header-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    padding: 20px;
+    background: transparent;
+}
+
+/* Settings Page Logo - Smaller, top-right corner */
+.signalkit-settings-header-logo {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+/* Analytics Page Logo - Centered at top */
+.signalkit-analytics-header-logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* ================================
+   DARK THEME SUPPORT
+   ================================ */
+.admin-color-midnight .signalkit-brand-text,
+.admin-color-ectoplasm .signalkit-brand-text {
+    background: linear-gradient(180deg, #e2e8f0 0%, #94a3b8 40%, #64748b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    filter: drop-shadow(0 2px 0px rgba(0, 0, 0, 0.3)) drop-shadow(0 5px 10px rgba(255, 255, 255, 0.1));
+}
+
+/* ================================
+   PERFORMANCE OPTIMIZATION
+   ================================ */
+.signalkit-logo-icon,
+.signalkit-pulse-ring {
+    will-change: transform;
+}
+
+.signalkit-brand-text::before {
+    will-change: background-position, opacity;
+}
+
+/* Use GPU acceleration */
+.signalkit-branding-logo {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
