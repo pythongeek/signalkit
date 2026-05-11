@@ -70,7 +70,8 @@ class SignalKit_Activator {
             
             'site_name' => get_bloginfo('name'),
             'enable_rate_limiting' => 0,
-            'enable_csp' => 1,
+            'enable_csp' => 0,
+            'enable_google_fonts' => 0,
             'analytics_tracking' => 1,
             'import_export_key' => '',
             

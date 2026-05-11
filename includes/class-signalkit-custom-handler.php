@@ -48,6 +48,9 @@ class SignalKit_Custom_Handler {
         
         // Handle CSV export early, BEFORE any output starts
         add_action('admin_init', array($this, 'handle_csv_export_early'), 1);
+
+        // Enqueue admin styles properly
+        add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_styles'));
     }
     
     /**
@@ -376,15 +379,6 @@ class SignalKit_Custom_Handler {
         
         ?>
         <div class="wrap signalkit-submissions-page">
-            <?php
-            // Enqueue submissions page styles
-            wp_enqueue_style(
-                'signalkit-submissions',
-                SIGNALKIT_PLUGIN_URL . 'admin/css/signalkit-submissions.css',
-                array(),
-                SIGNALKIT_VERSION
-            );
-            ?>
             <h1><?php esc_html_e('SignalKit Submissions', 'signalkit'); ?></h1>
             
             <div class="signalkit-submissions-header">
@@ -575,6 +569,24 @@ class SignalKit_Custom_Handler {
         
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
+    }
+
+    /**
+     * Enqueue admin styles
+     * 
+     * @param string $hook The current admin page hook
+     */
+    public function enqueue_admin_styles($hook) {
+        if ($hook !== 'signalkit_page_signalkit-submissions') {
+            return;
+        }
+        
+        wp_enqueue_style(
+            'signalkit-submissions',
+            SIGNALKIT_PLUGIN_URL . 'admin/css/signalkit-submissions.css',
+            array(),
+            SIGNALKIT_VERSION
+        );
     }
 }
 

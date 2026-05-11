@@ -300,5 +300,4 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
     </div>
 </div>
 
-</style>
 <?php // @codingStandardsIgnoreEnd ?>

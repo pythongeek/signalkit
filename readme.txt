@@ -8,11 +8,11 @@ Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-News publisher engagement suite with Follow, Preferred Source, and Lead Capture banners to boost your publication's visibility and engagement.
+News publisher notification plugin with Follow, Preferred Source, and Lead Capture banners to help grow your audience and collect leads.
 
 == Description ==
 
-**SignalKit** is an engagement suite for WordPress publishers. It helps you grow your Google News audience, capture email leads, and increase reader loyalty with three smart-loading banners.
+**SignalKit** is an engagement tool for WordPress publishers. It helps you connect with your Google News audience, capture leads, and increase reader retention with smart-loading banners.
 
 = 🚀 Growth Tools =
 
@@ -70,7 +70,7 @@ Embed banners anywhere in your content:
 `[signalkit_follow style="leaderboard" align="center"]`
 `[signalkit_custom style="rectangle" align="right"]`
 
-= 🛡️ Enterprise-Grade Security =
+= 🛡️ Comprehensive Security Features =
 
 *   Nonce verification on all AJAX requests
 *   Session token validation to prevent analytics spam

@@ -115,8 +115,10 @@ class SignalKit_Performance {
             @media(max-width:768px){.signalkit-banner{left:10px!important;right:10px!important;max-width:calc(100vw - 20px)!important;transform:none!important}}
         ';
         
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        echo '<style id="signalkit-critical-css">' . wp_strip_all_tags($this->minify_css($critical_css)) . '</style>' . "\n";
+        // Register a dummy handle as anchor for the inline style
+        wp_register_style('signalkit-critical', false, array(), SIGNALKIT_VERSION);
+        wp_enqueue_style('signalkit-critical');
+        wp_add_inline_style('signalkit-critical', $this->minify_css($critical_css));
     }
     
     /**
