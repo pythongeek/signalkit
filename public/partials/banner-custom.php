@@ -1,11 +1,10 @@
 <?php
 /**
  * Custom Banner Template - Lead Capture, Newsletter, CTA
- * 
+ *
  * @package SignalKit
  * @version 2.0.0
  */
-// @codingStandardsIgnoreStart
 
 if (!defined('ABSPATH')) {
     exit;
@@ -380,7 +379,7 @@ $data_attrs = array(
                 <div class="signalkit-announcement-actions">
                     <div class="signalkit-announcement-meta">
                         <span class="signalkit-announcement-badge"><?php esc_html_e('NEW', 'signalkit'); ?></span>
-                        <span class="signalkit-announcement-date"><?php echo esc_html(wp_date(get_option('date_format'))); ?></span>
+                        <span class="signalkit-announcement-date"><?php echo esc_html(date_i18n(get_option('date_format'))); ?></span>
                     </div>
                     <a href="<?php echo esc_url($settings['custom_redirect_url'] ?? '#'); ?>" 
                        class="signalkit-button signalkit-button-announcement signalkit-button-style-<?php echo esc_attr($button_style); ?>"
@@ -458,4 +457,3 @@ $data_attrs = array(
     </div>
     
 </aside>
-// @codingStandardsIgnoreEnd

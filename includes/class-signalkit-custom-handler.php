@@ -439,7 +439,7 @@ class SignalKit_Custom_Handler {
                                         echo '—';
                                     }
                                 ?></td>
-                                <td><?php echo esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), strtotime($sub->submitted_at))); ?></td>
+                                <td><?php echo esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($sub->submitted_at))); ?></td>
                                 <td>
                                     <form method="post" class="signalkit-inline-form">
                                         <?php wp_nonce_field('signalkit_delete_submission'); ?>

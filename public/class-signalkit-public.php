@@ -989,7 +989,7 @@ class SignalKit_Public {
     }
 
     /**
-     * AJAX Handler: Get banner HTML (Universal Loader)
+     * AJAX Handler: Get banner HTML (Theme Compatibility Loader)
      * Used as a fallback when PHP hooks fail to inject content (e.g. broken themes)
      * 
      * SECURITY: Nonce verification added for CodeCanyon compliance

@@ -72,7 +72,7 @@ class SignalKit_Activator {
             'enable_rate_limiting' => 0,
             'enable_csp' => 0,
             'enable_google_fonts' => 0,
-            'analytics_tracking' => 1,
+            'analytics_tracking' => 0,
             'import_export_key' => '',
             
             // ========================================

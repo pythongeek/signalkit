@@ -141,7 +141,7 @@ $defaults = array(
     // Security & Advanced Features - Envato/WordPress.org compliance
     'enable_csp' => 0, // DEPRECATED: Global CSP headers removed for compatibility
     'enable_rate_limiting' => 1,
-    'analytics_tracking' => 1,
+    'analytics_tracking' => 0,
     'import_export_key' => '',
     
     // Mobile Banner Strategy

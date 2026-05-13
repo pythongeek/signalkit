@@ -120,7 +120,7 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
                     printf(
                         /* translators: %s: Last updated date/time */
                         esc_html__('Last updated: %s', 'signalkit'),
-                        esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), strtotime($analytics['follow']['last_updated'])))
+                        esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($analytics['follow']['last_updated'])))
                     );
                     ?>
                 </div>
@@ -163,7 +163,7 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
                     printf(
                         /* translators: %s: Last updated date/time */
                         esc_html__('Last updated: %s', 'signalkit'),
-                        esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), strtotime($analytics['preferred']['last_updated'])))
+                        esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($analytics['preferred']['last_updated'])))
                     );
                     ?>
                 </div>
@@ -249,7 +249,7 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
                     printf(
                         /* translators: %s: Last updated date/time */
                         esc_html__('Last updated: %s', 'signalkit'),
-                        esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), strtotime($analytics['custom']['last_updated'])))
+                        esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($analytics['custom']['last_updated'])))
                     );
                     ?>
                 </div>
@@ -285,7 +285,7 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
                                 <tr>
                                     <td><?php echo esc_html($lead->email); ?></td>
                                     <td><?php echo esc_html($lead->name ?: '-'); ?></td>
-                                    <td><?php echo esc_html(wp_date(get_option('date_format'), strtotime($lead->submitted_at))); ?></td>
+                                    <td><?php echo esc_html(date_i18n(get_option('date_format'), strtotime($lead->submitted_at))); ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

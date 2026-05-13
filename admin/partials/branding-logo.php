@@ -13,8 +13,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// @codingStandardsIgnoreStart
 // Template partial variables - intentionally unprefixed as these are passed from including context
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Template partial receives variables from including context
 // Default size options: 'small' (80px), 'medium' (120px), 'large' (180px), 'hero' (240px)
 $size = isset($args['size']) ? sanitize_text_field($args['size']) : 'medium';
 $show_text = isset($args['show_text']) ? (bool)$args['show_text'] : true;
@@ -110,4 +110,4 @@ $text_size = $icon_size * 0.44; // Proportional text sizing
     </div>
     <?php endif; ?>
 </div>
-<?php // @codingStandardsIgnoreEnd ?>
+<?php // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals ?>

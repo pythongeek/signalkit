@@ -6,11 +6,11 @@
  * @package SignalKit
  * @version 2.0.0
  */
-// @codingStandardsIgnoreStart
 
 if (!defined('ABSPATH')) {
     exit;
 }
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Template partial receives variables from including context
 
 // Template partial variables - intentionally unprefixed as these are passed from including context
 if (!isset($banner) || !is_array($banner)) {
@@ -257,4 +257,4 @@ $banner_classes = implode(' ', array_filter($all_classes));
 <?php
 do_action('signalkit_after_preferred_banner', $banner, $banner_id);
 ?>
-<?php // @codingStandardsIgnoreEnd ?>
+<?php // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals ?>

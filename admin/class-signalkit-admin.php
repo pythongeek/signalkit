@@ -723,7 +723,7 @@ class SignalKit_Admin {
      * SECURITY: Whitelist validation
      */
     private function sanitize_frequency($input, $key, $default) {
-        $valid = ['always', 'once_per_session', 'once_per_day'];
+        $valid = ['always', 'once_per_session', 'once_per_day', 'once'];
         return isset($input[$key]) && in_array($input[$key], $valid, true) ? $input[$key] : $default;
     }
 
@@ -888,23 +888,6 @@ class SignalKit_Admin {
             SignalKit_Analytics::reset_analytics($banner_type);
         }
         
-        // --- AUDIT LOGGING ---
-        $user = wp_get_current_user();
-
-        // Email site admin as an alert for this critical action
-        wp_mail(
-            get_option('admin_email'),
-            __('SignalKit Alert: Analytics Data Reset', 'signalkit'),
-            sprintf(
-                /* translators: %1$s: username, %2$s: banner type, %3$s: datetime */
-                __('User %1$s reset the SignalKit analytics data (%2$s) at %3$s.', 'signalkit'),
-                esc_html($user->user_login),
-                esc_html($banner_type),
-                current_time('mysql')
-            )
-        );
-        // --- END AUDIT LOGGING ---
-
         wp_send_json_success(['message' => 'Analytics reset', 'banner_type' => $banner_type]);
     }
 
@@ -925,22 +908,6 @@ class SignalKit_Admin {
 
         // SECURITY: Enforce rate limiting (5 seconds)
         $this->check_rate_limit('export_settings', 5);
-
-        // --- AUDIT LOGGING (GDPR/Security Compliance) ---
-        $user = wp_get_current_user();
-
-        // Email site admin as a security alert
-        wp_mail(
-            get_option('admin_email'),
-            __('SignalKit Security Alert: Settings Exported', 'signalkit'),
-            sprintf(
-                /* translators: %1$s: username, %2$s: datetime */
-                __('User %1$s exported the SignalKit plugin settings at %2$s.', 'signalkit'),
-                esc_html($user->user_login),
-                current_time('mysql')
-            )
-        );
-        // --- END AUDIT LOGGING ---
 
         $settings = get_option('signalkit_settings', []);
         $key = $settings['import_export_key'] ?? '';
@@ -1202,23 +1169,6 @@ class SignalKit_Admin {
         // SECURITY: update_option is SQL-injection safe (WordPress handles escaping)
         update_option('signalkit_settings', $sanitized);
 
-        // --- AUDIT LOGGING ---
-        $user = wp_get_current_user();
-
-        // Email site admin as an alert for this critical action
-        wp_mail(
-            get_option('admin_email'),
-            __('SignalKit Security Alert: Settings Imported', 'signalkit'),
-            sprintf(
-                /* translators: %1$s: username, %2$s: datetime, %3$s: encrypted status */
-                __('User %1$s imported and overwrote the SignalKit plugin settings at %2$s. (Encrypted: %3$s)', 'signalkit'),
-                esc_html($user->user_login),
-                current_time('mysql'),
-                $is_encrypted ? 'Yes' : 'No'
-            )
-        );
-        // --- END AUDIT LOGGING ---
-        
         wp_send_json_success([
             'message' => 'Settings imported successfully',
             'count' => count($sanitized),

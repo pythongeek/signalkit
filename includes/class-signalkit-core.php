@@ -130,7 +130,7 @@ class SignalKit_Core {
         $this->loader->add_action('wp_ajax_signalkit_track_dismissal', $plugin_public, 'ajax_track_dismissal');
         $this->loader->add_action('wp_ajax_nopriv_signalkit_track_dismissal', $plugin_public, 'ajax_track_dismissal');
         
-        // Universal Loader (Fallback for broken themes)
+        // Theme Compatibility Loader (Fallback for broken themes)
         $this->loader->add_action('wp_ajax_signalkit_get_banner_html', $plugin_public, 'ajax_get_banner_html');
         $this->loader->add_action('wp_ajax_nopriv_signalkit_get_banner_html', $plugin_public, 'ajax_get_banner_html');
     }

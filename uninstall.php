@@ -135,7 +135,7 @@ function signalkit_uninstall_cleanup() {
             "DELETE FROM {$wpdb->postmeta} 
              WHERE post_id NOT IN (SELECT ID FROM {$wpdb->posts})
              AND meta_key LIKE %s",
-             '%' // Match all meta keys, effectively making this a catch-all but prepared
+             $wpdb->esc_like('signalkit_') . '%'
         )
     );
 

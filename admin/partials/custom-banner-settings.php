@@ -11,7 +11,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// @codingStandardsIgnoreStart
 // Template partial variables - intentionally unprefixed as these are passed from including context
 /**
  * Render custom banner settings
@@ -740,5 +739,4 @@ function signalkit_render_custom_banner_settings($settings) {
     
     <?php
 }
-// @codingStandardsIgnoreEnd
 ?>
