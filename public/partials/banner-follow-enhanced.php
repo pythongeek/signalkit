@@ -203,6 +203,7 @@ $banner_classes = implode(' ', array_filter($all_classes));
                    target="_blank"
                    rel="noopener noreferrer nofollow"
                    data-banner-type="follow"
+                   <?php /* translators: %s: Button text */ ?>
                    aria-label="<?php echo esc_attr(sprintf(__('%s - Opens in new tab', 'signalkit'), $button_text)); ?>">
                     <span class="signalkit-button-text"><?php echo esc_html($button_text); ?></span>
                     <svg class="signalkit-icon-arrow" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">

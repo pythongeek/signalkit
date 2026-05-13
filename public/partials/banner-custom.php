@@ -10,6 +10,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Template partial variables - intentionally unprefixed as these are passed from including context via extract()
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Template partial receives variables from including context
+
 // Extract settings with defaults
 $banner_type = isset($settings['custom_banner_type']) ? $settings['custom_banner_type'] : 'newsletter';
 
@@ -457,3 +460,4 @@ $data_attrs = array(
     </div>
     
 </aside>
+<?php // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals ?>

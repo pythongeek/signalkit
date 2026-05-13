@@ -161,6 +161,7 @@ $banner_classes = implode(' ', array_filter($all_classes));
                    target="_blank"
                    rel="noopener noreferrer nofollow"
                    data-banner-type="preferred"
+                   <?php /* translators: %s: Button text */ ?>
                    aria-label="<?php echo esc_attr(sprintf(__('%s - Opens in new tab', 'signalkit'), $button_text)); ?>">
                     <span class="signalkit-button-text"><?php echo esc_html($button_text); ?></span>
                     <svg class="signalkit-icon-star" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
@@ -174,11 +175,7 @@ $banner_classes = implode(' ', array_filter($all_classes));
             <?php endif; ?>
 
             <?php if ($show_educational_link): ?>
-                <?php /* translators: %s: educational link text */ ?>
-                <a href="<?php echo esc_url($educational_post_url); ?>"
-                   class="signalkit-educational-link"
-                   target="_blank"
-                   rel="noopener noreferrer"
+                <?php /* translators: %s: Educational link text */ ?>
                    aria-label="<?php echo esc_attr(sprintf(__('%s - Opens in new tab', 'signalkit'), $educational_text)); ?>">
                     <span class="signalkit-educational-text"><?php echo esc_html($educational_text); ?></span>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">

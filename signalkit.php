@@ -79,9 +79,6 @@ function signalkit_deactivate_plugin() {
 }
 
 register_activation_hook(__FILE__, 'signalkit_activate_plugin');
-// Load custom handler BEFORE activation hook so create_table() is available
-require_once SIGNALKIT_PLUGIN_DIR . 'includes/class-signalkit-custom-handler.php';
-register_activation_hook(__FILE__, array('SignalKit_Custom_Handler', 'create_table'));
 register_deactivation_hook(__FILE__, 'signalkit_deactivate_plugin');
 
 /**
