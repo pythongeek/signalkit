@@ -8,7 +8,7 @@ Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-News publisher notification plugin with Follow, Preferred Source, and Lead Capture banners to help grow your audience and collect leads.
+News publisher engagement suite with Follow, Preferred Source, and Lead Capture banners to boost your publication's visibility and engagement.
 
 == Description ==
 

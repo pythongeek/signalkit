@@ -2,7 +2,7 @@
 if (!defined('ABSPATH')) { exit; }
 /**
  * Plugin Name: SignalKit
- * Description: News publisher notification plugin with Follow, Preferred Source, and Lead Capture banners to help grow your audience and collect leads.
+ * Description: News publisher engagement suite with Follow, Preferred Source, and Lead Capture banners. Boost your publication's visibility and grow your audience.
  * Version: 2.0.0
  * Requires at least: 5.0
  * Requires PHP: 7.2

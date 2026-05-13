@@ -12,7 +12,11 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly - WordPress security best practice
 }
 
-// @codingStandardsIgnoreStart
+// Wrap in a static closure so all variables remain in local scope, not global.
+// This satisfies WordPress.NamingConventions.PrefixAllGlobals without renaming
+// every local variable inside this template partial.
+(static function () {
+
 // Template partial variables - intentionally unprefixed as these are passed from including context
 // Include advanced style settings partial (v2.0)
 $advanced_settings_file = SIGNALKIT_PLUGIN_DIR . 'admin/partials/advanced-style-settings.php';
@@ -1079,13 +1083,13 @@ $settings = wp_parse_args($settings, $defaults);
                                     $follow_enabled = !empty($settings['follow_enabled']);
                                     $preferred_enabled = !empty($settings['preferred_enabled']);
                                     if ($follow_enabled && $preferred_enabled) {
-                                        echo '<span style="color: #46b450;">✓ ' . esc_html__('Both banners enabled', 'signalkit') . '</span>';
+                                        echo '<span class="signalkit-status-enabled">✓ ' . esc_html__('Both banners enabled', 'signalkit') . '</span>';
                                     } elseif ($follow_enabled) {
-                                        echo '<span style="color: #46b450;">✓ ' . esc_html__('Follow banner enabled', 'signalkit') . '</span>';
+                                        echo '<span class="signalkit-status-enabled">✓ ' . esc_html__('Follow banner enabled', 'signalkit') . '</span>';
                                     } elseif ($preferred_enabled) {
-                                        echo '<span style="color: #46b450;">✓ ' . esc_html__('Preferred banner enabled', 'signalkit') . '</span>';
+                                        echo '<span class="signalkit-status-enabled">✓ ' . esc_html__('Preferred banner enabled', 'signalkit') . '</span>';
                                     } else {
-                                        echo '<span style="color: #dc3232;">✗ ' . esc_html__('No banners enabled', 'signalkit') . '</span>';
+                                        echo '<span class="signalkit-status-disabled">✗ ' . esc_html__('No banners enabled', 'signalkit') . '</span>';
                                     }
                                     ?>
                                 </p>
@@ -1106,14 +1110,14 @@ $settings = wp_parse_args($settings, $defaults);
                                 <p class="description"><?php esc_html_e('Choose how multiple banners behave on mobile devices.', 'signalkit'); ?></p>
                             </div>
                             
-                            <div class="signalkit-info-box" style="background: #fff3cd; border-left-color: #ffc107;">
+                            <div class="signalkit-info-box signalkit-info-box--warning">
                                 <h4><?php esc_html_e('Mobile Display Strategy Options', 'signalkit'); ?></h4>
-                                <ul style="margin-left: 20px; list-style: disc;">
+                                <ul class="signalkit-disc-list">
                                     <li><strong><?php esc_html_e('Show All:', 'signalkit'); ?></strong> <?php esc_html_e('Display all enabled banners stacked on mobile (default)', 'signalkit'); ?></li>
                                     <li><strong><?php esc_html_e('Highest Priority Only:', 'signalkit'); ?></strong> <?php esc_html_e('Show only the banner with Stack Order 1 on mobile', 'signalkit'); ?></li>
                                     <li><strong><?php esc_html_e('Rotate/Shuffle:', 'signalkit'); ?></strong> <?php esc_html_e('Randomly show one banner per page load on mobile', 'signalkit'); ?></li>
                                 </ul>
-                                <p style="margin-top: 10px;"><em><?php esc_html_e('Desktop always shows all enabled banners in their configured positions.', 'signalkit'); ?></em></p>
+                                <p class="signalkit-info-note"><em><?php esc_html_e('Desktop always shows all enabled banners in their configured positions.', 'signalkit'); ?></em></p>
                             </div>
                             
                             <div class="signalkit-section-header">
@@ -1127,7 +1131,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <span class="dashicons dashicons-download" aria-hidden="true"></span>
                                         <?php esc_html_e('Export Settings', 'signalkit'); ?>
                                     </button>
-                                    <input type="file" id="signalkit-import-file" accept=".json" style="display: none;" aria-label="<?php esc_attr_e('Choose settings file to import', 'signalkit'); ?>">
+                                    <input type="file" id="signalkit-import-file" accept=".json" class="signalkit-hidden" aria-label="<?php esc_attr_e('Choose settings file to import', 'signalkit'); ?>">
                                     <button type="button" class="button button-secondary signalkit-import-settings">
                                         <span class="dashicons dashicons-upload" aria-hidden="true"></span>
                                         <?php esc_html_e('Import Settings', 'signalkit'); ?>
@@ -1145,21 +1149,21 @@ $settings = wp_parse_args($settings, $defaults);
                                 <h3><span class="dashicons dashicons-shield-alt" aria-hidden="true"></span> <?php esc_html_e('Security Settings', 'signalkit'); ?></h3>
                             </div>
                             
-                            <div class="signalkit-info-box" style="background: #f0f0f0; border-left-color: #999;">
-                                <h4 style="margin: 0 0 8px 0; color: #666;">
-                                    <span class="dashicons dashicons-warning" aria-hidden="true" style="color: #999;"></span>
+                            <div class="signalkit-info-box signalkit-info-box--muted">
+                                <h4 class="signalkit-info-header">
+                                    <span class="dashicons dashicons-warning signalkit-icon-muted" aria-hidden="true"></span>
                                     <?php esc_html_e('Content Security Policy (CSP) - Deprecated', 'signalkit'); ?>
                                 </h4>
-                                <p style="color: #666; margin: 0;">
+                                <p class="signalkit-info-text">
                                     <?php esc_html_e('The global CSP header feature has been removed because it could break:', 'signalkit'); ?>
                                 </p>
-                                <ul style="color: #666; margin: 8px 0 8px 20px; list-style: disc;">
+                                <ul class="signalkit-info-list">
                                     <li><?php esc_html_e('Google Analytics, Ads, and Tag Manager', 'signalkit'); ?></li>
                                     <li><?php esc_html_e('Other WordPress plugins', 'signalkit'); ?></li>
                                     <li><?php esc_html_e('Theme functionality and external fonts', 'signalkit'); ?></li>
                                     <li><?php esc_html_e('CDN resources', 'signalkit'); ?></li>
                                 </ul>
-                                <p style="color: #666; margin: 0;">
+                                <p class="signalkit-info-text">
                                     <strong><?php esc_html_e('Recommendation:', 'signalkit'); ?></strong> 
                                     <?php esc_html_e('For CSP protection, configure headers at your server level (nginx/Apache) or use a dedicated security plugin like Wordfence or Sucuri.', 'signalkit'); ?>
                                 </p>
@@ -1181,8 +1185,8 @@ $settings = wp_parse_args($settings, $defaults);
                                 <div class="signalkit-setting-info">
                                     <strong><?php esc_html_e('Enable Rate Limiting for Analytics', 'signalkit'); ?></strong>
                                     <p id="rate-limit-desc"><?php esc_html_e('Limit AJAX requests to prevent abuse', 'signalkit'); ?></p>
-                                    <p class="description" style="margin-top: 5px; font-size: 12px; opacity: 0.8;">
-                                        <span class="dashicons dashicons-privacy" style="font-size: 14px; width: 14px; height: 14px; vertical-align: middle;"></span>
+                                    <p class="description signalkit-privacy-note">
+                                        <span class="dashicons dashicons-privacy signalkit-icon-sm" aria-hidden="true"></span>
                                         <?php esc_html_e('Privacy Note: This feature temporarily processes User Agent strings and anonymized IP addresses for security purposes. No personal data is stored persistently.', 'signalkit'); ?>
                                     </p>
                                 </div>
@@ -1200,8 +1204,8 @@ $settings = wp_parse_args($settings, $defaults);
                                 <div class="signalkit-setting-info">
                                     <strong><?php esc_html_e('Enable External Fonts (Google)', 'signalkit'); ?></strong>
                                     <p id="google-fonts-desc"><?php esc_html_e('Load Google Fonts for enhanced branding (Orbitron font for plugin branding)', 'signalkit'); ?></p>
-                                    <p class="description" style="margin-top: 5px; font-size: 12px; opacity: 0.8;">
-                                        <span class="dashicons dashicons-privacy" style="font-size: 14px; width: 14px; height: 14px; vertical-align: middle;"></span>
+                                    <p class="description signalkit-privacy-note">
+                                        <span class="dashicons dashicons-privacy signalkit-icon-sm" aria-hidden="true"></span>
                                         <?php esc_html_e('When disabled, no external font resources are loaded. Default: Disabled for privacy.', 'signalkit'); ?>
                                     </p>
                                 </div>
@@ -1253,15 +1257,15 @@ $settings = wp_parse_args($settings, $defaults);
                                     <span class="signalkit-toggle-slider" aria-hidden="true"></span>
                                 </label>
                                 <div class="signalkit-setting-info">
-                                    <strong style="color: #dc3232;"><?php esc_html_e('Delete All Data on Uninstall', 'signalkit'); ?></strong>
+                                    <strong class="signalkit-danger-text"><?php esc_html_e('Delete All Data on Uninstall', 'signalkit'); ?></strong>
                                     <p id="delete-data-desc" class="description">
                                         <?php esc_html_e('When enabled, all plugin settings, analytics data, and transients will be permanently deleted when the plugin is uninstalled.', 'signalkit'); ?>
-                                        <br><strong style="color: #dc3232;"><?php esc_html_e('⚠ Warning: This action cannot be undone!', 'signalkit'); ?></strong>
+                                        <br><strong class="signalkit-danger-text"><?php esc_html_e('⚠ Warning: This action cannot be undone!', 'signalkit'); ?></strong>
                                     </p>
                                 </div>
                             </div>
                             
-                            <div class="signalkit-info-box" style="background: #fff3cd; border-left-color: #ffc107;">
+                            <div class="signalkit-info-box signalkit-info-box--warning">
                                 <p>
                                     <span class="dashicons dashicons-info" aria-hidden="true"></span>
                                     <?php esc_html_e('Tip: Keep this option disabled if you plan to reinstall the plugin for troubleshooting. Your settings and analytics data will be preserved.', 'signalkit'); ?>
@@ -1301,10 +1305,10 @@ $settings = wp_parse_args($settings, $defaults);
                         </div>
                     </div>
                     
-                    <div id="signalkit-preview-follow" class="signalkit-preview-banner" style="display: none;" role="region" aria-label="<?php esc_attr_e('Follow banner preview', 'signalkit'); ?>">
+                    <div id="signalkit-preview-follow" class="signalkit-preview-banner signalkit-hidden" role="region" aria-label="<?php esc_attr_e('Follow banner preview', 'signalkit'); ?>">
                         </div>
                     
-                    <div id="signalkit-preview-preferred" class="signalkit-preview-banner" style="display: none;" role="region" aria-label="<?php esc_attr_e('Preferred source banner preview', 'signalkit'); ?>">
+                    <div id="signalkit-preview-preferred" class="signalkit-preview-banner signalkit-hidden" role="region" aria-label="<?php esc_attr_e('Preferred source banner preview', 'signalkit'); ?>">
                         </div>
                 </div>
             </div>
@@ -1320,4 +1324,5 @@ $settings = wp_parse_args($settings, $defaults);
     </div>
     
     </div>
-<?php // @codingStandardsIgnoreEnd ?>
+<?php
+})();
