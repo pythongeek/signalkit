@@ -568,117 +568,6 @@
     }
 
     // ========================================
-    // ADDITIONAL CSS FOR THEME SELECTOR
-    // ========================================
-
-    const additionalStyles = `
-        <style id="signalkit-enhanced-inline-styles">
-            .signalkit-color-themes-wrapper {
-                margin-bottom: 20px;
-                padding: 16px;
-                background: #f8f9fa;
-                border-radius: 8px;
-                border: 1px solid #e0e0e0;
-            }
-            
-            .signalkit-color-themes-wrapper h4 {
-                margin: 0 0 12px 0;
-                display: flex;
-                align-items: center;
-                gap: 6px;
-                font-size: 13px;
-                color: #1e1e1e;
-            }
-            
-            .signalkit-color-themes-wrapper h4 .dashicons {
-                color: #2271b1;
-            }
-            
-            .signalkit-color-themes {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-            
-            .signalkit-color-theme-btn {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                padding: 8px 12px;
-                background: #fff;
-                border: 1px solid #ddd;
-                border-radius: 6px;
-                cursor: pointer;
-                transition: all 0.2s ease;
-                font-size: 12px;
-            }
-            
-            .signalkit-color-theme-btn:hover {
-                border-color: #2271b1;
-                background: #f0f7ff;
-            }
-            
-            .signalkit-theme-preview {
-                display: flex;
-                gap: 2px;
-            }
-            
-            .signalkit-theme-color {
-                width: 14px;
-                height: 14px;
-                border-radius: 3px;
-                box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
-            }
-            
-            .signalkit-theme-name {
-                color: #444;
-                white-space: nowrap;
-            }
-            
-            .signalkit-theme-feedback {
-                position: fixed;
-                bottom: 30px;
-                right: 30px;
-                z-index: 100000;
-                padding: 12px 20px;
-                background: #2271b1;
-                color: #fff;
-                border-radius: 8px;
-                font-size: 14px;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                opacity: 0;
-                transform: translateY(20px);
-                transition: all 0.3s ease;
-            }
-            
-            .signalkit-theme-feedback.show {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            
-            .signalkit-theme-feedback .dashicons {
-                font-size: 20px;
-                width: 20px;
-                height: 20px;
-            }
-            
-            @media (max-width: 782px) {
-                .signalkit-color-themes {
-                    flex-direction: column;
-                }
-                
-                .signalkit-color-theme-btn {
-                    width: 100%;
-                    justify-content: flex-start;
-                }
-            }
-        </style>
-    `;
-
-    // ========================================
     // INITIALIZE ON DOCUMENT READY
     // ========================================
 
@@ -687,9 +576,6 @@
         if ($('.signalkit-settings-page').length === 0) {
             return;
         }
-
-        // Add inline styles
-        $('head').append(additionalStyles);
 
         // Initialize enhanced preview
         SignalKitEnhancedPreview.init();

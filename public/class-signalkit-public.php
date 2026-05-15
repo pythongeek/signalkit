@@ -509,7 +509,14 @@ class SignalKit_Public {
         }
 
         if (!empty($schema)) {
-            echo '<script type="application/ld+json">' . wp_json_encode($schema) . '</script>';
+            // Use WordPress script API instead of raw echo.
+            wp_register_script('signalkit-schema-banner', '', array(), $this->version, false);
+            wp_enqueue_script('signalkit-schema-banner');
+            wp_add_inline_script(
+                'signalkit-schema-banner',
+                wp_json_encode($schema),
+                'before'
+            );
         }
     }
     

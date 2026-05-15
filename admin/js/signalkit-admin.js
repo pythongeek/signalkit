@@ -453,14 +453,16 @@
                     if (response && response.success === true && response.data && response.data.html) {
                         $target.html(response.data.html).addClass('active').show().css('opacity', '1');
 
-                        // Inject preview-specific CSS
+                        // Inject preview-specific CSS via native DOM API (avoids jQuery HTML parsing)
                         if (response.data.css) {
-                            let $style = $('#signalkit-preview-css-' + bannerType);
-                            if ($style.length === 0) {
-                                $style = $('<style id="signalkit-preview-css-' + bannerType + '"></style>');
-                                $('head').append($style);
+                            let styleId = 'signalkit-preview-css-' + bannerType;
+                            let styleEl = document.getElementById(styleId);
+                            if (!styleEl) {
+                                styleEl = document.createElement('style');
+                                styleEl.id = styleId;
+                                document.head.appendChild(styleEl);
                             }
-                            $style.html(response.data.css);
+                            styleEl.textContent = response.data.css;
                         }
                     } else {
                         $target.css('opacity', '1');

@@ -327,5 +327,5 @@ class="signalkit-color-picker signalkit-preview-trigger"
     
     <?php
 }
-<?php // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals ?>
+// phpcs:enable WordPress.NamingConventions.PrefixAllGlobals
 ?>

@@ -164,7 +164,14 @@ class SignalKit_Performance {
                 unset($schema['sameAs']);
             }
             
-            echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_SLASHES) . '</script>' . "\n";
+            // Use WordPress script API instead of raw echo.
+            wp_register_script('signalkit-schema-org', '', array(), SIGNALKIT_VERSION, false);
+            wp_enqueue_script('signalkit-schema-org');
+            wp_add_inline_script(
+                'signalkit-schema-org',
+                wp_json_encode($schema, JSON_UNESCAPED_SLASHES),
+                'before'
+            );
         }
     }
     
