@@ -1,0 +1,1700 @@
+/**
+ * SignalKit - Public Styles
+ *
+ * @package SignalKit
+ * @version 2.0.0
+ * @author  SignalKit Team
+ * @license GPL-2.0+
+ *
+ * TABLE OF CONTENTS
+ * -----------------
+ * 1.  CSS Custom Properties (Variables)
+ * 2.  Base Banner Container
+ * 3.  Desktop Positioning System
+ * 4.  Banner Type Specific Styles
+ * 5.  Icon Styles
+ * 6.  Text Content Styles
+ * 7.  Action Buttons & Links
+ * 8.  Close/Dismiss Button
+ * 9.  Animation Variants
+ * 10. Mobile Responsive Design
+ * 11. Accessibility Enhancements
+ * 12. Dark Mode Support
+ * 13. Utility Classes & Compatibility
+ * 14. RTL Language Support
+ * 15. Print Styles
+ */
+
+/* ========================================
+   CSS CUSTOM PROPERTIES - DEFAULTS ONLY
+   Actual values come from inline styles in template
+======================================== */
+
+:root {
+    /* Default Colors - Follow Banner */
+    --signalkit-primary: #4285f4;
+    --signalkit-primary-hover: #3367d6;
+    --signalkit-secondary: #ffffff;
+    --signalkit-accent: #34a853;
+    --signalkit-text: #202124;
+
+    /* Default Sizing - Will be overridden by inline styles */
+    --signalkit-width: 360px;
+    --signalkit-padding: 16px;
+    --signalkit-headline-size: 15px;
+    --signalkit-description-size: 13px;
+    --signalkit-button-size: 14px;
+    --signalkit-radius: 8px;
+    --signalkit-close-size: 28px;
+
+    /* Z-Index Stacking - Different for each banner type to prevent conflicts */
+    --signalkit-z-banner: 9997;
+    --signalkit-z-banner-follow: 9997;
+    --signalkit-z-banner-preferred: 9998;
+    --signalkit-z-banner-custom: 9996;
+    --signalkit-z-overlay: 10000;
+
+    /* Transitions */
+    --signalkit-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========================================
+   BASE BANNER CONTAINER
+   Core styles that apply to all banners
+======================================== */
+
+.signalkit-banner {
+    /* Layout */
+    position: fixed;
+    z-index: var(--signalkit-z-banner);
+    width: var(--signalkit-width);
+    max-width: calc(100vw - 40px);
+
+    /* Spacing - Uses CSS variable from inline styles */
+    padding: var(--signalkit-padding);
+
+    /* Visual Styling */
+    background: var(--signalkit-secondary);
+    border-radius: var(--signalkit-radius);
+    border-left: 4px solid var(--signalkit-primary);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12),
+        0 1px 3px rgba(0, 0, 0, 0.08);
+
+    /* Typography */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--signalkit-text);
+
+    /* Animation - Hidden by default */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all var(--signalkit-transition);
+
+    /* Performance Optimizations */
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Active State - Banner becomes visible */
+.signalkit-banner.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Banner-specific z-index to prevent click blocking */
+.signalkit-banner-follow {
+    z-index: var(--signalkit-z-banner-follow, 9997);
+}
+
+.signalkit-banner-preferred {
+    z-index: var(--signalkit-z-banner-preferred, 9998);
+}
+
+.signalkit-banner-custom,
+#signalkit-banner-custom {
+    z-index: var(--signalkit-z-banner-custom, 9996);
+}
+
+/* Banner Content Grid Layout - FIXED FOR DESKTOP */
+.signalkit-banner-content {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+        "icon text"
+        "icon actions";
+    gap: 12px;
+    align-items: start;
+    min-height: 60px;
+    padding-right: calc(var(--signalkit-close-size, 28px) + 20px);
+    /* FIXED: Increased space for close button to prevent text overlap */
+}
+
+/* ========================================
+   DESKTOP POSITIONING SYSTEM
+   Fixed positions for desktop layout
+======================================== */
+
+/* Bottom Positions */
+.signalkit-position-bottom_left,
+.signalkit-banner.signalkit-position-bottom_left {
+    bottom: 20px;
+    left: 20px;
+}
+
+.signalkit-position-bottom_right,
+.signalkit-banner.signalkit-position-bottom_right {
+    bottom: 20px;
+    right: 20px;
+}
+
+.signalkit-position-bottom_center,
+.signalkit-banner.signalkit-position-bottom_center {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+}
+
+.signalkit-position-bottom_center.active {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Top Positions */
+.signalkit-position-top_left,
+.signalkit-banner.signalkit-position-top_left {
+    top: 20px;
+    left: 20px;
+}
+
+.signalkit-position-top_right,
+.signalkit-banner.signalkit-position-top_right {
+    top: 20px;
+    right: 20px;
+}
+
+.signalkit-position-top_center,
+.signalkit-banner.signalkit-position-top_center {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+}
+
+.signalkit-position-top_center.active {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ========================================
+   BANNER TYPE SPECIFIC STYLES
+   Different defaults for follow vs preferred
+======================================== */
+
+.signalkit-banner-follow {
+    /* Uses default :root colors (blue) */
+}
+
+.signalkit-banner-preferred {
+    /* Override with red/yellow theme */
+    --signalkit-primary: #ea4335;
+    --signalkit-primary-hover: #d93025;
+    --signalkit-accent: #fbbc04;
+}
+
+/* ========================================
+   GLASSMORPHISM STYLE (NEW DEFAULT)
+   Modern frosted glass design with Google colors
+======================================== */
+
+.signalkit-style-glassmorphism {
+    /* Glassmorphism background */
+    background: rgba(255, 255, 255, calc(var(--signalkit-backdrop-opacity, 0.95)));
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-left: none;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15),
+        0 4px 16px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(var(--signalkit-backdrop-blur, 12px));
+    -webkit-backdrop-filter: blur(var(--signalkit-backdrop-blur, 12px));
+    overflow: hidden;
+}
+
+/* Google-colored decorative bar on left */
+.signalkit-style-glassmorphism::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg,
+            var(--signalkit-primary, #4285f4) 0%,
+            var(--signalkit-accent, #34a853) 100%);
+    z-index: 1;
+}
+
+/* Glassmorphism Icon Wrapper - Circular with shadow */
+.signalkit-style-glassmorphism .signalkit-icon {
+    width: var(--signalkit-icon-size, 48px);
+    height: var(--signalkit-icon-size, 48px);
+    background: var(--signalkit-secondary, #ffffff);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.signalkit-style-glassmorphism .signalkit-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.signalkit-style-glassmorphism:hover .signalkit-icon {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Glassmorphism Content Layout */
+.signalkit-style-glassmorphism .signalkit-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-right: calc(var(--signalkit-close-size, 28px) + 12px);
+}
+
+/* Glassmorphism Text area */
+.signalkit-style-glassmorphism .signalkit-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.signalkit-style-glassmorphism .signalkit-headline {
+    margin: 0 0 4px 0;
+    font-size: var(--signalkit-headline-size, 15px);
+    font-weight: 700;
+    color: var(--signalkit-text, #1a1a1a);
+    line-height: 1.3;
+}
+
+.signalkit-style-glassmorphism .signalkit-description {
+    margin: 0 0 12px 0;
+    font-size: var(--signalkit-description-size, 13px);
+    color: #555;
+    line-height: 1.4;
+    opacity: 1;
+}
+
+/* Glassmorphism Button - Pill shape */
+.signalkit-style-glassmorphism .signalkit-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background-color: var(--signalkit-primary, #4285f4);
+    color: var(--signalkit-secondary, #ffffff);
+    font-size: var(--signalkit-button-size, 13px);
+    font-weight: 600;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.signalkit-style-glassmorphism .signalkit-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+}
+
+.signalkit-style-glassmorphism .signalkit-button:active {
+    transform: translateY(0);
+}
+
+/* Glassmorphism Actions container */
+.signalkit-style-glassmorphism .signalkit-actions {
+    display: block;
+    margin-top: 0;
+}
+
+/* Glassmorphism Close Button */
+.signalkit-style-glassmorphism .signalkit-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0.4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 0;
+    transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.signalkit-style-glassmorphism .signalkit-close:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.05);
+    transform: none;
+}
+
+.signalkit-style-glassmorphism .signalkit-close svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Dark Mode for Glassmorphism */
+@media (prefers-color-scheme: dark) {
+    .signalkit-style-glassmorphism {
+        background: rgba(31, 31, 31, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-left: none;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .signalkit-style-glassmorphism .signalkit-icon {
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .signalkit-style-glassmorphism .signalkit-headline {
+        color: #e8eaed;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-description {
+        color: #9aa0a6;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-close {
+        color: #e8eaed;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-close:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* ========================================
+   GLASSMORPHISM RESPONSIVE STYLES
+   Mobile-optimized layout
+======================================== */
+
+@media (max-width: 768px) {
+    .signalkit-style-glassmorphism {
+        max-width: none !important;
+        border-radius: 0 !important;
+        padding: 16px 16px 16px 20px;
+    }
+
+    .signalkit-style-glassmorphism::before {
+        width: 3px;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-banner-content {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 12px;
+        padding-right: 36px;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-icon {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-text {
+        flex: 1;
+        min-width: calc(100% - 60px);
+    }
+
+    .signalkit-style-glassmorphism .signalkit-headline {
+        font-size: 14px;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-description {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-actions {
+        width: 100%;
+        margin-top: 4px;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-button {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 20px;
+        font-size: 14px;
+        border-radius: 24px;
+        min-height: 44px;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-close {
+        top: 12px;
+        right: 12px;
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        min-height: 28px;
+        opacity: 0.5;
+        background: rgba(0, 0, 0, 0.05);
+    }
+
+    .signalkit-style-glassmorphism .signalkit-close svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+    .signalkit-style-glassmorphism {
+        padding: 12px 12px 12px 16px;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-banner-content {
+        gap: 10px;
+        padding-right: 32px;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-headline {
+        font-size: 13px;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-description {
+        font-size: 11px;
+    }
+
+    .signalkit-style-glassmorphism .signalkit-button {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+}
+
+/* ========================================
+   PREFERRED STAR STYLE (NEW DEFAULT FOR PREFERRED)
+   Educational card design with star icon and accent border
+======================================== */
+
+.signalkit-style-preferred-star {
+    position: relative;
+    background: var(--signalkit-secondary, #ffffff);
+    border-radius: var(--signalkit-radius, 12px);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid var(--signalkit-primary, #EA4335);
+    overflow: visible;
+}
+
+/* Preferred Star doesn't need the gradient bar since it uses solid border */
+.signalkit-style-preferred-star::before {
+    display: none;
+}
+
+/* Preferred Star Content Layout - Vertical stack */
+.signalkit-style-preferred-star .signalkit-banner-content {
+    display: block;
+    padding-right: calc(var(--signalkit-close-size, 28px) + 8px);
+}
+
+/* Preferred Star Header with Icon */
+.signalkit-style-preferred-star .signalkit-icon {
+    display: inline-flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    background: transparent;
+    box-shadow: none;
+    color: var(--signalkit-accent, #FABB05);
+    font-size: 24px;
+    line-height: 1;
+    margin-right: 12px;
+    float: left;
+    margin-top: 2px;
+}
+
+.signalkit-style-preferred-star .signalkit-icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--signalkit-accent, #FABB05);
+    fill: var(--signalkit-accent, #FABB05);
+}
+
+/* Star icon using CSS */
+.signalkit-style-preferred-star .signalkit-icon::before {
+    content: '★';
+    font-size: 24px;
+    color: var(--signalkit-accent, #FABB05);
+}
+
+.signalkit-style-preferred-star .signalkit-icon svg {
+    display: none;
+    /* Hide SVG when using CSS star */
+}
+
+/* Preferred Star Text area */
+.signalkit-style-preferred-star .signalkit-text {
+    overflow: hidden;
+    /* Contain floated icon */
+}
+
+.signalkit-style-preferred-star .signalkit-headline {
+    margin: 0 0 12px 0;
+    font-size: var(--signalkit-headline-size, 16px);
+    font-weight: 800;
+    color: var(--signalkit-text, #202124);
+    line-height: 1.2;
+}
+
+.signalkit-style-preferred-star .signalkit-description {
+    margin: 0 0 16px 0;
+    font-size: var(--signalkit-description-size, 14px);
+    color: #5f6368;
+    line-height: 1.5;
+    clear: both;
+    opacity: 1;
+}
+
+/* Preferred Star Actions - Horizontal with Learn More */
+.signalkit-style-preferred-star .signalkit-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Preferred Star Button - Rounded rectangle */
+.signalkit-style-preferred-star .signalkit-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background-color: var(--signalkit-primary, #EA4335);
+    color: var(--signalkit-secondary, #ffffff);
+    font-size: var(--signalkit-button-size, 13px);
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.signalkit-style-preferred-star .signalkit-button:hover {
+    background-color: var(--signalkit-primary-hover, #d93025);
+    transform: translateY(-1px);
+}
+
+.signalkit-style-preferred-star .signalkit-button:active {
+    transform: translateY(0);
+}
+
+/* Educational Link styling */
+.signalkit-style-preferred-star .signalkit-educational-link {
+    color: var(--signalkit-primary, #EA4335);
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.signalkit-style-preferred-star .signalkit-educational-link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+/* Preferred Star Close Button */
+.signalkit-style-preferred-star .signalkit-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0.4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 0;
+    color: var(--signalkit-text, #202124);
+    transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.signalkit-style-preferred-star .signalkit-close:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.05);
+    transform: none;
+}
+
+.signalkit-style-preferred-star .signalkit-close svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Dark Mode for Preferred Star */
+@media (prefers-color-scheme: dark) {
+    .signalkit-style-preferred-star {
+        background: #1f1f1f;
+        box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.4);
+    }
+
+    .signalkit-style-preferred-star .signalkit-headline {
+        color: #e8eaed;
+    }
+
+    .signalkit-style-preferred-star .signalkit-description {
+        color: #9aa0a6;
+    }
+
+    .signalkit-style-preferred-star .signalkit-close {
+        color: #e8eaed;
+    }
+
+    .signalkit-style-preferred-star .signalkit-close:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* ========================================
+   PREFERRED STAR RESPONSIVE STYLES
+   Mobile-optimized layout
+======================================== */
+
+@media (max-width: 768px) {
+    .signalkit-style-preferred-star {
+        max-width: none !important;
+        border-radius: 0 !important;
+        padding: 16px 16px 16px 20px;
+        border-left-width: 4px;
+    }
+
+    .signalkit-style-preferred-star .signalkit-banner-content {
+        padding-right: 36px;
+    }
+
+    .signalkit-style-preferred-star .signalkit-icon {
+        font-size: 22px;
+        margin-right: 10px;
+    }
+
+    .signalkit-style-preferred-star .signalkit-icon::before {
+        font-size: 22px;
+    }
+
+    .signalkit-style-preferred-star .signalkit-headline {
+        font-size: 15px;
+        margin-bottom: 8px;
+    }
+
+    .signalkit-style-preferred-star .signalkit-description {
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+
+    .signalkit-style-preferred-star .signalkit-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .signalkit-style-preferred-star .signalkit-button {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 20px;
+        font-size: 14px;
+        min-height: 44px;
+    }
+
+    .signalkit-style-preferred-star .signalkit-educational-link {
+        justify-content: center;
+        padding: 8px;
+    }
+
+    .signalkit-style-preferred-star .signalkit-close {
+        top: 12px;
+        right: 12px;
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        min-height: 28px;
+        opacity: 0.5;
+        background: rgba(0, 0, 0, 0.05);
+    }
+
+    .signalkit-style-preferred-star .signalkit-close svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+    .signalkit-style-preferred-star {
+        padding: 12px 12px 12px 16px;
+    }
+
+    .signalkit-style-preferred-star .signalkit-banner-content {
+        padding-right: 32px;
+    }
+
+    .signalkit-style-preferred-star .signalkit-icon {
+        font-size: 20px;
+        margin-right: 8px;
+    }
+
+    .signalkit-style-preferred-star .signalkit-icon::before {
+        font-size: 20px;
+    }
+
+    .signalkit-style-preferred-star .signalkit-headline {
+        font-size: 14px;
+    }
+
+    .signalkit-style-preferred-star .signalkit-description {
+        font-size: 12px;
+    }
+
+    .signalkit-style-preferred-star .signalkit-button {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+    .signalkit-style-preferred-star .signalkit-educational-link {
+        font-size: 12px;
+    }
+}
+
+/* ========================================
+   ICON STYLES
+   Banner icon/logo area
+======================================== */
+
+.signalkit-icon {
+    grid-area: icon;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.signalkit-banner:hover .signalkit-icon {
+    transform: scale(1.05);
+}
+
+.signalkit-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* ========================================
+   TEXT CONTENT STYLES
+   Headline and description
+======================================== */
+
+.signalkit-text {
+    grid-area: text;
+    flex: 1;
+    min-width: 0;
+    /* Prevent grid blowout */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.signalkit-headline {
+    margin: 0 0 4px 0;
+    font-size: var(--signalkit-headline-size);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--signalkit-text);
+}
+
+.signalkit-description {
+    margin: 0;
+    font-size: var(--signalkit-description-size);
+    line-height: 1.4;
+    color: var(--signalkit-text);
+    opacity: 0.85;
+}
+
+/* ========================================
+   ACTION BUTTONS & LINKS
+   Primary CTA and educational link
+======================================== */
+
+.signalkit-actions {
+    grid-area: actions;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+/* Primary Button */
+.signalkit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 20px;
+
+    /* Visual Styling */
+    background: var(--signalkit-primary);
+    color: var(--signalkit-secondary);
+    border: none;
+    border-radius: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    /* Typography */
+    font-size: var(--signalkit-button-size);
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+
+    /* Interaction */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.signalkit-button:hover {
+    background: var(--signalkit-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.signalkit-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.signalkit-button:focus-visible {
+    outline: 2px solid var(--signalkit-primary);
+    outline-offset: 2px;
+}
+
+/* Button Icons */
+.signalkit-icon-star,
+.signalkit-icon-external {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+.signalkit-button-text {
+    display: inline;
+}
+
+/* Educational Link (Learn More) */
+.signalkit-educational-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--signalkit-text);
+    opacity: 0.7;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+    cursor: pointer;
+}
+
+.signalkit-educational-link:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.signalkit-educational-link:focus-visible {
+    outline: 2px solid var(--signalkit-primary);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.signalkit-educational-text {
+    display: inline;
+}
+
+.signalkit-educational-link svg {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+}
+
+/* Button Placeholder (when URL not configured) */
+.signalkit-button-placeholder {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #f0f0f0;
+    color: #999;
+    border-radius: 24px;
+    font-size: var(--signalkit-button-size);
+    font-weight: 500;
+    border: 1px dashed #ccc;
+}
+
+/* ========================================
+   CLOSE/DISMISS BUTTON - FIXED
+======================================== */
+
+.signalkit-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 10;
+    /* Above banner content */
+
+    /* Size - Touch-friendly */
+    width: var(--signalkit-close-size, 28px);
+    height: var(--signalkit-close-size, 28px);
+    min-width: var(--signalkit-close-size, 28px);
+    min-height: var(--signalkit-close-size, 28px);
+    padding: 0;
+
+    /* Visual Styling */
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    color: var(--signalkit-text);
+    opacity: 0.6;
+
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Interaction */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.signalkit-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    transform: rotate(90deg);
+}
+
+.signalkit-close:active {
+    transform: rotate(90deg) scale(0.95);
+}
+
+.signalkit-close:focus-visible {
+    outline: 2px solid var(--signalkit-primary);
+    outline-offset: 2px;
+}
+
+.signalkit-close svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+}
+
+/* ========================================
+   ANIMATION VARIANTS
+   Different entrance animations
+======================================== */
+
+/* Slide In (default) */
+.signalkit-animation-slide_in {
+    /* Uses base transform: translateY(20px) */
+}
+
+/* Fade In */
+.signalkit-animation-fade_in {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.signalkit-animation-fade_in.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Bounce Animation */
+@keyframes signalkitBounce {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) translateY(30px);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    70% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.signalkit-animation-bounce {
+    opacity: 0;
+}
+
+.signalkit-animation-bounce.active {
+    animation: signalkitBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+/* ========================================
+   MOBILE RESPONSIVE DESIGN
+   Full-width banners on mobile with proper positioning
+======================================== */
+
+@media (max-width: 768px) {
+
+    /* Mobile banners - full width, positioned at bottom */
+    .signalkit-banner {
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+        border-radius: 0 !important;
+        padding: 16px;
+    }
+
+    /* Mobile Position: Bottom (default) - Banner at bottom of viewport */
+    .signalkit-banner,
+    .signalkit-position-mobile-bottom,
+    .signalkit-device-mobile.signalkit-position-mobile-bottom,
+    .signalkit-device-mobile {
+        bottom: 0 !important;
+        top: auto !important;
+    }
+
+    /* Mobile Position: Top - Only if explicitly set */
+    .signalkit-position-mobile-top,
+    .signalkit-device-mobile.signalkit-position-mobile-top {
+        top: 0 !important;
+        bottom: auto !important;
+    }
+
+    /* Mobile Content Layout - Proper grid structure */
+    .signalkit-banner-content {
+        grid-template-columns: 48px 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "icon text"
+            "actions actions";
+        gap: 12px;
+        align-items: start;
+        padding-right: calc(var(--signalkit-close-size, 28px) + 20px);
+    }
+
+    /* Icon sizing */
+    .signalkit-icon {
+        width: 48px;
+        height: 48px;
+        align-self: start;
+    }
+
+    /* Text wrapping */
+    .signalkit-text {
+        min-width: 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding-right: 0;
+    }
+
+    /* Actions span full width */
+    .signalkit-actions {
+        grid-column: 1 / -1;
+        align-items: stretch;
+        margin-top: 4px;
+        width: 100%;
+    }
+
+    /* Full-width button on mobile */
+    .signalkit-button {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 20px;
+        white-space: normal;
+        min-height: 44px;
+        /* Touch-friendly minimum */
+    }
+
+    /* Centered educational link */
+    .signalkit-educational-link {
+        justify-content: center;
+        width: 100%;
+        padding: 8px;
+        min-height: 32px;
+    }
+
+    /* Close button - larger touch target on mobile */
+    .signalkit-close {
+        top: 12px;
+        right: 12px;
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+        background: rgba(0, 0, 0, 0.05);
+    }
+
+    .signalkit-close:hover,
+    .signalkit-close:active {
+        background: rgba(0, 0, 0, 0.15);
+    }
+
+    /* Z-index for queue order (in case of transition states) */
+    .signalkit-stack-order-1 {
+        z-index: 9998;
+    }
+
+    .signalkit-stack-order-2 {
+        z-index: 9999;
+    }
+}
+
+/* Extra small screens - additional fixes */
+@media (max-width: 360px) {
+    .signalkit-banner {
+        padding: 12px;
+    }
+
+    .signalkit-banner-content {
+        padding-right: 40px;
+    }
+
+    .signalkit-headline {
+        font-size: calc(var(--signalkit-headline-size) * 0.9);
+    }
+
+    .signalkit-description {
+        font-size: calc(var(--signalkit-description-size) * 0.9);
+    }
+
+    .signalkit-button {
+        padding: 10px 16px;
+        font-size: calc(var(--signalkit-button-size) * 0.9);
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY ENHANCEMENTS
+   WCAG 2.1 AA compliance
+======================================== */
+
+/* Enhanced Focus Indicators */
+.signalkit-banner:focus-within {
+    outline: 3px solid rgba(66, 133, 244, 0.4);
+    outline-offset: 2px;
+}
+
+/* Screen Reader Only Text */
+.signalkit-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .signalkit-banner {
+        border: 2px solid currentColor;
+        box-shadow: none;
+    }
+
+    .signalkit-button {
+        border: 2px solid currentColor;
+    }
+
+    .signalkit-close {
+        border: 2px solid currentColor;
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    .signalkit-icon {
+        border: 1px solid currentColor;
+    }
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+
+    .signalkit-banner,
+    .signalkit-button,
+    .signalkit-close,
+    .signalkit-icon,
+    .signalkit-educational-link {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .signalkit-banner {
+        opacity: 1;
+        transform: none;
+    }
+
+    .signalkit-banner.active {
+        opacity: 1;
+        transform: none;
+    }
+
+    .signalkit-banner:hover .signalkit-icon {
+        transform: none;
+    }
+
+    .signalkit-close:hover {
+        transform: none;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .signalkit-banner {
+        background: #1f1f1f;
+        color: #e8eaed;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        border-left-color: var(--signalkit-primary);
+    }
+
+    .signalkit-headline {
+        color: #e8eaed;
+    }
+
+    .signalkit-description {
+        color: #9aa0a6;
+    }
+
+    .signalkit-close {
+        background: rgba(255, 255, 255, 0.1);
+        color: #e8eaed;
+    }
+
+    .signalkit-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .signalkit-educational-link {
+        color: #9aa0a6;
+    }
+
+    .signalkit-button-placeholder {
+        background: #2d2d2d;
+        color: #666;
+        border-color: #444;
+    }
+}
+
+/* ========================================
+   UTILITY CLASSES & COMPATIBILITY
+======================================== */
+
+/* Print Styles - Hide banners when printing */
+@media print {
+    .signalkit-banner {
+        display: none !important;
+    }
+}
+
+/* RTL (Right-to-Left) Language Support */
+[dir="rtl"] .signalkit-banner {
+    border-left: none;
+    border-right: 4px solid var(--signalkit-primary);
+}
+
+[dir="rtl"] .signalkit-position-bottom_left {
+    left: auto;
+    right: 20px;
+}
+
+[dir="rtl"] .signalkit-position-bottom_right {
+    right: auto;
+    left: 20px;
+}
+
+[dir="rtl"] .signalkit-position-top_left {
+    left: auto;
+    right: 20px;
+}
+
+[dir="rtl"] .signalkit-position-top_right {
+    right: auto;
+    left: 20px;
+}
+
+[dir="rtl"] .signalkit-close {
+    right: auto;
+    left: 8px;
+}
+
+[dir="rtl"] .signalkit-actions {
+    align-items: flex-start;
+}
+
+[dir="rtl"] .signalkit-banner-content {
+    padding-right: 0;
+    padding-left: 40px;
+}
+
+@media (max-width: 768px) {
+    [dir="rtl"] .signalkit-banner-content {
+        padding-left: 44px;
+    }
+
+    [dir="rtl"] .signalkit-close {
+        left: 12px;
+        right: auto;
+    }
+}
+
+/* Box Sizing Reset - Prevent conflicts */
+.signalkit-banner,
+.signalkit-banner *,
+.signalkit-banner *::before,
+.signalkit-banner *::after {
+    box-sizing: border-box;
+}
+
+/* Reset any potential theme interference */
+.signalkit-banner h1,
+.signalkit-banner h2,
+.signalkit-banner h3,
+.signalkit-banner h4,
+.signalkit-banner h5,
+.signalkit-banner h6,
+.signalkit-banner p {
+    margin: 0;
+    padding: 0;
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.signalkit-banner a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.signalkit-banner button {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: inherit;
+    margin: 0;
+}
+
+/* Hide in WordPress Editor/Gutenberg */
+.block-editor .signalkit-banner,
+.editor-styles-wrapper .signalkit-banner,
+.wp-block-editor .signalkit-banner,
+.is-root-container .signalkit-banner {
+    display: none !important;
+}
+
+/* Safari-specific Fixes */
+@supports (-webkit-backdrop-filter: blur(10px)) {
+    .signalkit-close {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
+}
+
+/* ========================================
+   PREVIEW MODE SPECIFIC STYLES
+   Force visibility in admin preview
+======================================== */
+
+.signalkit-preview-viewport .signalkit-banner,
+.signalkit-preview-container .signalkit-banner {
+    position: relative !important;
+    opacity: 1 !important;
+    transform: none !important;
+    margin: 20px auto;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+}
+
+.signalkit-preview-viewport .signalkit-banner.active,
+.signalkit-preview-container .signalkit-banner.active {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* Preview mobile mode */
+.signalkit-preview-viewport[data-device="mobile"] .signalkit-banner {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* ========================================
+   LOADING & ERROR STATES
+======================================== */
+
+.signalkit-banner.loading {
+    pointer-events: none;
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.signalkit-banner.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--signalkit-primary);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: signalkitSpin 0.6s linear infinite;
+}
+
+@keyframes signalkitSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.signalkit-banner.error {
+    border-left-color: #dc3545;
+    background: #fff5f5;
+}
+
+.signalkit-banner.error .signalkit-headline {
+    color: #dc3545;
+}
+
+/* ========================================
+   CUSTOM DEVICE CLASSES
+   For preview mode device switching
+======================================== */
+
+.signalkit-device-desktop {
+    /* Desktop-specific overrides if needed */
+}
+
+.signalkit-device-mobile {
+    /* Mobile preview overrides */
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* ========================================
+   Z-INDEX MANAGEMENT
+   Ensure proper stacking context
+======================================== */
+
+.signalkit-banner {
+    isolation: isolate;
+    /* Create new stacking context */
+}
+
+/* ========================================
+   PERFORMANCE OPTIMIZATIONS
+======================================== */
+
+/* Use GPU acceleration for animations */
+.signalkit-banner,
+.signalkit-button,
+.signalkit-close,
+.signalkit-icon {
+    transform: translateZ(0);
+}
+
+/* Reduce repaints */
+.signalkit-banner.active {
+    will-change: auto;
+    /* Remove will-change after animation */
+}
+
+/* Optimize repaint areas */
+.signalkit-banner-content {
+    contain: layout style paint;
+}
+
+/* ========================================
+   BROWSER-SPECIFIC FIXES
+======================================== */
+
+/* Firefox focus outline fix */
+@-moz-document url-prefix() {
+    .signalkit-button:focus-visible {
+        outline-offset: 1px;
+    }
+}
+
+/* Edge legacy support */
+@supports (-ms-ime-align: auto) {
+    .signalkit-banner-content {
+        display: -ms-grid;
+        -ms-grid-columns: auto 1fr;
+        -ms-grid-rows: auto auto;
+    }
+
+    .signalkit-icon {
+        -ms-grid-column: 1;
+        -ms-grid-row: 1;
+        -ms-grid-row-span: 2;
+    }
+
+    .signalkit-text {
+        -ms-grid-column: 2;
+        -ms-grid-row: 1;
+    }
+
+    .signalkit-actions {
+        -ms-grid-column: 2;
+        -ms-grid-row: 2;
+    }
+}
+
+/* iOS Safari fixes */
+@supports (-webkit-touch-callout: none) {
+
+    .signalkit-button,
+    .signalkit-close {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .signalkit-banner {
+        -webkit-transform: translateZ(0);
+    }
+}
+
+/* ========================================
+   CONTENT SECURITY FIXES
+======================================== */
+
+/* Prevent clickjacking */
+.signalkit-banner {
+    pointer-events: auto;
+}
+
+.signalkit-banner.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* ========================================
+   TOOLTIP & HOVER STATES
+======================================== */
+
+.signalkit-button[title]:hover::after,
+.signalkit-close[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 12px;
+    white-space: nowrap;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ========================================
+   END OF STYLESHEET
+======================================== */
+
+/* ========================================
+   INLINE DISPLAY (SHORTCODE)
+   Overrides fixed positioning for content embedding
+======================================== */
+
+.signalkit-banner.signalkit-inline {
+    position: relative !important;
+    /* Force relative position */
+    z-index: 10 !important;
+    /* Reset z-index stack context */
+
+    /* Reset coordinates */
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+
+    /* Layout in content */
+    margin: 2em 0 !important;
+    /* Add spacing around banner */
+    width: 100% !important;
+    max-width: 100% !important;
+    /* prevent overflow */
+
+    /* Visibility */
+    opacity: 1 !important;
+    /* Force visible immediately */
+    transform: none !important;
+    /* Disable slide-in transform */
+    visibility: visible !important;
+
+    /* Visual Tweaks for Inline */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    display: block !important;
+}
+
+/* Ensure mobile stacking doesn't break inline */
+@media (max-width: 768px) {
+    .signalkit-banner.signalkit-inline {
+        width: 100% !important;
+        margin: 20px 0 !important;
+        border-radius: 8px !important;
+        /* Keep rounded corners */
+        left: 0 !important;
+        right: 0 !important;
+    }
+}

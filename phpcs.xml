@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruleset name="SignalKit Custom Ruleset">
+    <description>SignalKit WordPress Plugin Check ruleset with custom exclusions for template partials</description>
+
+    <!-- Define custom property for ignoring local variables in partials -->
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+        <properties>
+            <property name="customPrefixes" value="signalkit_,signalkit"/>
+            <property name="ignoredFunctions" type="array">
+                <element value="signalkit_hex_to_rgb"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Exclude partials from PrefixAllGlobals sniff only -->
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+        <exclude-pattern>*/public/partials/*</exclude-pattern>
+        <exclude-pattern>*/admin/partials/*</exclude-pattern>
+    </rule>
+
+    <!-- Force the text domain to match WP repo standards regardless of local folder name -->
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array">
+                <element value="signalkit"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Include standard WordPress rules -->
+    <rule ref="WordPress-Core"/>
+    <rule ref="WordPress-Documentation"/>
+    <rule ref="WordPress-Extra"/>
+    <rule ref="WordPress.Security"/>
+    <rule ref="WordPress.DB"/>
+    <rule ref="WordPress-VIP"/>
+
+</ruleset>
