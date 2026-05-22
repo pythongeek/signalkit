@@ -76,7 +76,7 @@ class SignalKit_Public {
 
         $custom_css = $this->get_custom_css();
         if (!empty($custom_css)) {
-            wp_add_inline_style('signalkit-public', $custom_css);
+            wp_add_inline_style('signalkit-public', wp_strip_all_tags($custom_css));
         }
 
 

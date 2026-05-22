@@ -676,7 +676,7 @@ class SignalKit_Analytics {
 
         $ip = self::get_user_ip();
         // Use md5 on IP for transient key (safe, fixed length)
-        $transient_key = 'sk_rl_' . $action . '_' . md5($ip); 
+        $transient_key = 'signalkit_rl_' . $action . '_' . md5($ip); 
         
         $hits = (int) get_transient($transient_key);
 
