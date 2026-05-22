@@ -1,0 +1,1682 @@
+/**
+ * SignalKit - Enhanced Public Styles
+ * Banner Designs with Advanced Visibility
+ *
+ * @package SignalKit
+ * @version 2.0.0
+ * @author  SignalKit Team
+ * @license GPL-2.0+
+ *
+ * TABLE OF CONTENTS
+ * -----------------
+ * 1.  CSS Custom Properties (Enhanced Variables)
+ * 2.  Base Banner Styles
+ * 3.  Banner Style Presets (8 Themes)
+ * 4.  Auto-Contrast Visibility System
+ * 5.  Enhanced Banner Content Grid
+ * 6.  Enhanced Icon Styles
+ * 7.  Enhanced Text Styles
+ * 8.  Enhanced Action Buttons
+ * 9.  Enhanced Close Button
+ * 10. Enhanced Animations (6 Types)
+ * 11. Special Effects (Glow, Float)
+ * 12. Desktop Positioning
+ * 13. Mobile Responsive Design
+ * 14. Accessibility Enhancements
+ * 15. Custom Banner Styles
+ * 16. Form Input Styles
+ * 17. RTL Support
+ * 18. Print Styles
+ */
+
+/* ========================================
+   CSS CUSTOM PROPERTIES - ENHANCED
+======================================== */
+
+:root {
+    /* Default Colors */
+    --signalkit-primary: #4285f4;
+    --signalkit-primary-rgb: 66, 133, 244;
+    --signalkit-primary-hover: #3367d6;
+    --signalkit-secondary: #ffffff;
+    --signalkit-secondary-rgb: 255, 255, 255;
+    --signalkit-accent: #34a853;
+    --signalkit-accent-rgb: 52, 168, 83;
+    --signalkit-text: #202124;
+    --signalkit-text-rgb: 32, 33, 36;
+
+    /* Button Colors - Critical for visibility */
+    --signalkit-button-text: #ffffff;
+    --signalkit-button-bg: #4285f4;
+
+    /* NEW: Gradient Colors */
+    --signalkit-gradient-start: var(--signalkit-primary);
+    --signalkit-gradient-end: var(--signalkit-accent);
+    --signalkit-gradient-angle: 135deg;
+
+    /* NEW: Border & Glow */
+    --signalkit-border-color: rgba(255, 255, 255, 0.2);
+    --signalkit-glow-color: rgba(var(--signalkit-primary-rgb), 0.4);
+    --signalkit-glow-intensity: 0px;
+
+    /* NEW: Backdrop Effects */
+    --signalkit-backdrop-blur: 12px;
+    --signalkit-backdrop-opacity: 0.95;
+
+    /* Sizing */
+    --signalkit-width: 380px;
+    --signalkit-padding: 20px;
+    --signalkit-headline-size: 16px;
+    --signalkit-description-size: 14px;
+    --signalkit-button-size: 14px;
+    --signalkit-radius: 16px;
+    --signalkit-icon-size: 52px;
+
+    /* Z-Index */
+    --signalkit-z-banner: 999999;
+    --signalkit-z-overlay: 1000000;
+
+    /* Transitions */
+    --signalkit-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --signalkit-transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* NEW: Shadow Layers */
+    --signalkit-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --signalkit-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
+    --signalkit-shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.16);
+    --signalkit-shadow-glow: 0 0 var(--signalkit-glow-intensity) var(--signalkit-glow-color);
+}
+
+/* ========================================
+   BASE BANNER - ENHANCED
+======================================== */
+
+.signalkit-banner {
+    position: fixed;
+    z-index: var(--signalkit-z-banner);
+    width: var(--signalkit-width);
+    max-width: calc(100vw - 32px);
+    padding: var(--signalkit-padding);
+    --signalkit-close-size: 28px;
+
+    /* Modern Background with Glassmorphism */
+    background: rgba(var(--signalkit-secondary-rgb), var(--signalkit-backdrop-opacity));
+    backdrop-filter: blur(var(--signalkit-backdrop-blur));
+    -webkit-backdrop-filter: blur(var(--signalkit-backdrop-blur));
+
+    /* Enhanced Border & Radius */
+    border-radius: var(--signalkit-radius);
+    border: 1px solid var(--signalkit-border-color);
+
+    /* Multi-layer Shadow System */
+    box-shadow:
+        var(--signalkit-shadow-lg),
+        var(--signalkit-shadow-glow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+    /* Typography */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--signalkit-text);
+
+    /* Initial State */
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+    transition: all var(--signalkit-transition);
+
+    /* Performance */
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Prevent content interference */
+    pointer-events: auto;
+    isolation: isolate;
+}
+
+/* Active State - Smooth Entrance */
+.signalkit-banner.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* ========================================
+   BANNER STYLE PRESETS
+======================================== */
+
+/* STYLE 1: Modern Card (Default) */
+.signalkit-style-modern-card {
+    --signalkit-radius: 20px;
+    --signalkit-backdrop-blur: 16px;
+    --signalkit-backdrop-opacity: 0.92;
+    background: linear-gradient(145deg,
+            rgba(var(--signalkit-secondary-rgb), 0.95) 0%,
+            rgba(var(--signalkit-secondary-rgb), 0.85) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* STYLE 2: Glassmorphism */
+.signalkit-style-glass {
+    --signalkit-backdrop-blur: 20px;
+    --signalkit-backdrop-opacity: 0.7;
+    background: linear-gradient(135deg,
+            rgba(var(--signalkit-secondary-rgb), 0.75) 0%,
+            rgba(var(--signalkit-secondary-rgb), 0.55) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.12),
+        inset 0 1px 1px rgba(255, 255, 255, 0.4),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.05);
+}
+
+/* STYLE 3: Solid Modern */
+.signalkit-style-solid {
+    --signalkit-backdrop-blur: 0px;
+    --signalkit-backdrop-opacity: 1;
+    background: var(--signalkit-secondary);
+    border: none;
+    border-left: 4px solid var(--signalkit-primary);
+    box-shadow: var(--signalkit-shadow-lg);
+}
+
+/* STYLE 4: Gradient Accent */
+.signalkit-style-gradient {
+    background: linear-gradient(var(--signalkit-gradient-angle),
+            var(--signalkit-gradient-start) 0%,
+            var(--signalkit-gradient-end) 100%);
+    border: none;
+    color: #ffffff;
+    --signalkit-text: #ffffff;
+}
+
+.signalkit-style-gradient .signalkit-headline,
+.signalkit-style-gradient .signalkit-description {
+    color: #ffffff;
+}
+
+.signalkit-style-gradient .signalkit-close {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.signalkit-style-gradient .signalkit-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.signalkit-style-gradient .signalkit-button {
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(4px);
+}
+
+.signalkit-style-gradient .signalkit-button:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+}
+
+/* STYLE 5: Dark Mode */
+.signalkit-style-dark {
+    --signalkit-secondary-rgb: 28, 28, 30;
+    --signalkit-text: #ffffff;
+    --signalkit-text-rgb: 255, 255, 255;
+    background: rgba(28, 28, 30, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.signalkit-style-dark .signalkit-headline,
+.signalkit-style-dark .signalkit-description {
+    color: #ffffff;
+}
+
+.signalkit-style-dark .signalkit-description {
+    opacity: 0.8;
+}
+
+.signalkit-style-dark .signalkit-close {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.signalkit-style-dark .signalkit-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+/* STYLE 6: Minimal Toast */
+.signalkit-style-toast {
+    --signalkit-padding: 14px 20px;
+    --signalkit-radius: 50px;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    background: rgba(var(--signalkit-secondary-rgb), 0.98);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.15),
+        0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.signalkit-style-toast .signalkit-banner-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    grid-template-columns: none;
+    grid-template-areas: none;
+}
+
+.signalkit-style-toast .signalkit-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+.signalkit-style-toast .signalkit-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.signalkit-style-toast .signalkit-headline {
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.signalkit-style-toast .signalkit-description {
+    font-size: 12px;
+    display: none;
+}
+
+.signalkit-style-toast .signalkit-actions {
+    flex-shrink: 0;
+}
+
+.signalkit-style-toast .signalkit-button {
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+/* STYLE 7: Floating Bubble */
+.signalkit-style-bubble {
+    --signalkit-radius: 24px;
+    --signalkit-padding: 16px;
+    --signalkit-backdrop-blur: 20px;
+    background: rgba(var(--signalkit-secondary-rgb), 0.9);
+    border: 2px solid rgba(var(--signalkit-primary-rgb), 0.3);
+    box-shadow:
+        0 12px 48px rgba(var(--signalkit-primary-rgb), 0.2),
+        0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* STYLE 8: Neon Glow */
+.signalkit-style-neon {
+    --signalkit-glow-intensity: 20px;
+    background: rgba(15, 15, 20, 0.95);
+    border: 1px solid var(--signalkit-primary);
+    box-shadow:
+        0 0 20px rgba(var(--signalkit-primary-rgb), 0.4),
+        0 0 40px rgba(var(--signalkit-primary-rgb), 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    --signalkit-text: #ffffff;
+}
+
+.signalkit-style-neon .signalkit-headline,
+.signalkit-style-neon .signalkit-description {
+    color: #ffffff;
+}
+
+.signalkit-style-neon .signalkit-button {
+    box-shadow:
+        0 0 10px rgba(var(--signalkit-primary-rgb), 0.5),
+        0 0 20px rgba(var(--signalkit-primary-rgb), 0.3);
+}
+
+.signalkit-style-neon .signalkit-close {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* ========================================
+   AUTO-CONTRAST VISIBILITY SYSTEM
+   Ensures banner is visible on any background
+======================================== */
+
+/* Light Banner on Dark Background */
+.signalkit-contrast-light {
+    --signalkit-secondary-rgb: 255, 255, 255;
+    --signalkit-text: #1a1a1a;
+    --signalkit-border-color: rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.98);
+}
+
+/* Dark Banner on Light Background */
+.signalkit-contrast-dark {
+    --signalkit-secondary-rgb: 28, 28, 30;
+    --signalkit-text: #ffffff;
+    --signalkit-border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(28, 28, 30, 0.98);
+}
+
+.signalkit-contrast-dark .signalkit-headline,
+.signalkit-contrast-dark .signalkit-description,
+.signalkit-contrast-dark .signalkit-educational-link {
+    color: #ffffff;
+}
+
+.signalkit-contrast-dark .signalkit-description {
+    opacity: 0.85;
+}
+
+.signalkit-contrast-dark .signalkit-close {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* High Visibility Mode - Maximum Contrast */
+.signalkit-high-visibility {
+    background: var(--signalkit-secondary) !important;
+    backdrop-filter: none !important;
+    border: 3px solid var(--signalkit-primary) !important;
+    box-shadow:
+        0 0 0 4px rgba(var(--signalkit-primary-rgb), 0.2),
+        0 8px 32px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* ========================================
+   ENHANCED BANNER CONTENT GRID
+======================================== */
+
+.signalkit-banner-content {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+        "icon text"
+        "icon actions";
+    gap: 16px;
+    align-items: start;
+    min-height: 60px;
+    padding-right: calc(var(--signalkit-close-size, 28px) + 20px);
+    /* Space for close button */
+}
+
+/* ========================================
+   ENHANCED ICON STYLES
+======================================== */
+
+.signalkit-icon {
+    grid-area: icon;
+    flex-shrink: 0;
+    width: var(--signalkit-icon-size);
+    height: var(--signalkit-icon-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg,
+            var(--signalkit-primary) 0%,
+            var(--signalkit-accent) 100%);
+    box-shadow:
+        0 4px 12px rgba(var(--signalkit-primary-rgb), 0.3),
+        inset 0 2px 4px rgba(255, 255, 255, 0.2);
+    transition: transform var(--signalkit-transition-fast), box-shadow var(--signalkit-transition-fast);
+}
+
+.signalkit-banner:hover .signalkit-icon {
+    transform: scale(1.08) rotate(3deg);
+    box-shadow:
+        0 6px 20px rgba(var(--signalkit-primary-rgb), 0.4),
+        inset 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+.signalkit-icon svg {
+    width: 60%;
+    height: 60%;
+    display: block;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Icon Style Variants */
+.signalkit-icon-style-circle {
+    border-radius: 50%;
+}
+
+.signalkit-icon-style-rounded {
+    border-radius: 16px;
+}
+
+.signalkit-icon-style-square {
+    border-radius: 8px;
+}
+
+/* ========================================
+   ENHANCED TEXT STYLES
+======================================== */
+
+.signalkit-text {
+    grid-area: text;
+    flex: 1;
+    min-width: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.signalkit-headline {
+    margin: 0 0 6px 0;
+    font-size: var(--signalkit-headline-size);
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--signalkit-text);
+    letter-spacing: -0.02em;
+}
+
+.signalkit-description {
+    margin: 0;
+    font-size: var(--signalkit-description-size);
+    line-height: 1.5;
+    color: var(--signalkit-text);
+    opacity: 0.75;
+}
+
+/* ========================================
+   ENHANCED ACTION BUTTONS
+======================================== */
+
+.signalkit-actions {
+    grid-area: actions;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+/* Primary Button - Enhanced */
+.signalkit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+
+    /* Modern Styling - WITH FALLBACKS */
+    background: var(--signalkit-button-bg, var(--signalkit-primary, #4285f4));
+    color: var(--signalkit-button-text, #ffffff) !important;
+    border: none;
+    border-radius: 12px;
+    box-shadow:
+        0 4px 14px rgba(var(--signalkit-primary-rgb), 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
+    /* Typography */
+    font-size: var(--signalkit-button-size);
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+
+    /* Interaction */
+    cursor: pointer;
+    transition: all var(--signalkit-transition-fast);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Button Shine Effect */
+.signalkit-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.2) 50%,
+            transparent 100%);
+    transition: left 0.5s ease;
+}
+
+.signalkit-button:hover::before {
+    left: 100%;
+}
+
+.signalkit-button:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 8px 24px rgba(var(--signalkit-primary-rgb), 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.signalkit-button:active {
+    transform: translateY(-1px);
+    box-shadow:
+        0 4px 12px rgba(var(--signalkit-primary-rgb), 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.signalkit-button:focus-visible {
+    outline: 3px solid rgba(var(--signalkit-primary-rgb), 0.5);
+    outline-offset: 3px;
+}
+
+/* Button Icon */
+.signalkit-button-icon,
+.signalkit-icon-arrow,
+.signalkit-icon-star {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    transition: transform var(--signalkit-transition-fast);
+}
+
+.signalkit-button:hover .signalkit-icon-arrow {
+    transform: translateX(4px);
+}
+
+.signalkit-button:hover .signalkit-icon-star {
+    transform: rotate(72deg) scale(1.1);
+}
+
+/* Button Style Variants */
+.signalkit-button-style-pill {
+    border-radius: 50px;
+    padding: 12px 28px;
+}
+
+.signalkit-button-style-sharp {
+    border-radius: 4px;
+}
+
+.signalkit-button-style-outline {
+    background: transparent;
+    border: 2px solid var(--signalkit-primary);
+    color: var(--signalkit-primary);
+    box-shadow: none;
+}
+
+.signalkit-button-style-outline:hover {
+    background: var(--signalkit-primary);
+    color: #ffffff;
+}
+
+/* Educational Link - Enhanced */
+.signalkit-educational-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: var(--signalkit-text);
+    opacity: 0.7;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all var(--signalkit-transition-fast);
+    cursor: pointer;
+    background: transparent;
+}
+
+.signalkit-educational-link:hover {
+    opacity: 1;
+    background: rgba(var(--signalkit-primary-rgb), 0.1);
+    color: var(--signalkit-primary);
+}
+
+.signalkit-educational-link:focus-visible {
+    outline: 2px solid var(--signalkit-primary);
+    outline-offset: 2px;
+}
+
+.signalkit-educational-link svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+/* ========================================
+   ENHANCED CLOSE BUTTON
+======================================== */
+
+.signalkit-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+
+    /* Size */
+    width: var(--signalkit-close-size);
+    height: var(--signalkit-close-size);
+    min-width: var(--signalkit-close-size);
+    min-height: var(--signalkit-close-size);
+    padding: 0;
+
+    /* Styling */
+    background: rgba(0, 0, 0, 0.05);
+    border: none;
+    border-radius: 50%;
+    color: var(--signalkit-text);
+    opacity: 0.6;
+
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Interaction */
+    cursor: pointer;
+    transition: all var(--signalkit-transition-fast);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.signalkit-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    transform: rotate(90deg) scale(1.1);
+}
+
+.signalkit-close:active {
+    transform: rotate(90deg) scale(0.95);
+}
+
+.signalkit-close:focus-visible {
+    outline: 2px solid var(--signalkit-primary);
+    outline-offset: 2px;
+}
+
+.signalkit-close svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    fill: none;
+}
+
+/* ========================================
+   ENHANCED ANIMATIONS
+======================================== */
+
+/* Slide In (Default) */
+.signalkit-animation-slide_in {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+}
+
+.signalkit-animation-slide_in.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Fade In */
+.signalkit-animation-fade_in {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.signalkit-animation-fade_in.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Bounce */
+@keyframes signalkitBounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) translateY(50px);
+    }
+
+    50% {
+        transform: scale(1.08) translateY(-8px);
+    }
+
+    70% {
+        transform: scale(0.95) translateY(4px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.signalkit-animation-bounce {
+    opacity: 0;
+}
+
+.signalkit-animation-bounce.active {
+    animation: signalkitBounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+/* Elastic */
+@keyframes signalkitElastic {
+    0% {
+        opacity: 0;
+        transform: scale(0) translateY(20px);
+    }
+
+    60% {
+        transform: scale(1.1) translateY(-10px);
+    }
+
+    80% {
+        transform: scale(0.95) translateY(5px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.signalkit-animation-elastic {
+    opacity: 0;
+}
+
+.signalkit-animation-elastic.active {
+    animation: signalkitElastic 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Swing In */
+@keyframes signalkitSwing {
+    0% {
+        opacity: 0;
+        transform: rotateX(-90deg) translateY(20px);
+        transform-origin: top center;
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotateX(0) translateY(0);
+    }
+}
+
+.signalkit-animation-swing {
+    opacity: 0;
+    perspective: 600px;
+}
+
+.signalkit-animation-swing.active {
+    animation: signalkitSwing 0.5s ease-out forwards;
+}
+
+/* Zoom */
+@keyframes signalkitZoom {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.signalkit-animation-zoom {
+    opacity: 0;
+}
+
+.signalkit-animation-zoom.active {
+    animation: signalkitZoom 0.4s ease-out forwards;
+}
+
+/* Subtle Float Animation (Continuous) */
+@keyframes signalkitFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.signalkit-float-enabled.active {
+    animation: signalkitFloat 3s ease-in-out infinite;
+}
+
+/* Pulse Glow Animation */
+@keyframes signalkitPulseGlow {
+
+    0%,
+    100% {
+        box-shadow:
+            var(--signalkit-shadow-lg),
+            0 0 20px rgba(var(--signalkit-primary-rgb), 0.2);
+    }
+
+    50% {
+        box-shadow:
+            var(--signalkit-shadow-lg),
+            0 0 40px rgba(var(--signalkit-primary-rgb), 0.4);
+    }
+}
+
+.signalkit-pulse-glow.active {
+    animation: signalkitPulseGlow 2s ease-in-out infinite;
+}
+
+/* ========================================
+   DESKTOP POSITIONING
+======================================== */
+
+.signalkit-position-bottom_left {
+    bottom: 24px;
+    left: 24px;
+}
+
+.signalkit-position-bottom_right {
+    bottom: 24px;
+    right: 24px;
+}
+
+.signalkit-position-bottom_center {
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(30px) scale(0.95);
+}
+
+.signalkit-position-bottom_center.active {
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.signalkit-position-top_left {
+    top: 24px;
+    left: 24px;
+}
+
+.signalkit-position-top_right {
+    top: 24px;
+    right: 24px;
+}
+
+.signalkit-position-top_center {
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-30px) scale(0.95);
+}
+
+.signalkit-position-top_center.active {
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+/* ========================================
+   MOBILE RESPONSIVE - ENHANCED
+======================================== */
+
+@media (max-width: 768px) {
+
+    .signalkit-banner,
+    .signalkit-device-mobile {
+        left: 12px !important;
+        right: 12px !important;
+        width: calc(100% - 24px) !important;
+        max-width: none !important;
+        border-radius: 16px !important;
+        padding: 16px;
+    }
+
+    .signalkit-position-mobile-bottom,
+    .signalkit-device-mobile.signalkit-position-mobile-bottom {
+        bottom: 12px !important;
+        top: auto !important;
+    }
+
+    .signalkit-position-mobile-top,
+    .signalkit-device-mobile.signalkit-position-mobile-top {
+        top: 12px !important;
+        bottom: auto !important;
+    }
+
+    .signalkit-banner-content {
+        grid-template-columns: 44px 1fr;
+        grid-template-areas:
+            "icon text"
+            "actions actions";
+        gap: 12px;
+        padding-right: 40px;
+    }
+
+    .signalkit-icon {
+        --signalkit-icon-size: 44px;
+        width: 44px;
+        height: 44px;
+    }
+
+    .signalkit-actions {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .signalkit-button {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 20px;
+        min-height: 48px;
+        font-size: 15px;
+    }
+
+    .signalkit-educational-link {
+        justify-content: center;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .signalkit-close {
+        top: 10px;
+        right: 10px;
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        min-height: 36px;
+        background: rgba(0, 0, 0, 0.08);
+    }
+
+    /* Mobile stacking */
+    .signalkit-stack-order-1 {
+        z-index: 999998;
+    }
+
+    .signalkit-stack-order-2 {
+        z-index: 999999;
+    }
+}
+
+@media (max-width: 400px) {
+    .signalkit-banner {
+        padding: 14px;
+    }
+
+    .signalkit-headline {
+        font-size: 15px;
+    }
+
+    .signalkit-description {
+        font-size: 13px;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY ENHANCEMENTS
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .signalkit-banner,
+    .signalkit-button,
+    .signalkit-close,
+    .signalkit-icon,
+    .signalkit-educational-link {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .signalkit-banner {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .signalkit-banner.active {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .signalkit-banner {
+        border: 3px solid currentColor !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        background: var(--signalkit-secondary) !important;
+    }
+
+    .signalkit-button {
+        border: 2px solid currentColor !important;
+    }
+}
+
+/* Print - Hide banners */
+@media print {
+    .signalkit-banner {
+        display: none !important;
+    }
+}
+
+/* ========================================
+   RTL SUPPORT
+======================================== */
+
+[dir="rtl"] .signalkit-banner {
+    border-left: none;
+    border-right: 4px solid var(--signalkit-primary);
+}
+
+[dir="rtl"] .signalkit-position-bottom_left,
+[dir="rtl"] .signalkit-position-top_left {
+    left: auto;
+    right: 24px;
+}
+
+[dir="rtl"] .signalkit-position-bottom_right,
+[dir="rtl"] .signalkit-position-top_right {
+    right: auto;
+    left: 24px;
+}
+
+[dir="rtl"] .signalkit-close {
+    right: auto;
+    left: 12px;
+}
+
+[dir="rtl"] .signalkit-banner-content {
+    padding-right: 0;
+    padding-left: 44px;
+}
+
+/* ========================================
+   PREVIEW MODE
+======================================== */
+
+.signalkit-preview-viewport .signalkit-banner,
+.signalkit-preview-container .signalkit-banner {
+    position: relative !important;
+    opacity: 1 !important;
+    transform: none !important;
+    margin: 20px auto;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+}
+
+/* ========================================
+   UTILITY CLASSES
+======================================== */
+
+.signalkit-banner.loading {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.signalkit-banner.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    margin: -12px 0 0 -12px;
+    border: 3px solid var(--signalkit-primary);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: signalkitSpin 0.8s linear infinite;
+}
+
+@keyframes signalkitSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Box sizing reset */
+.signalkit-banner,
+.signalkit-banner *,
+.signalkit-banner *::before,
+.signalkit-banner *::after {
+    box-sizing: border-box;
+}
+
+/* Reset theme interference */
+.signalkit-banner h1,
+.signalkit-banner h2,
+.signalkit-banner h3,
+.signalkit-banner h4,
+.signalkit-banner h5,
+.signalkit-banner h6,
+.signalkit-banner p {
+    margin: 0;
+    padding: 0;
+}
+
+.signalkit-banner a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.signalkit-banner button {
+    font-family: inherit;
+}
+
+/* Hide in WordPress editor - ALLOW INLINE SHORTCODES */
+.block-editor .signalkit-banner:not(.signalkit-inline),
+.editor-styles-wrapper .signalkit-banner:not(.signalkit-inline) {
+    display: none !important;
+}
+
+/* ========================================
+   END OF ENHANCED STYLESHEET
+======================================== */
+
+/* v1.0.7 Hotfix: Mobile Close Button Overlap */
+@media (max-width: 768px) {
+    .signalkit-banner-content {
+        padding-right: calc(var(--signalkit-close-size, 28px) + 20px) !important;
+    }
+}
+
+/* ========================================
+   INLINE DISPLAY (SHORTCODE)
+   Optimized for in-content embedding
+======================================== */
+
+.signalkit-banner.signalkit-inline {
+    position: relative !important;
+    z-index: 10 !important;
+
+    /* Reset fixed positioning */
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+
+    /* Compact Layout - Reduced whitespace */
+    margin: 1.25em 0 !important;
+    padding: 14px 18px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+
+    /* Visibility */
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+
+    /* Visual Refinement */
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    border-radius: 10px !important;
+    border-left-width: 3px !important;
+    display: block !important;
+    background: var(--signalkit-secondary) !important;
+}
+
+/* Compact content grid for inline banners */
+.signalkit-banner.signalkit-inline .signalkit-banner-content {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 14px !important;
+    padding-right: 32px !important;
+}
+
+/* Smaller icon for inline */
+.signalkit-banner.signalkit-inline .signalkit-icon {
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    flex-shrink: 0;
+}
+
+.signalkit-banner.signalkit-inline .signalkit-icon svg {
+    width: 22px !important;
+    height: 22px !important;
+}
+
+/* Tighter text spacing */
+.signalkit-banner.signalkit-inline .signalkit-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.signalkit-banner.signalkit-inline .signalkit-headline {
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 2px !important;
+}
+
+.signalkit-banner.signalkit-inline .signalkit-description {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+    opacity: 0.75;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Compact actions */
+.signalkit-banner.signalkit-inline .signalkit-actions {
+    flex-shrink: 0;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    align-items: flex-start !important;
+}
+
+.signalkit-banner.signalkit-inline .signalkit-button {
+    padding: 8px 16px !important;
+    font-size: 12px !important;
+    border-radius: 8px !important;
+    min-height: auto !important;
+}
+
+.signalkit-banner.signalkit-inline .signalkit-educational-link {
+    font-size: 11px !important;
+    padding: 4px 8px !important;
+}
+
+/* Compact close button */
+.signalkit-banner.signalkit-inline .signalkit-close {
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
+    top: 50% !important;
+    right: 10px !important;
+    transform: translateY(-50%) !important;
+}
+
+.signalkit-banner.signalkit-inline .signalkit-close svg {
+    width: 14px !important;
+    height: 14px !important;
+}
+
+/* Mobile optimization for inline */
+@media (max-width: 768px) {
+    .signalkit-banner.signalkit-inline {
+        width: 100% !important;
+        margin: 16px 0 !important;
+        padding: 12px 14px !important;
+        border-radius: 10px !important;
+    }
+
+    .signalkit-banner.signalkit-inline .signalkit-banner-content {
+        flex-wrap: wrap;
+        gap: 10px !important;
+        padding-right: 28px !important;
+    }
+
+    .signalkit-banner.signalkit-inline .signalkit-icon {
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+    }
+
+    .signalkit-banner.signalkit-inline .signalkit-text {
+        flex: 1 1 calc(100% - 50px);
+    }
+
+    .signalkit-banner.signalkit-inline .signalkit-actions {
+        width: 100%;
+        flex-direction: row !important;
+        justify-content: flex-start;
+    }
+
+    .signalkit-banner.signalkit-inline .signalkit-button {
+        flex: 1;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .signalkit-banner.signalkit-inline .signalkit-description {
+        display: none !important;
+    }
+}
+
+/* ========================================
+   SHORTCODE STYLE VARIATIONS
+   Different layouts for content embedding
+======================================== */
+
+/* Shortcode Wrapper for alignment */
+.signalkit-shortcode-wrapper {
+    display: block;
+    width: 100%;
+    margin: 1.5em 0;
+    clear: both;
+}
+
+.signalkit-shortcode-wrapper.signalkit-align-left {
+    text-align: left;
+}
+
+.signalkit-shortcode-wrapper.signalkit-align-center {
+    text-align: center;
+}
+
+.signalkit-shortcode-wrapper.signalkit-align-right {
+    text-align: right;
+}
+
+/* ----------------------------------------
+   STYLE: FULL (Default - Full Width)
+---------------------------------------- */
+.signalkit-banner.signalkit-inline.signalkit-style-full {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* ----------------------------------------
+   STYLE: LEADERBOARD (728x90 compatible)
+   Standard ad format for horizontal banners
+---------------------------------------- */
+.signalkit-banner.signalkit-inline.signalkit-style-leaderboard {
+    width: 728px !important;
+    max-width: 100% !important;
+    min-height: 90px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 12px 16px !important;
+    border-radius: 8px !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-leaderboard .signalkit-banner-content {
+    grid-template-columns: 48px 1fr auto;
+    grid-template-areas: "icon text actions";
+    gap: 12px;
+    align-items: center;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-leaderboard .signalkit-icon {
+    width: 48px !important;
+    height: 48px !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-leaderboard .signalkit-text {
+    margin: 0;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-leaderboard .signalkit-headline {
+    font-size: 14px !important;
+    margin-bottom: 2px !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-leaderboard .signalkit-description {
+    font-size: 12px !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-leaderboard .signalkit-actions {
+    flex-direction: row;
+    gap: 8px;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-leaderboard .signalkit-button {
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+    white-space: nowrap;
+}
+
+/* ----------------------------------------
+   STYLE: SKYSCRAPER (160x600 compatible)
+   Vertical sidebar-style banner
+---------------------------------------- */
+.signalkit-banner.signalkit-inline.signalkit-style-skyscraper {
+    width: 160px !important;
+    max-width: 160px !important;
+    min-height: 400px !important;
+    padding: 20px 12px !important;
+    border-radius: 12px !important;
+    float: right;
+    margin: 0 0 20px 20px !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-skyscraper .signalkit-banner-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 16px !important;
+    padding-right: 0 !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-skyscraper .signalkit-icon {
+    width: 64px !important;
+    height: 64px !important;
+    margin: 0 auto;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-skyscraper .signalkit-text {
+    text-align: center;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-skyscraper .signalkit-headline {
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-skyscraper .signalkit-description {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-skyscraper .signalkit-actions {
+    width: 100%;
+    align-items: center;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-skyscraper .signalkit-button {
+    width: 100% !important;
+    padding: 10px 12px !important;
+    font-size: 12px !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-skyscraper .signalkit-close {
+    top: 8px;
+    right: 8px;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* ----------------------------------------
+   STYLE: RECTANGLE (300x250 compatible)
+   Medium rectangle / sidebar box
+---------------------------------------- */
+.signalkit-banner.signalkit-inline.signalkit-style-rectangle {
+    width: 300px !important;
+    max-width: 100% !important;
+    min-height: 200px !important;
+    padding: 20px !important;
+    border-radius: 12px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-rectangle .signalkit-banner-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 12px !important;
+    padding-right: 0 !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-rectangle .signalkit-icon {
+    width: 56px !important;
+    height: 56px !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-rectangle .signalkit-text {
+    text-align: center;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-rectangle .signalkit-headline {
+    font-size: 16px !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-rectangle .signalkit-description {
+    font-size: 13px !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-rectangle .signalkit-actions {
+    width: 100%;
+    align-items: center;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-rectangle .signalkit-button {
+    width: 100% !important;
+    padding: 12px 16px !important;
+}
+
+/* ----------------------------------------
+   STYLE: COMPACT (Small inline)
+   Minimal footprint for tight spaces
+---------------------------------------- */
+.signalkit-banner.signalkit-inline.signalkit-style-compact {
+    width: auto !important;
+    max-width: 400px !important;
+    min-height: auto !important;
+    padding: 10px 14px !important;
+    border-radius: 8px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: inline-flex !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-compact .signalkit-banner-content {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding-right: 30px !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-compact .signalkit-icon {
+    width: 32px !important;
+    height: 32px !important;
+    flex-shrink: 0;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-compact .signalkit-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-compact .signalkit-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-compact .signalkit-headline {
+    font-size: 13px !important;
+    margin-bottom: 0 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-compact .signalkit-description {
+    display: none !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-compact .signalkit-actions {
+    flex-shrink: 0;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-compact .signalkit-button {
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    border-radius: 6px !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-compact .signalkit-close {
+    width: 22px !important;
+    height: 22px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    right: 6px !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-style-compact .signalkit-close svg {
+    width: 12px !important;
+    height: 12px !important;
+}
+
+/* ----------------------------------------
+   ALIGNMENT CLASSES
+---------------------------------------- */
+.signalkit-banner.signalkit-inline.signalkit-align-left {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-align-center {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.signalkit-banner.signalkit-inline.signalkit-align-right {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
+/* ----------------------------------------
+   RESPONSIVE ADJUSTMENTS
+---------------------------------------- */
+@media (max-width: 768px) {
+
+    /* Leaderboard becomes full width on mobile */
+    .signalkit-banner.signalkit-inline.signalkit-style-leaderboard {
+        width: 100% !important;
+        min-height: auto !important;
+    }
+
+    .signalkit-banner.signalkit-inline.signalkit-style-leaderboard .signalkit-banner-content {
+        grid-template-columns: 40px 1fr;
+        grid-template-areas:
+            "icon text"
+            "actions actions";
+    }
+
+    .signalkit-banner.signalkit-inline.signalkit-style-leaderboard .signalkit-actions {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .signalkit-banner.signalkit-inline.signalkit-style-leaderboard .signalkit-button {
+        width: 100% !important;
+    }
+
+    /* Skyscraper becomes inline on mobile */
+    .signalkit-banner.signalkit-inline.signalkit-style-skyscraper {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: auto !important;
+        float: none !important;
+        margin: 20px 0 !important;
+    }
+
+    /* Rectangle adapts to screen */
+    .signalkit-banner.signalkit-inline.signalkit-style-rectangle {
+        width: 100% !important;
+        min-height: auto !important;
+    }
+
+    /* Compact stays compact but full width */
+    .signalkit-banner.signalkit-inline.signalkit-style-compact {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .signalkit-banner.signalkit-inline.signalkit-style-compact .signalkit-headline {
+        font-size: 12px !important;
+    }
+
+    .signalkit-banner.signalkit-inline.signalkit-style-compact .signalkit-button {
+        padding: 5px 10px !important;
+        font-size: 11px !important;
+    }
+}
+
+/* ========================================
+   END OF SHORTCODE STYLES
+======================================== */
