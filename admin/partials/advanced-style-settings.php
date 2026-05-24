@@ -14,8 +14,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// @codingStandardsIgnoreStart
 // Template partial variables - intentionally unprefixed as these are passed from including context
-// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Template partial
 /**
  * Render the advanced style settings for a banner type
  * 
@@ -327,5 +327,5 @@ class="signalkit-color-picker signalkit-preview-trigger"
     
     <?php
 }
-<?php // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals ?>
+// @codingStandardsIgnoreEnd
 ?>

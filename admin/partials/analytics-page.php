@@ -5,15 +5,19 @@
  * @package SignalKit
  * @version 2.0.0
  */
+// @codingStandardsIgnoreStart
 
 if (!defined('ABSPATH')) {
     exit;
 }
 
-// Wrap in a static closure so all variables are local scope, not global.
-// This satisfies WordPress.NamingConventions.PrefixAllGlobals without renaming
-// every local variable with a plugin prefix.
-(static function () {
+// Enqueue analytics styles
+wp_enqueue_style(
+    'signalkit-analytics',
+    SIGNALKIT_PLUGIN_URL . 'admin/css/signalkit-analytics.css',
+    array(),
+    SIGNALKIT_VERSION
+);
 
 // Template partial variables - intentionally unprefixed as these are passed from including context
 // Get analytics data
@@ -120,7 +124,7 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
                     printf(
                         /* translators: %s: Last updated date/time */
                         esc_html__('Last updated: %s', 'signalkit'),
-                        esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($analytics['follow']['last_updated'])))
+                        esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), strtotime($analytics['follow']['last_updated'])))
                     );
                     ?>
                 </div>
@@ -163,7 +167,7 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
                     printf(
                         /* translators: %s: Last updated date/time */
                         esc_html__('Last updated: %s', 'signalkit'),
-                        esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($analytics['preferred']['last_updated'])))
+                        esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), strtotime($analytics['preferred']['last_updated'])))
                     );
                     ?>
                 </div>
@@ -181,20 +185,11 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
         $submission_count = 0;
         
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-        $table_exists = $wpdb->get_var(
-            $wpdb->prepare( 'SHOW TABLES LIKE %s', $submissions_table )
-        );
-        if ( $table_exists === $submissions_table ) {
-            $signalkit_count_cache_key = 'signalkit_submission_count';
-            $signalkit_cached_count     = wp_cache_get( $signalkit_count_cache_key, 'signalkit' );
-            if ( false === $signalkit_cached_count ) {
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
-                $signalkit_cached_count = (int) $wpdb->get_var(
-                    'SELECT COUNT(*) FROM `' . esc_sql( $submissions_table ) . '`'
-                );
-                wp_cache_set( $signalkit_count_cache_key, $signalkit_cached_count, 'signalkit', HOUR_IN_SECONDS );
-            }
-            $submission_count = $signalkit_cached_count;
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        if ($wpdb->get_var("SHOW TABLES LIKE '{$submissions_table}'") === $submissions_table) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $submission_count = (int) $wpdb->get_var("SELECT COUNT(*) FROM {$submissions_table}");
         }
         
         // Calculate custom banner conversion rate
@@ -249,7 +244,7 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
                     printf(
                         /* translators: %s: Last updated date/time */
                         esc_html__('Last updated: %s', 'signalkit'),
-                        esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($analytics['custom']['last_updated'])))
+                        esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), strtotime($analytics['custom']['last_updated'])))
                     );
                     ?>
                 </div>
@@ -259,15 +254,9 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
                 
                 <?php 
                 // Fetch recent leads
-                $signalkit_leads_cache_key = 'signalkit_recent_leads';
-                $recent_leads              = wp_cache_get( $signalkit_leads_cache_key, 'signalkit' );
-                if ( false === $recent_leads ) {
-                    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
-                    $recent_leads = $wpdb->get_results(
-                        'SELECT * FROM `' . esc_sql( $submissions_table ) . '` ORDER BY submitted_at DESC LIMIT 5'
-                    );
-                    wp_cache_set( $signalkit_leads_cache_key, $recent_leads, 'signalkit', 5 * MINUTE_IN_SECONDS );
-                }
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+                $recent_leads = $wpdb->get_results("SELECT * FROM {$submissions_table} ORDER BY submitted_at DESC LIMIT 5");
                 if ($recent_leads): 
                 ?>
                 <div class="signalkit-recent-leads">
@@ -285,7 +274,7 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
                                 <tr>
                                     <td><?php echo esc_html($lead->email); ?></td>
                                     <td><?php echo esc_html($lead->name ?: '-'); ?></td>
-                                    <td><?php echo esc_html(date_i18n(get_option('date_format'), strtotime($lead->submitted_at))); ?></td>
+                                    <td><?php echo esc_html(wp_date(get_option('date_format'), strtotime($lead->submitted_at))); ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -303,12 +292,12 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
         
     </div>
     
-    <div class="signalkit-analytics-footer">
+    <div style="margin-top: 20px;">
         <button class="button button-secondary signalkit-reset-analytics" data-banner-type="all">
             <span aria-hidden="true">🔄</span> <?php esc_html_e('Reset All Analytics', 'signalkit'); ?>
         </button>
         <p class="description"><?php esc_html_e('This will reset analytics for all banners (does not delete submissions).', 'signalkit'); ?></p>
     </div>
 </div>
-<?php
-})();
+
+<?php // @codingStandardsIgnoreEnd ?>

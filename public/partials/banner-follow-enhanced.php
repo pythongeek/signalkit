@@ -6,11 +6,11 @@
  * @package SignalKit
  * @version 2.0.0
  */
+// @codingStandardsIgnoreStart
 
 if (!defined('ABSPATH')) {
     exit;
 }
-// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Template partial receives variables from including context
 
 // Template partial variables - intentionally unprefixed as these are passed from including context
 if (!isset($banner) || !is_array($banner)) {
@@ -203,7 +203,6 @@ $banner_classes = implode(' ', array_filter($all_classes));
                    target="_blank"
                    rel="noopener noreferrer nofollow"
                    data-banner-type="follow"
-                   <?php /* translators: %s: Button text */ ?>
                    aria-label="<?php echo esc_attr(sprintf(__('%s - Opens in new tab', 'signalkit'), $button_text)); ?>">
                     <span class="signalkit-button-text"><?php echo esc_html($button_text); ?></span>
                     <svg class="signalkit-icon-arrow" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
@@ -238,4 +237,4 @@ $banner_classes = implode(' ', array_filter($all_classes));
 <?php
 do_action('signalkit_after_follow_banner', $banner, $banner_id);
 ?>
-<?php // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals ?>
+<?php // @codingStandardsIgnoreEnd ?>

@@ -509,7 +509,9 @@ class SignalKit_Public {
         }
 
         if (!empty($schema)) {
-            echo '<script type="application/ld+json">' . wp_json_encode($schema) . '</script>';
+            add_action('wp_footer', function() use ($schema) {
+                echo '<script type="application/ld+json">' . wp_json_encode($schema) . '</script>';
+            });
         }
     }
     
@@ -575,7 +577,58 @@ class SignalKit_Public {
     }
 
     public function generate_banner_css($banner_type) {
-        return $this->generate_global_css();
+        if (!in_array($banner_type, array('follow', 'preferred', 'custom'), true)) {
+            return $this->generate_global_css();
+        }
+
+        $css = '';
+        if ($banner_type === 'follow') {
+            $follow_primary = sanitize_hex_color($this->settings['follow_primary_color'] ?? '#4285f4');
+            $follow_btn_text = sanitize_hex_color($this->settings['follow_button_text_color'] ?? '#ffffff');
+            $follow_btn_bg = sanitize_hex_color($this->settings['follow_button_bg_color'] ?? $follow_primary);
+            
+            $css .= "\n/* SignalKit Follow CSS Variables */\n";
+            $css .= ":root {\n";
+            $css .= "    --signalkit-primary: {$follow_primary};\n";
+            $css .= "    --signalkit-primary-hover: " . $this->darken_color($follow_primary, 10) . ";\n";
+            $css .= "    --signalkit-secondary: " . sanitize_hex_color($this->settings['follow_secondary_color'] ?? '#ffffff') . ";\n";
+            $css .= "    --signalkit-accent: " . sanitize_hex_color($this->settings['follow_accent_color'] ?? '#34a853') . ";\n";
+            $css .= "    --signalkit-text: " . sanitize_hex_color($this->settings['follow_text_color'] ?? '#1a1a1a') . ";\n";
+            $css .= "    --signalkit-button-text: {$follow_btn_text};\n";
+            $css .= "    --signalkit-button-bg: {$follow_btn_bg};\n";
+            $css .= "}\n";
+        } elseif ($banner_type === 'preferred') {
+            $preferred_primary = sanitize_hex_color($this->settings['preferred_primary_color'] ?? '#ea4335');
+            $preferred_btn_text = sanitize_hex_color($this->settings['preferred_button_text_color'] ?? '#ffffff');
+            $preferred_btn_bg = sanitize_hex_color($this->settings['preferred_button_bg_color'] ?? $preferred_primary);
+            
+            $css .= "\n/* SignalKit Preferred CSS Variables */\n";
+            $css .= ".signalkit-banner-preferred {\n";
+            $css .= "    --signalkit-primary: {$preferred_primary};\n";
+            $css .= "    --signalkit-primary-hover: " . $this->darken_color($preferred_primary, 10) . ";\n";
+            $css .= "    --signalkit-secondary: " . sanitize_hex_color($this->settings['preferred_secondary_color'] ?? '#ffffff') . ";\n";
+            $css .= "    --signalkit-accent: " . sanitize_hex_color($this->settings['preferred_accent_color'] ?? '#fbbc04') . ";\n";
+            $css .= "    --signalkit-text: " . sanitize_hex_color($this->settings['preferred_text_color'] ?? '#1a1a1a') . ";\n";
+            $css .= "    --signalkit-button-text: {$preferred_btn_text};\n";
+            $css .= "    --signalkit-button-bg: {$preferred_btn_bg};\n";
+            $css .= "}\n";
+        } elseif ($banner_type === 'custom') {
+            $custom_primary = sanitize_hex_color($this->settings['custom_primary_color'] ?? '#6366f1');
+            $custom_secondary = sanitize_hex_color($this->settings['custom_secondary_color'] ?? '#ffffff');
+            $custom_accent = sanitize_hex_color($this->settings['custom_accent_color'] ?? '#8b5cf6');
+            $custom_text = sanitize_hex_color($this->settings['custom_text_color'] ?? '#1e1e1e');
+            
+            $css .= "\n/* SignalKit Custom CSS Variables */\n";
+            $css .= ".signalkit-banner-custom {\n";
+            $css .= "    --signalkit-primary: {$custom_primary};\n";
+            $css .= "    --signalkit-primary-hover: " . $this->darken_color($custom_primary, 10) . ";\n";
+            $css .= "    --signalkit-secondary: {$custom_secondary};\n";
+            $css .= "    --signalkit-accent: {$custom_accent};\n";
+            $css .= "    --signalkit-text: {$custom_text};\n";
+            $css .= "}\n";
+        }
+
+        return $css;
     }
 
     private function darken_color($hex, $percent) {
@@ -989,7 +1042,7 @@ class SignalKit_Public {
     }
 
     /**
-     * AJAX Handler: Get banner HTML (Theme Compatibility Loader)
+     * AJAX Handler: Get banner HTML (Universal Loader)
      * Used as a fallback when PHP hooks fail to inject content (e.g. broken themes)
      * 
      * SECURITY: Nonce verification added for CodeCanyon compliance

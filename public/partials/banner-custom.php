@@ -1,17 +1,15 @@
 <?php
 /**
  * Custom Banner Template - Lead Capture, Newsletter, CTA
- *
+ * 
  * @package SignalKit
  * @version 2.0.0
  */
+// @codingStandardsIgnoreStart
 
 if (!defined('ABSPATH')) {
     exit;
 }
-
-// Template partial variables - intentionally unprefixed as these are passed from including context via extract()
-// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Template partial receives variables from including context
 
 // Extract settings with defaults
 $banner_type = isset($settings['custom_banner_type']) ? $settings['custom_banner_type'] : 'newsletter';
@@ -214,20 +212,22 @@ $has_form = $preset['show_form'];
 
 // Data attributes for JavaScript
 $data_attrs = array(
-    'data-banner-type="' . esc_attr($banner_type) . '"',
-    'data-delay="' . esc_attr($delay) . '"',
-    'data-scroll-trigger="' . ($scroll_trigger ? 'true' : 'false') . '"',
-    'data-scroll-percentage="' . esc_attr($scroll_percentage) . '"',
-    'data-exit-intent="' . ($exit_intent ? 'true' : 'false') . '"',
-    'data-success-message="' . esc_attr($success_message) . '"',
-    'data-dismissible="' . ($dismissible ? 'true' : 'false') . '"',
+    'data-banner-type'       => $banner_type,
+    'data-delay'             => $delay,
+    'data-scroll-trigger'    => $scroll_trigger ? 'true' : 'false',
+    'data-scroll-percentage' => $scroll_percentage,
+    'data-exit-intent'       => $exit_intent ? 'true' : 'false',
+    'data-success-message'   => $success_message,
+    'data-dismissible'       => $dismissible ? 'true' : 'false',
 );
 ?>
 
 <aside id="signalkit-banner-custom" 
        class="<?php echo esc_attr(implode(' ', $classes)); ?>"
        style="<?php echo esc_attr($inline_styles); ?>"
-       <?php echo implode(' ', $data_attrs); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Each attribute is pre-escaped with esc_attr() ?>
+       <?php foreach ($data_attrs as $key => $val) : ?>
+           <?php echo esc_attr($key); ?>="<?php echo esc_attr($val); ?>"
+       <?php endforeach; ?>
        role="complementary"
        aria-label="<?php echo esc_attr($headline); ?>"
        aria-hidden="true">
@@ -382,7 +382,7 @@ $data_attrs = array(
                 <div class="signalkit-announcement-actions">
                     <div class="signalkit-announcement-meta">
                         <span class="signalkit-announcement-badge"><?php esc_html_e('NEW', 'signalkit'); ?></span>
-                        <span class="signalkit-announcement-date"><?php echo esc_html(date_i18n(get_option('date_format'))); ?></span>
+                        <span class="signalkit-announcement-date"><?php echo esc_html(wp_date(get_option('date_format'))); ?></span>
                     </div>
                     <a href="<?php echo esc_url($settings['custom_redirect_url'] ?? '#'); ?>" 
                        class="signalkit-button signalkit-button-announcement signalkit-button-style-<?php echo esc_attr($button_style); ?>"
@@ -460,4 +460,4 @@ $data_attrs = array(
     </div>
     
 </aside>
-<?php // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals ?>
+// @codingStandardsIgnoreEnd

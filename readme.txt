@@ -1,6 +1,6 @@
 === SignalKit ===
 Contributors: N4Nion,BdowneerTech
-Tags: news, notifications, banners, engagement, lead-capture
+Tags: google news, notifications, banners, engagement, lead capture
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.2
@@ -8,18 +8,18 @@ Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-News publisher engagement suite with Follow, Preferred Source, and Lead Capture banners to boost your publication's visibility and engagement.
+News publisher notification plugin with Follow, Preferred Source, and Lead Capture banners to help grow your audience and collect leads.
 
 == Description ==
 
-**SignalKit** is an engagement tool for WordPress publishers. It helps you connect with your Google News audience, capture leads, and increase reader retention with banners that support timed, scroll, and exit-intent triggers.
+**SignalKit** is an engagement tool for WordPress publishers. It helps you connect with your Google News audience, capture leads, and increase reader retention with smart-loading banners.
 
 = 🚀 Growth Tools =
 
 1.  **🔔 Follow Banner**: Convert casual visitors into loyal news subscribers with a prominent follow prompt.
 2.  **⭐ Preferred Source Banner**: Boost your visibility by getting readers to mark you as a "Preferred Source".
 3.  **✉️ Custom Lead Capture**: Grow your newsletter with **Data Capture** banners featuring "Lead Gradient", "Glassmorphism", and "Neon" templates.
-4.  **🧠 Banner Stacking**: Collision detection engine ensures banners never overlap, preventing "Ad Clutter" penalties and ensuring a smooth user experience.
+4.  **🧠 Intelligent Stacking**: Our collision detection engine ensures banners never overlap, preventing "Ad Clutter" penalties and ensuring a smooth user experience.
 
 = ✨ Key Features =
 
@@ -29,24 +29,24 @@ News publisher engagement suite with Follow, Preferred Source, and Lead Capture 
     * `[signalkit_follow style="rectangle"]` - 300x250 box
     * `[signalkit_follow style="compact"]` - Minimal inline
     * `[signalkit_follow style="full"]` - Full width (default)
-*   **NEW: Smart Banner Replacement**: Collision detection repositions overlapping banners automatically.
+*   **NEW: Smart Banner Replacement**: Intelligent collision detection repositions overlapping banners automatically.
 *   **NEW: Works When Disabled**: Shortcode banners display even if global auto-insertion is turned off.
-*   **Automatic Positioning**: Banners automatically detect each other and reposition to avoid overlaps.
-*   **Mobile Display Options**: Control how banners behave on mobile devices:
+*   **Intelligent Layout Engine**: Banners automatically detect each other and reposition to avoid overlaps.
+*   **Advanced Mobile Strategy**: Control how banners behave on mobile devices:
     *   **Stack**: Show all banners one after another.
     *   **Rotate**: Randomly show a different banner on each page load.
     *   **Priority**: Only show the most important banner.
-*   **Theme Compatibility Loader**: Smart injection system ensures banners appear on **any theme** and works with **caching plugins**.
+*   **Universal Loader**: Smart injection system ensures banners appear on **any theme** and works with **all caching plugins** (WP Rocket, LiteSpeed, etc.).
 *   **Templates**: Includes modern "Glassmorphism", "Lead Gradient", "Neon", and "Modern Card" styles.
-*   **Display Triggers**: Display banners based on:
+*   **Smart Triggers**: Display banners based on:
     *   Scroll percentage (e.g., 50% down)
     *   Time delay (e.g., 5 seconds)
     *   Exit intent (desktop only)
     *   Page type (Posts, Pages, Front Page, Archives)
 *   **Built-in Analytics Dashboard**: Track Impressions, Clicks, CTR, Dismissals, and Lead Submissions securely.
-*   **Excel/CSV Data Export**: Export your lead capture data and analytics reports for offline analysis.
-*   **Privacy First**: Designed with privacy in mind. Uses only functional cookies (no tracking). All data stored on your server. No external requests by default.
-*   **Accessibility Features**: WCAG 2.1 AA compliant with proper ARIA labels and focus management.
+*   **Excel/CSV Data Export**: Easily export your lead capture data and analytics reports for offline analysis or marketing tools.
+*   **Privacy First**: Fully GDPR compliant. Uses only functional cookies (no tracking). All data stored on your server. No external requests.
+*   **Accessibility Ready**: WCAG 2.1 AA compliant with proper ARIA labels and focus management.
 *   **Editor Preview**: See banners directly in WordPress Block Editor.
 
 = 📊 Analytics & Dashboards =
@@ -134,7 +134,7 @@ Yes! Go to SignalKit → Lead Submissions to view all captured leads and export 
 *   **PERFORMANCE:** Moved database table creation to activation hook (eliminates runtime database queries)
 *   **SECURITY:** All global functions renamed with unique prefixes to prevent namespace conflicts
 *   **PRIVACY:** Added explicit privacy disclosure for webhook data transmission feature
-*   **COMPLIANCE:** Designed with privacy in mind, using functional cookies only (no tracking cookies)
+*   **COMPLIANCE:** Fully GDPR compliant with functional cookies only (no tracking cookies)
 *   **MAJOR:** Complete Shortcode System overhaul for all banner types
 *   **NEW:** 5 visual styles for shortcodes (Leaderboard, Skyscraper, Rectangle, Compact, Full)
 *   **NEW:** Smart Banner Collision Detection - Automatically prevents banner overlap on desktop
@@ -162,7 +162,7 @@ Yes! Go to SignalKit → Lead Submissions to view all captured leads and export 
 *   **NEW:** Mobile Banner Strategy - Options to Stack, Rotate, or Prioritize banners on mobile
 *   **NEW:** "Lead Gradient" & "Glassmorphism" banner styles
 *   **NEW:** Excel/CSV export for lead submissions
-*   **IMPROVED:** Theme Compatibility Loader - Now prevents duplicate notifications on complex themes
+*   **IMPROVED:** Universal Loader - Now prevents duplicate notifications on complex themes
 *   **FIXED:** Custom Banner close button clickability (z-index hardening)
 *   **FIXED:** Accessibility focus management (aria-hidden warnings)
 *   **FIXED:** Analytics tracking for Custom Banners (fixed 403/400 errors)

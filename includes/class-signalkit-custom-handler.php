@@ -439,9 +439,9 @@ class SignalKit_Custom_Handler {
                                         echo '—';
                                     }
                                 ?></td>
-                                <td><?php echo esc_html(date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($sub->submitted_at))); ?></td>
+                                <td><?php echo esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), strtotime($sub->submitted_at))); ?></td>
                                 <td>
-                                    <form method="post" class="signalkit-inline-form">
+                                    <form method="post" style="display:inline;">
                                         <?php wp_nonce_field('signalkit_delete_submission'); ?>
                                         <input type="hidden" name="action" value="delete">
                                         <input type="hidden" name="submission_id" value="<?php echo esc_attr($sub->id); ?>">
@@ -537,7 +537,7 @@ class SignalKit_Custom_Handler {
         
         if (is_resource($output)) {
             // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
-            fclose( $output );
+            @fclose($output);
         }
         
         // Exit to prevent any further output
@@ -586,12 +586,6 @@ class SignalKit_Custom_Handler {
             SIGNALKIT_PLUGIN_URL . 'admin/css/signalkit-submissions.css',
             array(),
             SIGNALKIT_VERSION
-        );
-
-        // Inline utility styles registered via the WP API — no raw <style> blocks.
-        wp_add_inline_style(
-            'signalkit-submissions',
-            '.signalkit-inline-form{display:inline;}'
         );
     }
 }

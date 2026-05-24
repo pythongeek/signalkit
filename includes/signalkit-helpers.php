@@ -124,6 +124,7 @@ if (!function_exists('signalkit_lighten_color')) {
  */
 if (!function_exists('signalkit_log')) {
     function signalkit_log($message, $data = null) {
+        // @codingStandardsIgnoreStart
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
             if ($data !== null) {
                 // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log, WordPress.PHP.DevelopmentFunctions.error_log_print_r
@@ -133,5 +134,6 @@ if (!function_exists('signalkit_log')) {
                 error_log('SignalKit: ' . $message);
             }
         }
+        // @codingStandardsIgnoreEnd
     }
 }

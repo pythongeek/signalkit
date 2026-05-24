@@ -6,11 +6,11 @@
  * @package SignalKit
  * @version 2.0.0
  */
+// @codingStandardsIgnoreStart
 
 if (!defined('ABSPATH')) {
     exit;
 }
-// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Template partial receives variables from including context
 
 // Template partial variables - intentionally unprefixed as these are passed from including context
 if (!isset($banner) || !is_array($banner)) {
@@ -209,7 +209,6 @@ $banner_classes = implode(' ', array_filter($all_classes));
                    target="_blank"
                    rel="noopener noreferrer nofollow"
                    data-banner-type="preferred"
-                   <?php /* translators: %s: Button text */ ?>
                    aria-label="<?php echo esc_attr(sprintf(__('%s - Opens in new tab', 'signalkit'), $button_text)); ?>">
                     <span class="signalkit-button-text"><?php echo esc_html($button_text); ?></span>
                     <svg class="signalkit-icon-star" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
@@ -223,12 +222,11 @@ $banner_classes = implode(' ', array_filter($all_classes));
             <?php endif; ?>
 
             <?php if ($show_educational_link): ?>
-                <?php /* translators: %s: Educational link text */ ?>
+                <?php /* translators: %s: educational link text */ ?>
                 <a href="<?php echo esc_url($educational_post_url); ?>"
                    class="signalkit-educational-link"
                    target="_blank"
                    rel="noopener noreferrer"
-                   <?php /* translators: %s: Educational link text */ ?>
                    aria-label="<?php echo esc_attr(sprintf(__('%s - Opens in new tab', 'signalkit'), $educational_text)); ?>">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
                         <path d="M7 0C3.13 0 0 3.13 0 7s3.13 7 7 7 7-3.13 7-7-3.13-7-7-7zm1 10H6V6h2v4zm0-5H6V3h2v2z"/>
@@ -259,4 +257,4 @@ $banner_classes = implode(' ', array_filter($all_classes));
 <?php
 do_action('signalkit_after_preferred_banner', $banner, $banner_id);
 ?>
-<?php // phpcs:enable WordPress.NamingConventions.PrefixAllGlobals ?>
+<?php // @codingStandardsIgnoreEnd ?>

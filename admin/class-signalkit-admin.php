@@ -135,35 +135,7 @@ class SignalKit_Admin {
             $this->version,
             'all'
         );
-
-        /*
-         * Utility classes used across admin partials (settings-page.php etc.).
-         * Registered here via the WP API so no raw <style> blocks appear in templates.
-         */
-        $admin_inline_css =
-            // Status indicator badges
-            '.signalkit-status-enabled{color:#46b450;}' .
-            '.signalkit-status-disabled{color:#dc3232;}' .
-            // Info-box colour variants
-            '.signalkit-info-box--warning{background:#fff3cd;border-left-color:#ffc107;}' .
-            '.signalkit-info-box--muted{background:#f0f0f0;border-left-color:#999;}' .
-            // List helpers inside info-boxes
-            '.signalkit-disc-list{margin-left:20px;list-style:disc;}' .
-            '.signalkit-info-list{color:#666;margin:8px 0 8px 20px;list-style:disc;}' .
-            // Text and paragraph helpers
-            '.signalkit-info-note{margin-top:10px;}' .
-            '.signalkit-info-text{color:#666;margin:0;}' .
-            '.signalkit-info-header{margin:0 0 8px 0;color:#666;}' .
-            '.signalkit-danger-text{color:#dc3232;}' .
-            // Icon helpers
-            '.signalkit-icon-muted{color:#999;}' .
-            '.signalkit-icon-sm{font-size:14px;width:14px;height:14px;vertical-align:middle;}' .
-            // Privacy / small-print notes
-            '.signalkit-privacy-note{margin-top:5px;font-size:12px;opacity:.8;}' .
-            // Utility: visually hidden / JS-controlled hidden elements
-            '.signalkit-hidden{display:none;}';
-        wp_add_inline_style( 'signalkit-admin', $admin_inline_css );
-
+        
         // Enqueue enhanced admin styles if available
         $enhanced_css = SIGNALKIT_PLUGIN_DIR . 'admin/css/signalkit-admin-enhanced.css';
         if (file_exists($enhanced_css)) {
@@ -203,19 +175,6 @@ class SignalKit_Admin {
                 $this->version,
                 'all'
             );
-        }
-
-        // Analytics page: enqueue its dedicated stylesheet only on that screen.
-        if ( 'signalkit_page_signalkit-analytics' === $screen->id ) {
-            wp_enqueue_style(
-                'signalkit-analytics',
-                SIGNALKIT_PLUGIN_URL . 'admin/css/signalkit-analytics.css',
-                array( 'signalkit-admin' ),
-                $this->version,
-                'all'
-            );
-            // Footer utility class for the analytics template partial.
-            wp_add_inline_style( 'signalkit-analytics', '.signalkit-analytics-footer{margin-top:20px;}' );
         }
     }
 
@@ -468,15 +427,7 @@ class SignalKit_Admin {
         $sanitized['analytics_tracking'] = isset($input['analytics_tracking']) ? 1 : 0;
         $sanitized['enable_rate_limiting'] = isset($input['enable_rate_limiting']) ? 1 : 0;
         $sanitized['enable_csp'] = isset($input['enable_csp']) ? 1 : 0;
-        /*
-         * import_export_key: wp_unslash() only — sanitize_text_field() is intentionally
-         * absent here. This value is a raw encryption/export key; running it through
-         * sanitize_text_field() would corrupt keys that contain special characters.
-         * The value is never rendered into HTML, so XSS risk does not apply.
-         */
-        $sanitized['import_export_key'] = isset( $input['import_export_key'] )
-            ? wp_unslash( $input['import_export_key'] )
-            : '';
+        $sanitized['import_export_key'] = isset($input['import_export_key']) ? wp_unslash($input['import_export_key']) : '';
         
         // Mobile Banner Strategy (NEW)
         $valid_mobile_strategies = ['show_all', 'priority_only', 'rotate'];
@@ -723,7 +674,7 @@ class SignalKit_Admin {
      * SECURITY: Whitelist validation
      */
     private function sanitize_frequency($input, $key, $default) {
-        $valid = ['always', 'once_per_session', 'once_per_day', 'once'];
+        $valid = ['always', 'once_per_session', 'once_per_day'];
         return isset($input[$key]) && in_array($input[$key], $valid, true) ? $input[$key] : $default;
     }
 
@@ -888,6 +839,23 @@ class SignalKit_Admin {
             SignalKit_Analytics::reset_analytics($banner_type);
         }
         
+        // --- AUDIT LOGGING ---
+        $user = wp_get_current_user();
+
+        // Email site admin as an alert for this critical action
+        wp_mail(
+            get_option('admin_email'),
+            __('SignalKit Alert: Analytics Data Reset', 'signalkit'),
+            sprintf(
+                /* translators: %1$s: username, %2$s: banner type, %3$s: datetime */
+                __('User %1$s reset the SignalKit analytics data (%2$s) at %3$s.', 'signalkit'),
+                esc_html($user->user_login),
+                esc_html($banner_type),
+                current_time('mysql')
+            )
+        );
+        // --- END AUDIT LOGGING ---
+
         wp_send_json_success(['message' => 'Analytics reset', 'banner_type' => $banner_type]);
     }
 
@@ -908,6 +876,22 @@ class SignalKit_Admin {
 
         // SECURITY: Enforce rate limiting (5 seconds)
         $this->check_rate_limit('export_settings', 5);
+
+        // --- AUDIT LOGGING (GDPR/Security Compliance) ---
+        $user = wp_get_current_user();
+
+        // Email site admin as a security alert
+        wp_mail(
+            get_option('admin_email'),
+            __('SignalKit Security Alert: Settings Exported', 'signalkit'),
+            sprintf(
+                /* translators: %1$s: username, %2$s: datetime */
+                __('User %1$s exported the SignalKit plugin settings at %2$s.', 'signalkit'),
+                esc_html($user->user_login),
+                current_time('mysql')
+            )
+        );
+        // --- END AUDIT LOGGING ---
 
         $settings = get_option('signalkit_settings', []);
         $key = $settings['import_export_key'] ?? '';
@@ -1169,6 +1153,23 @@ class SignalKit_Admin {
         // SECURITY: update_option is SQL-injection safe (WordPress handles escaping)
         update_option('signalkit_settings', $sanitized);
 
+        // --- AUDIT LOGGING ---
+        $user = wp_get_current_user();
+
+        // Email site admin as an alert for this critical action
+        wp_mail(
+            get_option('admin_email'),
+            __('SignalKit Security Alert: Settings Imported', 'signalkit'),
+            sprintf(
+                /* translators: %1$s: username, %2$s: datetime, %3$s: encrypted status */
+                __('User %1$s imported and overwrote the SignalKit plugin settings at %2$s. (Encrypted: %3$s)', 'signalkit'),
+                esc_html($user->user_login),
+                current_time('mysql'),
+                $is_encrypted ? 'Yes' : 'No'
+            )
+        );
+        // --- END AUDIT LOGGING ---
+        
         wp_send_json_success([
             'message' => 'Settings imported successfully',
             'count' => count($sanitized),
