@@ -1,7 +1,7 @@
 <?php
 /**
  * Handle display rules and conditional logic.
- * Version: 2.0.0 - SECURITY HARDENED: Enhanced cookie security with SameSite
+ * Version: 2.0.1 - SECURITY HARDENED: Enhanced cookie security with SameSite
  *
  * @package SignalKit
  */
