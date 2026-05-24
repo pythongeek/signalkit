@@ -13,7 +13,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// @codingStandardsIgnoreStart
 // Template partial variables - intentionally unprefixed as these are passed from including context
 // Default size options: 'small' (80px), 'medium' (120px), 'large' (180px), 'hero' (240px)
 $size = isset($args['size']) ? sanitize_text_field($args['size']) : 'medium';
@@ -110,4 +109,4 @@ $text_size = $icon_size * 0.44; // Proportional text sizing
     </div>
     <?php endif; ?>
 </div>
-<?php // @codingStandardsIgnoreEnd ?>
+

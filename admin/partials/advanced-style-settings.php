@@ -14,7 +14,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// @codingStandardsIgnoreStart
 // Template partial variables - intentionally unprefixed as these are passed from including context
 /**
  * Render the advanced style settings for a banner type
@@ -327,5 +326,5 @@ class="signalkit-color-picker signalkit-preview-trigger"
     
     <?php
 }
-// @codingStandardsIgnoreEnd
+
 ?>

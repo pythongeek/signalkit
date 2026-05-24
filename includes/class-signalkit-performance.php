@@ -118,7 +118,7 @@ class SignalKit_Performance {
         // Register a dummy handle as anchor for the inline style
         wp_register_style('signalkit-critical', false, array(), SIGNALKIT_VERSION);
         wp_enqueue_style('signalkit-critical');
-        wp_add_inline_style('signalkit-critical', $this->minify_css($critical_css));
+        wp_add_inline_style('signalkit-critical', wp_strip_all_tags($this->minify_css($critical_css)));
     }
     
     /**

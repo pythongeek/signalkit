@@ -249,15 +249,12 @@ class SignalKit_Custom_Handler {
     private function is_duplicate_submission($email) {
         global $wpdb;
         
-        // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $count = $wpdb->get_var($wpdb->prepare(
-            "SELECT COUNT(*) FROM {$this->table_name} 
+            "SELECT COUNT(*) FROM `" . esc_sql($this->table_name) . "` 
              WHERE email = %s 
              AND submitted_at > DATE_SUB(NOW(), INTERVAL 24 HOUR)",
             $email
         ));
-        // phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         
         return (int) $count > 0;
     }
@@ -349,9 +346,7 @@ class SignalKit_Custom_Handler {
         if (isset($_POST['action']) && $_POST['action'] === 'delete' && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'] ?? '')), 'signalkit_delete_submission')) {
             $id = absint($_POST['submission_id'] ?? 0);
             if ($id > 0) {
-                $table_name_escaped = esc_sql($this->table_name);
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-                $wpdb->delete($table_name_escaped, array('id' => $id), array('%d'));
+                $wpdb->delete($this->table_name, array('id' => $id), array('%d'));
                 echo '<div class="notice notice-success"><p>' . esc_html__('Submission deleted.', 'signalkit') . '</p></div>';
             }
         }
@@ -362,20 +357,15 @@ class SignalKit_Custom_Handler {
         $offset = ($current_page - 1) * $per_page;
         
         // Get total count
-        $table_name_escaped = esc_sql($this->table_name);
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $total = $wpdb->get_var("SELECT COUNT(*) FROM {$table_name_escaped}");
+        $total = $wpdb->get_var("SELECT COUNT(*) FROM `" . esc_sql($this->table_name) . "`");
         $total_pages = ceil($total / $per_page);
         
         // Get submissions
-        // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $submissions = $wpdb->get_results($wpdb->prepare(
-            "SELECT * FROM {$table_name_escaped} ORDER BY submitted_at DESC LIMIT %d OFFSET %d",
+            "SELECT * FROM `" . esc_sql($this->table_name) . "` ORDER BY submitted_at DESC LIMIT %d OFFSET %d",
             $per_page,
             $offset
         ));
-        // phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         
         ?>
         <div class="wrap signalkit-submissions-page">
@@ -484,9 +474,7 @@ class SignalKit_Custom_Handler {
         global $wpdb;
         
         // Get all submissions
-        $table_name_escaped = esc_sql($this->table_name);
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $submissions = $wpdb->get_results("SELECT * FROM {$table_name_escaped} ORDER BY submitted_at DESC");
+        $submissions = $wpdb->get_results("SELECT * FROM `" . esc_sql($this->table_name) . "` ORDER BY submitted_at DESC");
         
         // Generate filename
         $filename = 'signalkit-submissions-' . gmdate('Y-m-d-His') . '.csv';
@@ -590,5 +578,4 @@ class SignalKit_Custom_Handler {
     }
 }
 
-// Initialize
-new SignalKit_Custom_Handler();
+

@@ -12,7 +12,6 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly - WordPress security best practice
 }
 
-// @codingStandardsIgnoreStart
 // Template partial variables - intentionally unprefixed as these are passed from including context
 // Include advanced style settings partial (v2.0)
 $advanced_settings_file = SIGNALKIT_PLUGIN_DIR . 'admin/partials/advanced-style-settings.php';
@@ -1320,4 +1319,3 @@ $settings = wp_parse_args($settings, $defaults);
     </div>
     
     </div>
-<?php // @codingStandardsIgnoreEnd ?>

@@ -5,7 +5,6 @@
  * @package SignalKit
  * @version 2.0.0
  */
-// @codingStandardsIgnoreStart
 
 if (!defined('ABSPATH')) {
     exit;
@@ -181,15 +180,15 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
         
         // Get submission count from database
         global $wpdb;
-        $submissions_table = esc_sql($wpdb->prefix . 'signalkit_submissions');
+        $submissions_table = $wpdb->prefix . 'signalkit_submissions';
         $submission_count = 0;
         
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        if ($wpdb->get_var("SHOW TABLES LIKE '{$submissions_table}'") === $submissions_table) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-            $submission_count = (int) $wpdb->get_var("SELECT COUNT(*) FROM {$submissions_table}");
+        $table_check = $wpdb->get_var(
+            $wpdb->prepare("SHOW TABLES LIKE %s", $submissions_table)
+        );
+        
+        if ($table_check === $submissions_table) {
+            $submission_count = (int) $wpdb->get_var("SELECT COUNT(*) FROM `" . esc_sql($submissions_table) . "`");
         }
         
         // Calculate custom banner conversion rate
@@ -254,9 +253,7 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
                 
                 <?php 
                 // Fetch recent leads
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-                $recent_leads = $wpdb->get_results("SELECT * FROM {$submissions_table} ORDER BY submitted_at DESC LIMIT 5");
+                $recent_leads = $wpdb->get_results("SELECT * FROM `" . esc_sql($submissions_table) . "` ORDER BY submitted_at DESC LIMIT 5");
                 if ($recent_leads): 
                 ?>
                 <div class="signalkit-recent-leads">
@@ -300,4 +297,4 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
     </div>
 </div>
 
-<?php // @codingStandardsIgnoreEnd ?>
+

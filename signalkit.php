@@ -100,6 +100,10 @@ function signalkit_initialize_plugin_core() {
     // Include custom banner handler
     if (file_exists(SIGNALKIT_PLUGIN_DIR . 'includes/class-signalkit-custom-handler.php')) {
         require_once SIGNALKIT_PLUGIN_DIR . 'includes/class-signalkit-custom-handler.php';
+        
+        if (class_exists('SignalKit_Custom_Handler')) {
+            new SignalKit_Custom_Handler();
+        }
     }
     
     // Check if the class exists before instantiating

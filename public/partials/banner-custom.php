@@ -5,7 +5,6 @@
  * @package SignalKit
  * @version 2.0.0
  */
-// @codingStandardsIgnoreStart
 
 if (!defined('ABSPATH')) {
     exit;
@@ -460,4 +459,4 @@ $data_attrs = array(
     </div>
     
 </aside>
-// @codingStandardsIgnoreEnd
+

@@ -606,7 +606,7 @@ class SignalKit_Settings {
         }
         
         // Check if we just saved
-        if (isset($_GET['settings-updated']) && $_GET['settings-updated'] === 'true') {
+        if (isset($_GET['settings-updated']) && sanitize_text_field(wp_unslash($_GET['settings-updated'])) === 'true') {
             add_settings_error(
                 'signalkit_messages',
                 'signalkit_message',

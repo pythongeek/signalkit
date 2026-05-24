@@ -22,14 +22,12 @@ class SignalKit_Display_Rules {
         
         // DEBUG: Force display if param present (Bypass all rules)
         // SECURITY: Only available when WP_DEBUG is enabled (Envato compliant)
-        // @codingStandardsIgnoreStart
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
             // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             if (isset($_GET['signalkit_test']) && $_GET['signalkit_test'] == '1') {
                 return true;
             }
         }
-        // @codingStandardsIgnoreEnd
         
         // CRITICAL: Check if banner type is enabled
         if (empty($settings[$prefix . 'enabled'])) {

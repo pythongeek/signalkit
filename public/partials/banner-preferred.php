@@ -5,7 +5,6 @@
  *
  * @package SignalKit
  */
-// @codingStandardsIgnoreStart
 
 if (!defined('ABSPATH')) {
     exit;
@@ -209,4 +208,3 @@ $banner_classes = implode(' ', array_filter($all_classes));
 <?php
 do_action('signalkit_after_preferred_banner', $banner, $banner_id);
 ?>
-<?php // @codingStandardsIgnoreEnd ?>

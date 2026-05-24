@@ -427,7 +427,7 @@ class SignalKit_Admin {
         $sanitized['analytics_tracking'] = isset($input['analytics_tracking']) ? 1 : 0;
         $sanitized['enable_rate_limiting'] = isset($input['enable_rate_limiting']) ? 1 : 0;
         $sanitized['enable_csp'] = isset($input['enable_csp']) ? 1 : 0;
-        $sanitized['import_export_key'] = isset($input['import_export_key']) ? wp_unslash($input['import_export_key']) : '';
+        $sanitized['import_export_key'] = isset($input['import_export_key']) ? sanitize_text_field(wp_unslash($input['import_export_key'])) : '';
         
         // Mobile Banner Strategy (NEW)
         $valid_mobile_strategies = ['show_all', 'priority_only', 'rotate'];
