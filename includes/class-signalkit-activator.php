@@ -323,8 +323,9 @@ class SignalKit_Activator {
         $charset_collate = $wpdb->get_charset_collate();
         
         // Check if table already exists to avoid errors on re-activation
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $table_exists = $wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") === $table_name;
+        $table_exists = $wpdb->get_var(
+            $wpdb->prepare("SHOW TABLES LIKE %s", $wpdb->prefix . 'signalkit_submissions')
+        ) === $wpdb->prefix . 'signalkit_submissions';
         
         if ($table_exists) {
             return; // Table already exists, no need to create

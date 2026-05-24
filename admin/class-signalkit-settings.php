@@ -350,7 +350,7 @@ class SignalKit_Settings {
      */
     public function sanitize_settings($input) {
         if (!current_user_can('manage_options')) {
-            wp_die(esc_html__('Unauthorized access', 'signalkit'));
+            return get_option('signalkit_settings', array());
         }
         
         signalkit_log('Sanitizing settings input', $input);

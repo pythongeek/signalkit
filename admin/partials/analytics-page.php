@@ -188,6 +188,8 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
         );
         
         if ($table_check === $submissions_table) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
             $submission_count = (int) $wpdb->get_var("SELECT COUNT(*) FROM `" . esc_sql($submissions_table) . "`");
         }
         
@@ -253,7 +255,9 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
                 
                 <?php 
                 // Fetch recent leads
-                $recent_leads = $wpdb->get_results("SELECT * FROM `" . esc_sql($submissions_table) . "` ORDER BY submitted_at DESC LIMIT 5");
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
+                $recent_leads = $wpdb->get_results("SELECT id, email, name, submitted_at FROM `" . esc_sql($submissions_table) . "` ORDER BY submitted_at DESC LIMIT 5");
                 if ($recent_leads): 
                 ?>
                 <div class="signalkit-recent-leads">

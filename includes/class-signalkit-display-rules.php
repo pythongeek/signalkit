@@ -24,7 +24,7 @@ class SignalKit_Display_Rules {
         // SECURITY: Only available when WP_DEBUG is enabled (Envato compliant)
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
             // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-            if (isset($_GET['signalkit_test']) && $_GET['signalkit_test'] == '1') {
+            if (isset($_GET['signalkit_test']) && sanitize_text_field(wp_unslash($_GET['signalkit_test'])) === '1') {
                 return true;
             }
         }

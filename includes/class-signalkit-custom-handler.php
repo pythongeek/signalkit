@@ -249,6 +249,8 @@ class SignalKit_Custom_Handler {
     private function is_duplicate_submission($email) {
         global $wpdb;
         
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
         $count = $wpdb->get_var($wpdb->prepare(
             "SELECT COUNT(*) FROM `" . esc_sql($this->table_name) . "` 
              WHERE email = %s 
@@ -357,12 +359,16 @@ class SignalKit_Custom_Handler {
         $offset = ($current_page - 1) * $per_page;
         
         // Get total count
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
         $total = $wpdb->get_var("SELECT COUNT(*) FROM `" . esc_sql($this->table_name) . "`");
         $total_pages = ceil($total / $per_page);
         
         // Get submissions
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
         $submissions = $wpdb->get_results($wpdb->prepare(
-            "SELECT * FROM `" . esc_sql($this->table_name) . "` ORDER BY submitted_at DESC LIMIT %d OFFSET %d",
+            "SELECT id, email, name, banner_type, page_url, submitted_at FROM `" . esc_sql($this->table_name) . "` ORDER BY submitted_at DESC LIMIT %d OFFSET %d",
             $per_page,
             $offset
         ));
@@ -474,7 +480,9 @@ class SignalKit_Custom_Handler {
         global $wpdb;
         
         // Get all submissions
-        $submissions = $wpdb->get_results("SELECT * FROM `" . esc_sql($this->table_name) . "` ORDER BY submitted_at DESC");
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
+        $submissions = $wpdb->get_results("SELECT id, email, name, banner_type, page_url, submitted_at FROM `" . esc_sql($this->table_name) . "` ORDER BY submitted_at DESC");
         
         // Generate filename
         $filename = 'signalkit-submissions-' . gmdate('Y-m-d-His') . '.csv';
@@ -525,7 +533,7 @@ class SignalKit_Custom_Handler {
         
         if (is_resource($output)) {
             // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
-            @fclose($output);
+            fclose($output);
         }
         
         // Exit to prevent any further output
