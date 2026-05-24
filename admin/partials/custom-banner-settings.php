@@ -171,7 +171,7 @@ function signalkit_render_custom_banner_settings($settings) {
             <div class="signalkit-setting-row">
                 <div class="signalkit-banner-type-grid">
                     <?php foreach ($banner_types as $value => $type): ?>
-                        <label class="signalkit-banner-type-option <?php echo $settings['custom_banner_type'] === $value ? 'active' : ''; ?>">
+                        <label class="signalkit-banner-type-option <?php echo esc_attr($settings['custom_banner_type'] === $value ? 'active' : ''); ?>">
                             <input type="radio" 
                                    name="signalkit_settings[custom_banner_type]" 
                                    value="<?php echo esc_attr($value); ?>"
@@ -254,7 +254,7 @@ function signalkit_render_custom_banner_settings($settings) {
                     </div>
                 </div>
                 
-                <div class="signalkit-setting-row signalkit-name-field-options" style="<?php echo empty($settings['custom_show_name_field']) ? 'display:none;' : ''; ?>">
+                <div class="signalkit-setting-row signalkit-name-field-options" style="<?php echo esc_attr(empty($settings['custom_show_name_field']) ? 'display:none;' : ''); ?>">
                     <label for="custom_placeholder_name"><?php esc_html_e('Name Placeholder', 'signalkit'); ?></label>
                     <input type="text" 
                            id="custom_placeholder_name"
@@ -285,7 +285,7 @@ function signalkit_render_custom_banner_settings($settings) {
                     </div>
                 </div>
                 
-                <div class="signalkit-setting-row" style="<?php echo empty($settings['custom_show_privacy']) ? 'display:none;' : ''; ?>">
+                <div class="signalkit-setting-row" style="<?php echo esc_attr(empty($settings['custom_show_privacy']) ? 'display:none;' : ''); ?>">
                     <label for="custom_privacy_text"><?php esc_html_e('Privacy Text', 'signalkit'); ?></label>
                     <input type="text" 
                            id="custom_privacy_text"
@@ -557,7 +557,7 @@ function signalkit_render_custom_banner_settings($settings) {
                 </div>
             </div>
             
-            <div class="signalkit-setting-row signalkit-scroll-options" style="<?php echo empty($settings['custom_scroll_trigger']) ? 'display:none;' : ''; ?>">
+            <div class="signalkit-setting-row signalkit-scroll-options" style="<?php echo esc_attr(empty($settings['custom_scroll_trigger']) ? 'display:none;' : ''); ?>">
                 <label for="custom_scroll_percentage"><?php esc_html_e('Scroll Percentage', 'signalkit'); ?></label>
                 <input type="range" 
                        id="custom_scroll_percentage"
@@ -706,7 +706,7 @@ function signalkit_render_custom_banner_settings($settings) {
                 </div>
             </div>
 
-            <div class="signalkit-setting-row" style="<?php echo empty($settings['custom_dismissible']) ? 'display:none;' : ''; ?>">
+            <div class="signalkit-setting-row" style="<?php echo esc_attr(empty($settings['custom_dismissible']) ? 'display:none;' : ''); ?>">
                 <label for="custom_close_button_size"><?php esc_html_e('Close Button Size (px)', 'signalkit'); ?></label>
                 <div class="signalkit-size-input inline">
                     <input type="range" 
@@ -722,7 +722,7 @@ function signalkit_render_custom_banner_settings($settings) {
                 </div>
             </div>
             
-            <div class="signalkit-setting-row" style="<?php echo empty($settings['custom_dismissible']) ? 'display:none;' : ''; ?>">
+            <div class="signalkit-setting-row" style="<?php echo esc_attr(empty($settings['custom_dismissible']) ? 'display:none;' : ''); ?>">
                 <label for="custom_dismiss_duration"><?php esc_html_e('Remember Dismiss For', 'signalkit'); ?></label>
                 <input type="number" 
                        id="custom_dismiss_duration"

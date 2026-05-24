@@ -5,16 +5,16 @@ if (!defined('ABSPATH')) { exit; }
  * Description: News publisher notification plugin with Follow, Preferred Source, and Lead Capture banners to help grow your audience and collect leads.
  * Version: 2.0.0
  * Requires at least: 5.0
- * Requires PHP: 7.2
- * Author: BdowneerTech
- * Author URI: https://signalkit.wikiofautomation.com/
- * License: GPL-2.0+
- * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+ * Version: 2.0.1
+ * Author: N4Nion
+ * Author URI: https://n4nion.com
+ * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: signalkit
  * Domain Path: /languages
  *
  * @package SignalKit
- *
+ * @version 2.0.1
  * WordPress & Envato Compatible
  * - GPL-2.0+ licensed (compatible with WordPress.org and Envato)
  * - No encoded/obfuscated code
@@ -55,7 +55,7 @@ if (!defined('ABSPATH')) { exit; }
 /**
  * Plugin version and constants.
  */
-define('SIGNALKIT_VERSION', '2.0.0');
+define('SIGNALKIT_VERSION', '2.0.1');
 define('SIGNALKIT_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('SIGNALKIT_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('SIGNALKIT_PLUGIN_BASENAME', plugin_basename(__FILE__));

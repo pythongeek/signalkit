@@ -509,9 +509,7 @@ class SignalKit_Public {
         }
 
         if (!empty($schema)) {
-            add_action('wp_footer', function() use ($schema) {
-                echo '<script type="application/ld+json">' . wp_json_encode($schema) . '</script>';
-            });
+            echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_SLASHES) . '</script>' . "\n";
         }
     }
     

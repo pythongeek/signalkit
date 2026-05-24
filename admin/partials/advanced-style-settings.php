@@ -120,7 +120,7 @@ function signalkit_render_advanced_style_settings($settings, $type) {
             );
             
             foreach ($presets as $value => $preset): ?>
-                <label class="signalkit-preset-option <?php echo $settings[$prefix . 'banner_style'] === $value ? 'active' : ''; ?>">
+                <label class="signalkit-preset-option <?php echo esc_attr($settings[$prefix . 'banner_style'] === $value ? 'active' : ''); ?>">
                     <input type="radio" 
                            name="signalkit_settings[<?php echo esc_attr($prefix); ?>banner_style]" 
                            value="<?php echo esc_attr($value); ?>"
@@ -294,7 +294,7 @@ function signalkit_render_advanced_style_settings($settings, $type) {
             </label>
         </div>
         
-        <div class="signalkit-glow-settings" style="margin-top: 12px; <?php echo empty($settings[$prefix . 'enable_glow']) ? 'display:none;' : ''; ?>">
+        <div class="signalkit-glow-settings" style="margin-top: 12px; <?php echo esc_attr(empty($settings[$prefix . 'enable_glow']) ? 'display:none;' : ''); ?>">
             <label for="<?php echo esc_attr($prefix); ?>glow_intensity"><?php esc_html_e('Glow Intensity', 'signalkit'); ?></label>
             <input type="range" 
                    id="<?php echo esc_attr($prefix); ?>glow_intensity"

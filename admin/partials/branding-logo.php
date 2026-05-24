@@ -34,7 +34,7 @@ $text_size = $icon_size * 0.44; // Proportional text sizing
 ?>
 <div class="signalkit-branding-logo <?php echo esc_attr($classes); ?>" 
      data-size="<?php echo esc_attr($size); ?>" 
-     data-animate="<?php echo $animate ? 'true' : 'false'; ?>">
+     data-animate="<?php echo esc_attr($animate ? 'true' : 'false'); ?>">
     
     <!-- SVG ICON -->
     <svg class="signalkit-logo-icon" 
