@@ -115,13 +115,13 @@ function signalkit_lighten_color($hex, $percent) {
  * @return void
  */
 function signalkit_log($message, $data = null) {
-    if (defined('WP_DEBUG') && WP_DEBUG === true) {
+    if (defined('WP_DEBUG') && WP_DEBUG === true && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG === true) {
         if ($data !== null) {
             // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log, WordPress.PHP.DevelopmentFunctions.error_log_print_r
-            error_log('SignalKit: ' . $message . ' - ' . print_r($data, true));
+            error_log('SignalKit: ' . sanitize_text_field($message) . ' - ' . print_r($data, true));
         } else {
             // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-            error_log('SignalKit: ' . $message);
+            error_log('SignalKit: ' . sanitize_text_field($message));
         }
     }
 }

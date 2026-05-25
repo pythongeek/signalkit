@@ -126,7 +126,7 @@ function signalkit_render_custom_banner_settings($settings) {
         ),
         'cta' => array(
             'label' => __('Call to Action', 'signalkit'),
-            'icon' => '🚀',
+            'icon' => 'dashicons dashicons-rocket',
             'desc' => __('Drive action with a button', 'signalkit'),
         ),
         'announcement' => array(

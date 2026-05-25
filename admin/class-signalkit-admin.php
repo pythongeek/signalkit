@@ -820,7 +820,7 @@ class SignalKit_Admin {
 
         // SECURITY: Check user permissions
         if (!current_user_can('manage_options')) {
-            wp_send_json_error(['message' => 'Unauthorized']);
+            wp_send_json_error(['message' => __('Unauthorized', 'signalkit')]);
         }
 
         // SECURITY: Enforce rate limiting (10 seconds for this destructive action)
@@ -832,7 +832,7 @@ class SignalKit_Admin {
 
         // SECURITY: Whitelist validation
         if (!in_array($banner_type, $valid, true)) {
-            wp_send_json_error(['message' => 'Invalid banner type']);
+            wp_send_json_error(['message' => __('Invalid banner type', 'signalkit')]);
         }
 
         if (class_exists('SignalKit_Analytics')) {
@@ -871,7 +871,7 @@ class SignalKit_Admin {
         
         // SECURITY: Check permissions
         if (!current_user_can('manage_options')) {
-            wp_send_json_error(['message' => 'Unauthorized']);
+            wp_send_json_error(['message' => __('Unauthorized', 'signalkit')]);
         }
 
         // SECURITY: Enforce rate limiting (5 seconds)
@@ -943,13 +943,13 @@ class SignalKit_Admin {
         
         if (!$nonce_verified) {
 
-            wp_send_json_error(['message' => 'Security check failed']);
+            wp_send_json_error(['message' => __('Security check failed', 'signalkit')]);
         }
         
         // SECURITY: Check permissions
         if (!current_user_can('manage_options')) {
 
-            wp_send_json_error(['message' => 'Unauthorized']);
+            wp_send_json_error(['message' => __('Unauthorized', 'signalkit')]);
         }
 
         // SECURITY: Enforce rate limiting (10 seconds for this destructive action)
@@ -962,7 +962,7 @@ class SignalKit_Admin {
         // SECURITY: Enforce 100KB file size limit (for both text and JSON)
         if (strlen($raw_data) > 102400) {
 
-            wp_send_json_error(['message' => 'File too large (max 100KB)']);
+            wp_send_json_error(['message' => __('File too large (max 100KB)', 'signalkit')]);
         }
 
         $settings_json = $raw_data;
@@ -974,14 +974,14 @@ class SignalKit_Admin {
 
             if (empty($key)) {
 
-                wp_send_json_error(['message' => 'Decryption failed: Please set your Import/Export Key before importing.']);
+                wp_send_json_error(['message' => __('Decryption failed: Please set your Import/Export Key before importing.', 'signalkit')]);
             }
 
             $settings_json = $this->decrypt_settings($raw_data, $key);
 
             if ($settings_json === false) {
 
-                wp_send_json_error(['message' => 'Decryption failed: Invalid key or corrupt data.']);
+                wp_send_json_error(['message' => __('Decryption failed: Invalid key or corrupt data.', 'signalkit')]);
             }
         }
 
@@ -990,7 +990,7 @@ class SignalKit_Admin {
         
         if (empty($settings) || !is_array($settings)) {
 
-            wp_send_json_error(['message' => 'No valid settings provided or JSON is corrupt.']);
+            wp_send_json_error(['message' => __('No valid settings provided or JSON is corrupt.', 'signalkit')]);
         }
 
         // SECURITY FIX: Comprehensive JSON Schema Validation
@@ -1068,7 +1068,107 @@ class SignalKit_Admin {
             'import_export_key' => 'string',
             
             // Data Management
-            'delete_data_on_uninstall' => 'boolean'
+            'delete_data_on_uninstall' => 'boolean',
+            
+            // Follow Banner Enhanced v2.0
+            'follow_banner_style' => 'string',
+            'follow_button_style' => 'string',
+            'follow_icon_style' => 'string',
+            'follow_visibility_mode' => 'string',
+            'follow_icon_size' => 'integer',
+            'follow_gradient_start' => 'color',
+            'follow_gradient_end' => 'color',
+            'follow_gradient_angle' => 'integer',
+            'follow_border_color' => 'color',
+            'follow_backdrop_blur' => 'integer',
+            'follow_backdrop_opacity' => 'integer',
+            'follow_enable_glow' => 'boolean',
+            'follow_enable_float' => 'boolean',
+            'follow_glow_intensity' => 'integer',
+            'follow_button_text_color' => 'color',
+            'follow_button_bg_color' => 'color',
+            'follow_close_button_size' => 'integer',
+            
+            // Preferred Banner Enhanced v2.0
+            'preferred_banner_style' => 'string',
+            'preferred_button_style' => 'string',
+            'preferred_icon_style' => 'string',
+            'preferred_visibility_mode' => 'string',
+            'preferred_icon_size' => 'integer',
+            'preferred_gradient_start' => 'color',
+            'preferred_gradient_end' => 'color',
+            'preferred_gradient_angle' => 'integer',
+            'preferred_border_color' => 'color',
+            'preferred_backdrop_blur' => 'integer',
+            'preferred_backdrop_opacity' => 'integer',
+            'preferred_enable_glow' => 'boolean',
+            'preferred_enable_float' => 'boolean',
+            'preferred_glow_intensity' => 'integer',
+            'preferred_button_text_color' => 'color',
+            'preferred_button_bg_color' => 'color',
+            'preferred_close_button_size' => 'integer',
+            
+            // Custom Banner v2.0
+            'custom_enabled' => 'boolean',
+            'custom_banner_type' => 'string',
+            'custom_headline' => 'string',
+            'custom_description' => 'string',
+            'custom_button_text' => 'string',
+            'custom_success_message' => 'string',
+            'custom_redirect_url' => 'url',
+            'custom_show_name_field' => 'boolean',
+            'custom_name_label' => 'string',
+            'custom_name_placeholder' => 'string',
+            'custom_show_privacy' => 'boolean',
+            'custom_privacy_text' => 'string',
+            'custom_privacy_url' => 'url',
+            'custom_primary_color' => 'color',
+            'custom_secondary_color' => 'color',
+            'custom_accent_color' => 'color',
+            'custom_text_color' => 'color',
+            'custom_button_text_color' => 'color',
+            'custom_button_bg_color' => 'color',
+            'custom_banner_width' => 'integer',
+            'custom_banner_padding' => 'integer',
+            'custom_border_radius' => 'integer',
+            'custom_font_size_headline' => 'integer',
+            'custom_font_size_description' => 'integer',
+            'custom_font_size_button' => 'integer',
+            'custom_position' => 'string',
+            'custom_animation' => 'string',
+            'custom_mobile_position' => 'string',
+            'custom_mobile_stack_order' => 'integer',
+            'custom_dismissible' => 'boolean',
+            'custom_dismiss_duration' => 'integer',
+            'custom_show_frequency' => 'string',
+            'custom_mobile_enabled' => 'boolean',
+            'custom_desktop_enabled' => 'boolean',
+            'custom_show_on_posts' => 'boolean',
+            'custom_show_on_pages' => 'boolean',
+            'custom_show_on_homepage' => 'boolean',
+            'custom_show_on_archive' => 'boolean',
+            'custom_banner_style' => 'string',
+            'custom_button_style' => 'string',
+            'custom_icon_style' => 'string',
+            'custom_visibility_mode' => 'string',
+            'custom_icon_size' => 'integer',
+            'custom_gradient_start' => 'color',
+            'custom_gradient_end' => 'color',
+            'custom_gradient_angle' => 'integer',
+            'custom_border_color' => 'color',
+            'custom_backdrop_blur' => 'integer',
+            'custom_backdrop_opacity' => 'integer',
+            'custom_enable_glow' => 'boolean',
+            'custom_enable_float' => 'boolean',
+            'custom_glow_intensity' => 'integer',
+            'custom_delay' => 'integer',
+            'custom_scroll_trigger' => 'boolean',
+            'custom_scroll_percentage' => 'integer',
+            'custom_exit_intent' => 'boolean',
+            'custom_font_family' => 'string',
+            
+            // Global/Misc
+            'mobile_banner_strategy' => 'string'
         );
 
         // Validate against schema and remove unknown keys
@@ -1144,7 +1244,7 @@ class SignalKit_Admin {
         // SECURITY: Limit number of settings to prevent resource exhaustion
         if (count($validated_settings) > 100) {
 
-            wp_send_json_error(['message' => 'Settings file contains too many entries (max 100)']);
+            wp_send_json_error(['message' => __('Settings file contains too many entries (max 100)', 'signalkit')]);
         }
 
         // SECURITY: Full sanitization through sanitize_settings()
@@ -1190,14 +1290,14 @@ class SignalKit_Admin {
         // SECURITY: Verify nonce to prevent CSRF
         if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'signalkit_admin_nonce')) {
 
-            wp_send_json_error(['message' => 'Security check failed']);
+            wp_send_json_error(['message' => __('Security check failed', 'signalkit')]);
             return;
         }
 
         // SECURITY: Check user permissions
         if (!current_user_can('manage_options')) {
 
-            wp_send_json_error(['message' => 'Unauthorized']);
+            wp_send_json_error(['message' => __('Unauthorized', 'signalkit')]);
             return;
         }
 
@@ -1212,7 +1312,7 @@ class SignalKit_Admin {
         // SECURITY: Whitelist validation for banner type
         if (!in_array($banner_type, ['follow', 'preferred'], true)) {
 
-            wp_send_json_error(['message' => 'Invalid banner type']);
+            wp_send_json_error(['message' => __('Invalid banner type', 'signalkit')]);
             return;
         }
 
@@ -1452,14 +1552,4 @@ class SignalKit_Admin {
 
     /**
      * Register AJAX handlers - CRITICAL: Must be called in constructor
-     *
-     * SECURITY: All AJAX handlers verify nonces and check capabilities
-     */
-    public function register_ajax_handlers() {
-        add_action('wp_ajax_signalkit_reset_analytics', array($this, 'ajax_reset_analytics'));
-        add_action('wp_ajax_signalkit_export_settings', array($this, 'ajax_export_settings'));
-        add_action('wp_ajax_signalkit_import_settings', array($this, 'ajax_import_settings'));
-        add_action('wp_ajax_signalkit_preview_banner', array($this, 'ajax_preview_banner'));
-
-    }
 }

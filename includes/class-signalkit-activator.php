@@ -16,6 +16,23 @@ class SignalKit_Activator {
      * Activate the plugin - ENHANCED VERSION WITH NEW FIELDS.
      */
     public static function activate() {
+        // Multisite support: activate for all blogs if network-activated
+        if (is_multisite() && !empty($_GET['networkwide'])) {
+            self::activate_multisite();
+            return;
+        }
+        
+        self::activate_single_site();
+    }
+    
+    /**
+     * Activate for a single site (or current blog in multisite).
+     */
+    private static function activate_single_site($blog_id = null) {
+        if ($blog_id) {
+            switch_to_blog($blog_id);
+        }
+        
         // Get existing settings (in case of re-activation or upgrade)
         $existing_settings = get_option('signalkit_settings', array());
         $is_upgrade = !empty($existing_settings);
@@ -24,7 +41,6 @@ class SignalKit_Activator {
         $default_settings = self::get_default_settings();
         
         // Merge with existing settings (preserve user data on re-activation/upgrade)
-        // wp_parse_args handles adding new defaults on upgrade transparently.
         $settings = wp_parse_args($existing_settings, $default_settings);
         
         // Update or add option
@@ -35,9 +51,7 @@ class SignalKit_Activator {
         }
         
         // Set/update version
-        $old_version = get_option('signalkit_version', '0.0.0');
         $new_version = defined('SIGNALKIT_VERSION') ? SIGNALKIT_VERSION : '1.0.0';
-        
         update_option('signalkit_version', $new_version);
         
         // Initialize or update analytics
@@ -45,8 +59,6 @@ class SignalKit_Activator {
         
         // Create custom banner submissions table
         self::create_submissions_table();
-
-        
         
         // Clear any existing cache
         wp_cache_flush();
@@ -54,6 +66,21 @@ class SignalKit_Activator {
         // Set activation timestamp
         if (!$is_upgrade) {
             add_option('signalkit_activated_at', current_time('mysql'), '', 'yes');
+        }
+        
+        if ($blog_id) {
+            restore_current_blog();
+        }
+    }
+    
+    /**
+     * Activate across all sites in a multisite network.
+     */
+    private static function activate_multisite() {
+        global $wpdb;
+        $blog_ids = $wpdb->get_col("SELECT blog_id FROM {$wpdb->blogs}");
+        foreach ($blog_ids as $blog_id) {
+            self::activate_single_site($blog_id);
         }
     }
     
@@ -322,19 +349,10 @@ class SignalKit_Activator {
         $table_name = esc_sql($wpdb->prefix . 'signalkit_submissions');
         $charset_collate = $wpdb->get_charset_collate();
         
-        // Check if table already exists to avoid errors on re-activation
-        $table_exists = $wpdb->get_var(
-            $wpdb->prepare("SHOW TABLES LIKE %s", $wpdb->prefix . 'signalkit_submissions')
-        ) === $wpdb->prefix . 'signalkit_submissions';
-        
-        if ($table_exists) {
-            return; // Table already exists, no need to create
-        }
-        
-        // Use the escaped table name directly in the SQL
+        // Atomic CREATE TABLE with IF NOT EXISTS (eliminates race condition)
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table names cannot be prepared, esc_sql is required
-        $sql = "CREATE TABLE {$table_name} (
+        $sql = "CREATE TABLE IF NOT EXISTS {$table_name} (
             id bigint(20) NOT NULL AUTO_INCREMENT,
             email varchar(255) NOT NULL,
             name varchar(255) DEFAULT '',

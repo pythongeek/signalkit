@@ -33,57 +33,6 @@ class SignalKit_Settings {
     }
     
     /**
-     * Sanitize settings.
-     */
-    public function sanitize_settings($input) {
-        if (!current_user_can('manage_options')) {
-            return get_option('signalkit_settings', array());
-        }
-        
-        signalkit_log('Sanitizing settings input', $input);
-        
-        $sanitized = array();
-        
-        // Boolean fields
-        $boolean_fields = array('enabled', 'dismissible', 'auto_hide', 'mobile_enabled', 'desktop_enabled', 'delete_data_on_uninstall');
-        foreach ($boolean_fields as $field) {
-            $sanitized[$field] = isset($input[$field]) ? true : false;
-        }
-        
-        // Text fields
-        $text_fields = array('site_name', 'button_text', 'banner_headline', 'educational_text');
-        foreach ($text_fields as $field) {
-            $sanitized[$field] = isset($input[$field]) ? sanitize_text_field($input[$field]) : '';
-        }
-        
-        // URL fields
-        $url_fields = array('google_news_url', 'google_preferences_url', 'educational_post_url');
-        foreach ($url_fields as $field) {
-            $sanitized[$field] = isset($input[$field]) ? esc_url_raw($input[$field]) : '';
-        }
-        
-        // Color fields
-        $color_fields = array('primary_color', 'secondary_color', 'accent_color');
-        foreach ($color_fields as $field) {
-            $sanitized[$field] = isset($input[$field]) ? sanitize_hex_color($input[$field]) : '';
-        }
-        
-        // Select fields
-        $select_fields = array('position', 'animation', 'show_on', 'show_frequency');
-        foreach ($select_fields as $field) {
-            $sanitized[$field] = isset($input[$field]) ? sanitize_text_field($input[$field]) : '';
-        }
-        
-        // Number fields
-        $sanitized['dismiss_duration'] = isset($input['dismiss_duration']) ? absint($input['dismiss_duration']) : 7;
-        $sanitized['auto_hide_delay'] = isset($input['auto_hide_delay']) ? absint($input['auto_hide_delay']) : 0;
-        
-        signalkit_log('Settings sanitized', $sanitized);
-        
-        return $sanitized;
-    }
-    
-    /**
      * Section callbacks.
      */
     public function general_section_callback() {
@@ -410,7 +359,7 @@ class SignalKit_Settings {
                     </div>
                     <div class="signalkit-stats-grid">
                         <div class="signalkit-stat-box">
-                            <div class="signalkit-stat-icon">📊</div>
+                            <div class="signalkit-stat-icon" aria-hidden="true"><span class="dashicons dashicons-chart-bar"></span></div>
                             <div class="signalkit-stat-value"><?php echo esc_html(number_format($follow_analytics['impressions'] ?? 0)); ?></div>
                             <div class="signalkit-stat-label"><?php esc_html_e('Impressions', 'signalkit'); ?></div>
                         </div>
@@ -425,7 +374,7 @@ class SignalKit_Settings {
                             <div class="signalkit-stat-label"><?php esc_html_e('CTR', 'signalkit'); ?></div>
                         </div>
                         <div class="signalkit-stat-box">
-                            <div class="signalkit-stat-icon">❌</div>
+                            <div class="signalkit-stat-icon" aria-hidden="true"><span class="dashicons dashicons-dismiss"></span></div>
                             <div class="signalkit-stat-value"><?php echo esc_html(number_format($follow_analytics['dismissals'] ?? 0)); ?></div>
                             <div class="signalkit-stat-label"><?php esc_html_e('Dismissals', 'signalkit'); ?></div>
                         </div>
@@ -455,7 +404,7 @@ class SignalKit_Settings {
                     </div>
                     <div class="signalkit-stats-grid">
                         <div class="signalkit-stat-box">
-                            <div class="signalkit-stat-icon">📊</div>
+                            <div class="signalkit-stat-icon" aria-hidden="true"><span class="dashicons dashicons-chart-bar"></span></div>
                             <div class="signalkit-stat-value"><?php echo esc_html(number_format($preferred_analytics['impressions'] ?? 0)); ?></div>
                             <div class="signalkit-stat-label"><?php esc_html_e('Impressions', 'signalkit'); ?></div>
                         </div>
@@ -470,7 +419,7 @@ class SignalKit_Settings {
                             <div class="signalkit-stat-label"><?php esc_html_e('CTR', 'signalkit'); ?></div>
                         </div>
                         <div class="signalkit-stat-box">
-                            <div class="signalkit-stat-icon">❌</div>
+                            <div class="signalkit-stat-icon" aria-hidden="true"><span class="dashicons dashicons-dismiss"></span></div>
                             <div class="signalkit-stat-value"><?php echo esc_html(number_format($preferred_analytics['dismissals'] ?? 0)); ?></div>
                             <div class="signalkit-stat-label"><?php esc_html_e('Dismissals', 'signalkit'); ?></div>
                         </div>

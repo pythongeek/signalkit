@@ -63,11 +63,17 @@ class SignalKit_Display_Rules {
         
         // NEW: Alternating logic if both follow/preferred banners enabled and on single post
         // Custom banner is excluded from this alternating logic
-        if (in_array($banner_type, array('follow', 'preferred')) && is_single() && !empty($settings['follow_enabled']) && !empty($settings['preferred_enabled'])) {
-            $post_id = get_the_ID();
-            $show_follow = ($post_id % 2 === 0);
-            $alternate_result = ($banner_type === 'follow') ? $show_follow : !$show_follow;
-            return $alternate_result;
+        // Only alternate if user hasn't explicitly disabled it
+        if (in_array($banner_type, array('follow', 'preferred')) && is_single()
+            && !empty($settings['follow_enabled']) && !empty($settings['preferred_enabled'])) {
+            // Check if user disabled alternating (default: enabled for UX)
+            $alternate_enabled = !isset($settings['alternate_banners']) || !empty($settings['alternate_banners']);
+            if ($alternate_enabled) {
+                $post_id = get_the_ID();
+                $show_follow = ($post_id % 2 === 0);
+                $alternate_result = ($banner_type === 'follow') ? $show_follow : !$show_follow;
+                return $alternate_result;
+            }
         }
         
         return true;

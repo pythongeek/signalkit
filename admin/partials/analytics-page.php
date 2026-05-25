@@ -57,7 +57,7 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
         
         <div class="signalkit-analytics-card signalkit-combined-analytics">
             <div class="signalkit-card-header">
-                <h2><span aria-hidden="true">📊</span> <?php esc_html_e('Combined Performance', 'signalkit'); ?></h2>
+                <h2><?php esc_html_e('Combined Performance', 'signalkit'); ?></h2>
             </div>
             
             <div class="signalkit-stats-grid">
@@ -80,7 +80,7 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
                 </div>
                 
                 <div class="signalkit-stat-box">
-                    <div class="signalkit-stat-icon">❌</div>
+                    <div class="signalkit-stat-icon" aria-hidden="true"><span class="dashicons dashicons-dismiss"></span></div>
                     <div class="signalkit-stat-value"><?php echo esc_html(number_format($combined['dismissals'])); ?></div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Total Dismissals', 'signalkit'); ?></div>
                 </div>
@@ -227,13 +227,13 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
                 </div>
                 
                 <div class="signalkit-stat-box signalkit-stat-highlight">
-                    <div class="signalkit-stat-icon">📊</div>
+                    <div class="signalkit-stat-icon" aria-hidden="true"><span class="dashicons dashicons-chart-bar"></span></div>
                     <div class="signalkit-stat-value"><?php echo esc_html($custom_conversion); ?>%</div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Conversion Rate', 'signalkit'); ?></div>
                 </div>
                 
                 <div class="signalkit-stat-box">
-                    <div class="signalkit-stat-icon">❌</div>
+                    <div class="signalkit-stat-icon" aria-hidden="true"><span class="dashicons dashicons-dismiss"></span></div>
                     <div class="signalkit-stat-value"><?php echo esc_html(number_format($analytics['custom']['dismissals'] ?? 0)); ?></div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Dismissals', 'signalkit'); ?></div>
                 </div>
@@ -295,7 +295,7 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
     
     <div style="margin-top: 20px;">
         <button class="button button-secondary signalkit-reset-analytics" data-banner-type="all">
-            <span aria-hidden="true">🔄</span> <?php esc_html_e('Reset All Analytics', 'signalkit'); ?>
+            <?php esc_html_e('Reset All Analytics', 'signalkit'); ?>
         </button>
         <p class="description"><?php esc_html_e('This will reset analytics for all banners (does not delete submissions).', 'signalkit'); ?></p>
     </div>

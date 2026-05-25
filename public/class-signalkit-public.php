@@ -176,11 +176,14 @@ class SignalKit_Public {
         setcookie(
             'signalkit_session',
             $cookie_value,
-            $timestamp + 1800,
-            COOKIEPATH,
-            COOKIE_DOMAIN,
-            is_ssl(),
-            true
+            array(
+                'expires'  => $timestamp + 1800,
+                'path'     => COOKIEPATH,
+                'domain'   => COOKIE_DOMAIN,
+                'secure'   => is_ssl(),
+                'httponly' => true,
+                'samesite' => 'Lax',
+            )
         );
         
         return $fingerprint;
@@ -188,50 +191,58 @@ class SignalKit_Public {
 
     /**
      * Validate session token
-     * Reads from cookie instead of transient.
+     * Reads from cookie when available, falls back to IP+UA fingerprint
+     * for privacy-conscious users who block cookies.
      */
     private function validate_session_token($token) {
         if (empty($token) || strlen($token) !== 64) {
             return false;
         }
 
-        if (!isset($_COOKIE['signalkit_session'])) {
-            return false;
+        // PRIMARY: Check signed cookie
+        if (isset($_COOKIE['signalkit_session'])) {
+            $parts = explode('|', sanitize_text_field(wp_unslash($_COOKIE['signalkit_session'])));
+            if (count($parts) === 3) {
+                list($stored_fingerprint, $timestamp, $stored_signature) = $parts;
+
+                // Verify fingerprint matches
+                if ($stored_fingerprint === $token) {
+                    // Verify signature
+                    $expected_signature = hash_hmac('sha256', $stored_fingerprint . $timestamp, wp_salt());
+                    if (hash_equals($expected_signature, $stored_signature)) {
+                        // Check expiry (30 minutes)
+                        if ((time() - intval($timestamp)) <= 1800) {
+                            // Verify IP and user agent match
+                            $current_ip = $this->get_client_ip();
+                            $current_agent = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'])) : '';
+                            $expected_fingerprint = hash('sha256', $current_ip . $current_agent . wp_salt() . $timestamp);
+                            
+                            if (hash_equals($expected_fingerprint, $stored_fingerprint)) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
-        $parts = explode('|', sanitize_text_field(wp_unslash($_COOKIE['signalkit_session'])));
-        if (count($parts) !== 3) {
-            return false;
-        }
-
-        list($stored_fingerprint, $timestamp, $stored_signature) = $parts;
-
-        // Verify fingerprint matches
-        if ($stored_fingerprint !== $token) {
-            return false;
-        }
-
-        // Verify signature
-        $expected_signature = hash_hmac('sha256', $stored_fingerprint . $timestamp, wp_salt());
-        if (!hash_equals($expected_signature, $stored_signature)) {
-            return false;
-        }
-
-        // Check expiry (30 minutes)
-        if ((time() - intval($timestamp)) > 1800) {
-            return false;
-        }
-
-        // Verify IP and user agent match
+        // FALLBACK: IP + User Agent fingerprint (for cookie-blocked users)
+        // Less precise but prevents complete analytics blackout
         $current_ip = $this->get_client_ip();
         $current_agent = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'])) : '';
-        $expected_fingerprint = hash('sha256', $current_ip . $current_agent . wp_salt() . $timestamp);
         
-        if (!hash_equals($expected_fingerprint, $stored_fingerprint)) {
-            return false;
+        // Try to match against the token using current IP+UA + recent timestamps
+        // Token window: last 30 minutes
+        $now = time();
+        for ($offset = 0; $offset <= 1800; $offset += 60) {
+            $timestamp = $now - $offset;
+            $expected_fingerprint = hash('sha256', $current_ip . $current_agent . wp_salt() . $timestamp);
+            if (hash_equals($expected_fingerprint, $token)) {
+                return true;
+            }
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -801,7 +812,7 @@ class SignalKit_Public {
         
         
         if (!$this->validate_session_token($session_token)) {
-            wp_send_json_error(array('message' => 'Invalid session'), 403);
+            wp_send_json_error(array('message' => __('Invalid session', 'signalkit')), 403);
             return;
         }
         
@@ -812,7 +823,7 @@ class SignalKit_Public {
         $banner_type = sanitize_text_field(wp_unslash($_POST['banner_type'] ?? ''));
         
         if (!in_array($banner_type, ['follow', 'preferred', 'custom'], true)) {
-            wp_send_json_error(['message' => 'Invalid banner type'], 400);
+            wp_send_json_error(['message' => __('Invalid banner type', 'signalkit')], 400);
             return;
         }
         
@@ -840,7 +851,7 @@ class SignalKit_Public {
                     'banner_type' => $banner_type
                 ]);
             } else {
-                wp_send_json_error(['message' => 'Failed to track impression'], 500);
+                wp_send_json_error(['message' => __('Failed to track impression', 'signalkit')], 500);
             }
         } else {
             wp_send_json_success([
@@ -862,7 +873,7 @@ class SignalKit_Public {
         
         
         if (!$this->validate_session_token($session_token)) {
-            wp_send_json_error(array('message' => 'Invalid session'), 403);
+            wp_send_json_error(array('message' => __('Invalid session', 'signalkit')), 403);
             return;
         }
         
@@ -872,7 +883,7 @@ class SignalKit_Public {
         $banner_type = sanitize_text_field(wp_unslash($_POST['banner_type'] ?? ''));
         
         if (!in_array($banner_type, ['follow', 'preferred', 'custom'], true)) {
-            wp_send_json_error(['message' => 'Invalid banner type'], 400);
+            wp_send_json_error(['message' => __('Invalid banner type', 'signalkit')], 400);
             return;
         }
         
@@ -903,7 +914,7 @@ class SignalKit_Public {
         
         
         if (!$this->validate_session_token($session_token)) {
-            wp_send_json_error(array('message' => 'Invalid session'), 403);
+            wp_send_json_error(array('message' => __('Invalid session', 'signalkit')), 403);
             return;
         }
         
@@ -913,7 +924,7 @@ class SignalKit_Public {
         $duration = min(365, max(1, intval($_POST['duration'] ?? 7)));
         
         if (!in_array($banner_type, ['follow', 'preferred', 'custom'], true)) {
-            wp_send_json_error(['message' => 'Invalid banner type'], 400);
+            wp_send_json_error(['message' => __('Invalid banner type', 'signalkit')], 400);
             return;
         }
         
@@ -922,7 +933,7 @@ class SignalKit_Public {
         $dismiss_count = get_transient($dismiss_history_key) ?: 0;
         
         if ($dismiss_count >= 5) {
-            wp_send_json_error(['message' => 'Too many dismissals'], 429);
+            wp_send_json_error(['message' => __('Too many dismissals', 'signalkit')], 429);
             return;
         }
         
@@ -948,13 +959,16 @@ class SignalKit_Public {
         // It stores ONLY user preference (dismissal state) and contains no PII (Personally Identifiable Information).
         // It is exempt from consent requirements.
         setcookie(
-            $cookie_name, 
-            $cookie_value, 
-            $expiry, 
-            COOKIEPATH, 
-            COOKIE_DOMAIN, 
-            is_ssl(),
-            true
+            $cookie_name,
+            $cookie_value,
+            array(
+                'expires'  => $expiry,
+                'path'     => COOKIEPATH,
+                'domain'   => COOKIE_DOMAIN,
+                'secure'   => is_ssl(),
+                'httponly' => true,
+                'samesite' => 'Lax',
+            )
         );
         
         // Increment dismiss history counter (expires after 1 hour)
