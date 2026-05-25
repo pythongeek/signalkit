@@ -283,7 +283,11 @@ class SignalKit_Admin {
         register_setting(
             'signalkit_settings_group',
             'signalkit_settings',
-            array($this, 'sanitize_settings')
+            array(
+                'type'              => 'array',
+                'sanitize_callback' => array($this, 'sanitize_settings'),
+                'default'           => array(),
+            )
         );
     }
 

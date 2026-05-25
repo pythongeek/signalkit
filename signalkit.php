@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) { exit; }
 /**
  * Plugin Name: SignalKit
  * Description: News publisher notification plugin with Follow, Preferred Source, and Lead Capture banners to help grow your audience and collect leads.
- * Version: 2.0.1
+ * Version: 2.0.3
  * Requires at least: 5.0
  * Author: N4Nion
  * Author URI: https://n4nion.com
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) { exit; }
  * Domain Path: /languages
  *
  * @package SignalKit
- * @version 2.0.1
+ * @version 2.0.3
  * WordPress & Envato Compatible
  * - GPL-2.0+ licensed (compatible with WordPress.org and Envato)
  * - No encoded/obfuscated code
@@ -54,7 +54,7 @@ if (!defined('ABSPATH')) { exit; }
 /**
  * Plugin version and constants.
  */
-define('SIGNALKIT_VERSION', '2.0.1');
+define('SIGNALKIT_VERSION', '2.0.3');
 define('SIGNALKIT_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('SIGNALKIT_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('SIGNALKIT_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -96,13 +96,9 @@ function signalkit_initialize_plugin_core() {
         require_once SIGNALKIT_PLUGIN_DIR . 'includes/class-signalkit-performance.php';
     }
     
-    // Include custom banner handler
+    // Include custom banner handler (instantiated via core loader)
     if (file_exists(SIGNALKIT_PLUGIN_DIR . 'includes/class-signalkit-custom-handler.php')) {
         require_once SIGNALKIT_PLUGIN_DIR . 'includes/class-signalkit-custom-handler.php';
-        
-        if (class_exists('SignalKit_Custom_Handler')) {
-            new SignalKit_Custom_Handler();
-        }
     }
     
     // Check if the class exists before instantiating

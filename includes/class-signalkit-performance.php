@@ -458,6 +458,15 @@ class SignalKit_SEO {
  * Initialize performance and SEO classes
  */
 function signalkit_init_performance() {
+    $settings = get_option('signalkit_settings', array());
+    $any_banner_enabled = !empty($settings['follow_enabled']) 
+        || !empty($settings['preferred_enabled']) 
+        || !empty($settings['custom_enabled']);
+    
+    if (!$any_banner_enabled) {
+        return;
+    }
+    
     new SignalKit_Performance();
     new SignalKit_SEO();
 }

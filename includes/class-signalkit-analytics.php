@@ -99,17 +99,16 @@ class SignalKit_Analytics {
         $lock_timeout = 5; // seconds
         $lock_start = time();
         
-        // Try to acquire lock
+        // Try to acquire lock using transient (auto-expires, no cleanup needed)
         while (!$lock_acquired && (time() - $lock_start) < $lock_timeout) {
-            $lock_acquired = add_option($lock_key, time(), '', 'no');
-            if (!$lock_acquired) {
-                // Check if lock is stale (older than 5 seconds)
-                $lock_time = get_option($lock_key, 0);
-                if ((time() - $lock_time) > 5) {
-                    delete_option($lock_key);
-                } else {
-                    usleep(50000); // 50ms delay before retry
-                }
+            $existing_lock = get_transient($lock_key);
+            if ($existing_lock === false) {
+                // No lock exists, try to set one with 5-second TTL
+                set_transient($lock_key, time(), 5);
+                $lock_acquired = true;
+            } else {
+                // Lock exists, wait and retry
+                usleep(50000); // 50ms delay before retry
             }
         }
         
@@ -178,7 +177,7 @@ class SignalKit_Analytics {
             
         } finally {
             // Always release lock
-            delete_option($lock_key);
+            delete_transient($lock_key);
         }
     }
     
@@ -214,7 +213,7 @@ class SignalKit_Analytics {
             if (!$lock_acquired) {
                 $lock_time = get_option($lock_key, 0);
                 if ((time() - $lock_time) > 5) {
-                    delete_option($lock_key);
+                    delete_transient($lock_key);
                 } else {
                     usleep(50000);
                 }
@@ -279,7 +278,7 @@ class SignalKit_Analytics {
             }
             
         } finally {
-            delete_option($lock_key);
+            delete_transient($lock_key);
         }
     }
     
@@ -315,7 +314,7 @@ class SignalKit_Analytics {
             if (!$lock_acquired) {
                 $lock_time = get_option($lock_key, 0);
                 if ((time() - $lock_time) > 5) {
-                    delete_option($lock_key);
+                    delete_transient($lock_key);
                 } else {
                     usleep(50000);
                 }
@@ -380,7 +379,7 @@ class SignalKit_Analytics {
             }
             
         } finally {
-            delete_option($lock_key);
+            delete_transient($lock_key);
         }
     }
     
@@ -411,7 +410,7 @@ class SignalKit_Analytics {
             if (!$lock_acquired) {
                 $lock_time = get_option($lock_key, 0);
                 if ((time() - $lock_time) > 5) {
-                    delete_option($lock_key);
+                    delete_transient($lock_key);
                 } else {
                     usleep(50000);
                 }
@@ -477,7 +476,7 @@ class SignalKit_Analytics {
             }
             
         } finally {
-            delete_option($lock_key);
+            delete_transient($lock_key);
         }
     }
     
