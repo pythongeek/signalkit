@@ -158,7 +158,7 @@ class SignalKit_Public {
 
     /**
      * Generate secure session token
-     * Prevents replay attacks and session manipulation
+     * Uses a signed cookie instead of transients to avoid database bloat.
      */
     private function generate_session_token() {
         $user_ip = $this->get_client_ip();
@@ -168,43 +168,66 @@ class SignalKit_Public {
         // Create fingerprint
         $fingerprint = hash('sha256', $user_ip . $user_agent . wp_salt() . $timestamp);
         
-        // Store in transient (expires in 30 minutes)
-        set_transient('signalkit_session_' . $fingerprint, array(
-            'ip' => $user_ip,
-            'agent' => $user_agent,
-            'time' => $timestamp
-        ), 1800);
+        // Sign the token to prevent tampering
+        $signature = hash_hmac('sha256', $fingerprint . $timestamp, wp_salt());
+        
+        // Store in secure cookie (30 min expiry)
+        $cookie_value = $fingerprint . '|' . $timestamp . '|' . $signature;
+        setcookie(
+            'signalkit_session',
+            $cookie_value,
+            $timestamp + 1800,
+            COOKIEPATH,
+            COOKIE_DOMAIN,
+            is_ssl(),
+            true
+        );
         
         return $fingerprint;
     }
 
     /**
      * Validate session token
-     * Returns false if invalid or expired
+     * Reads from cookie instead of transient.
      */
     private function validate_session_token($token) {
         if (empty($token) || strlen($token) !== 64) {
             return false;
         }
 
-        $session = get_transient('signalkit_session_' . $token);
-        
-        if ($session === false) {
-            return false; // Expired or doesn't exist
+        if (!isset($_COOKIE['signalkit_session'])) {
+            return false;
+        }
+
+        $parts = explode('|', sanitize_text_field(wp_unslash($_COOKIE['signalkit_session'])));
+        if (count($parts) !== 3) {
+            return false;
+        }
+
+        list($stored_fingerprint, $timestamp, $stored_signature) = $parts;
+
+        // Verify fingerprint matches
+        if ($stored_fingerprint !== $token) {
+            return false;
+        }
+
+        // Verify signature
+        $expected_signature = hash_hmac('sha256', $stored_fingerprint . $timestamp, wp_salt());
+        if (!hash_equals($expected_signature, $stored_signature)) {
+            return false;
+        }
+
+        // Check expiry (30 minutes)
+        if ((time() - intval($timestamp)) > 1800) {
+            return false;
         }
 
         // Verify IP and user agent match
         $current_ip = $this->get_client_ip();
         $current_agent = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'])) : '';
+        $expected_fingerprint = hash('sha256', $current_ip . $current_agent . wp_salt() . $timestamp);
         
-        if ($session['ip'] !== $current_ip || $session['agent'] !== $current_agent) {
-            delete_transient('signalkit_session_' . $token);
-            return false; // Fingerprint mismatch
-        }
-
-        // Check if token is too old (30 minutes)
-        if ((time() - $session['time']) > 1800) {
-            delete_transient('signalkit_session_' . $token);
+        if (!hash_equals($expected_fingerprint, $stored_fingerprint)) {
             return false;
         }
 
@@ -241,8 +264,8 @@ class SignalKit_Public {
                 }
                 
                 // SECURITY: Validate IP format IMMEDIATELY after raw access
-                // Using stricter validation that excludes private/reserved ranges
-                if (!filter_var($raw_ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+                // Accept all valid IPs including private ranges (needed for local/staging)
+                if (!filter_var($raw_ip, FILTER_VALIDATE_IP)) {
                     // Invalid IP format - skip this header and try next
                     continue;
                 }
@@ -426,10 +449,10 @@ class SignalKit_Public {
         include $template_file;
         $output = ob_get_clean();
 
-        echo wp_kses_post($output);
+        echo wp_kses($output, $this->get_banner_allowed_html());
 
         // Render Schema (JSON-LD)
-        // Handled separately because wp_kses_post strips <script> tags.
+        // Handled separately because wp_kses strips <script> tags.
         // We trust our own JSON encoding for safety.
         if ($include_schema) {
             $this->render_schema($banner_type, $banner);
@@ -530,13 +553,102 @@ class SignalKit_Public {
         include $template_file;
         $output = ob_get_clean();
         
-        echo wp_kses_post($output);
+        echo wp_kses($output, $this->get_banner_allowed_html());
     }
 
     private function get_custom_css() {
         $css = '';
         $css .= $this->generate_global_css();
         return $css;
+    }
+
+    /**
+     * Get allowed HTML for banner output.
+     * Extends post context with data-* attributes required by JS.
+     *
+     * @return array Allowed HTML tags and attributes.
+     */
+    private function get_banner_allowed_html() {
+        $allowed = wp_kses_allowed_html('post');
+
+        // Allow data-* attributes on divs (banner containers)
+        $allowed['div']['data-banner-type'] = true;
+        $allowed['div']['data-banner-id']   = true;
+        $allowed['div']['data-banner-style'] = true;
+        $allowed['div']['data-banner']      = true;
+        $allowed['div']['data-code']        = true;
+        $allowed['div']['data-stack-order'] = true;
+        $allowed['div']['data-delay']       = true;
+        $allowed['div']['data-scroll-trigger'] = true;
+        $allowed['div']['data-scroll-percentage'] = true;
+        $allowed['div']['data-exit-intent'] = true;
+        $allowed['div']['data-success-message'] = true;
+        $allowed['div']['data-dismissible'] = true;
+        $allowed['div']['data-dismiss-duration'] = true;
+        $allowed['div']['data-animate']     = true;
+        $allowed['div']['data-position']    = true;
+        $allowed['div']['data-mobile-position'] = true;
+
+        // Allow form-related data attributes
+        $allowed['form']['data-ajax-url']   = true;
+        $allowed['form']['data-nonce']      = true;
+        $allowed['form']['data-redirect']   = true;
+
+        // Allow input data attributes
+        $allowed['input']['data-validate']  = true;
+        $allowed['input']['data-required']  = true;
+
+        // Allow inline SVG (for branding/logo)
+        $allowed['svg'] = array(
+            'xmlns'       => true,
+            'viewbox'     => true,
+            'width'       => true,
+            'height'      => true,
+            'fill'        => true,
+            'class'       => true,
+            'id'          => true,
+            'style'       => true,
+        );
+        $allowed['path'] = array(
+            'd'           => true,
+            'fill'        => true,
+            'stroke'      => true,
+            'stroke-width' => true,
+            'class'       => true,
+        );
+        $allowed['circle'] = array(
+            'cx'          => true,
+            'cy'          => true,
+            'r'           => true,
+            'fill'        => true,
+            'class'       => true,
+        );
+        $allowed['rect'] = array(
+            'x'           => true,
+            'y'           => true,
+            'width'       => true,
+            'height'      => true,
+            'fill'        => true,
+            'rx'          => true,
+            'class'       => true,
+        );
+        $allowed['lineargradient'] = array(
+            'id'          => true,
+            'x1'          => true,
+            'y1'          => true,
+            'x2'          => true,
+            'y2'          => true,
+        );
+        $allowed['stop'] = array(
+            'offset'      => true,
+            'stop-color'  => true,
+        );
+        $allowed['g'] = array(
+            'class'       => true,
+            'transform'   => true,
+        );
+
+        return $allowed;
     }
 
     public function generate_global_css() {

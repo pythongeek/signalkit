@@ -44,7 +44,8 @@ $text_size = $icon_size * 0.44; // Proportional text sizing
          xmlns="http://www.w3.org/2000/svg"
          aria-label="SignalKit Logo">
         <defs>
-            <linearGradient id="signalkit-gradient-<?php echo esc_attr(wp_rand(1000, 9999)); ?>" x1="0%" y1="0%" x2="100%" y2="100%">
+            <?php $gradient_id = 'signalkit-gradient-' . wp_rand(1000, 9999); ?>
+            <linearGradient id="<?php echo esc_attr($gradient_id); ?>" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" style="stop-color:#2563eb" />
                 <stop offset="50%" style="stop-color:#9333ea" />
                 <stop offset="100%" style="stop-color:#0ea5e9" />
@@ -53,7 +54,7 @@ $text_size = $icon_size * 0.44; // Proportional text sizing
         
         <!-- Tech Polygon Core -->
         <path d="M100,60 L135,80 L135,120 L100,140 L65,120 L65,80 Z" 
-              fill="url(#signalkit-gradient-<?php echo esc_attr(wp_rand(1000, 9999)); ?>)"
+              fill="url(#<?php echo esc_attr($gradient_id); ?>)"
               stroke="rgba(255,255,255,0.2)" 
               stroke-width="1" />
         
@@ -63,12 +64,12 @@ $text_size = $icon_size * 0.44; // Proportional text sizing
         <!-- Orbital Rings (Crisp Strokes) -->
         <path d="M100,30 Q170,30 170,100" 
               fill="none" 
-              stroke="url(#signalkit-gradient-<?php echo esc_attr(wp_rand(1000, 9999)); ?>)" 
+              stroke="url(#<?php echo esc_attr($gradient_id); ?>)" 
               stroke-width="6"
               stroke-linecap="round" />
         <path d="M100,170 Q30,170 30,100" 
               fill="none" 
-              stroke="url(#signalkit-gradient-<?php echo esc_attr(wp_rand(1000, 9999)); ?>)" 
+              stroke="url(#<?php echo esc_attr($gradient_id); ?>)" 
               stroke-width="6"
               stroke-linecap="round" />
         

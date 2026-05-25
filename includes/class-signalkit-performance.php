@@ -56,7 +56,7 @@ class SignalKit_Performance {
         
         // Optimization hooks
         add_action('wp_head', array($this, 'add_preconnect_hints'), 1);
-        add_action('wp_head', array($this, 'add_critical_css'), 5);
+        add_action('wp_enqueue_scripts', array($this, 'register_critical_css'), 5);
         add_action('wp_head', array($this, 'add_schema_markup'), 99);
         add_filter('script_loader_tag', array($this, 'add_async_defer'), 10, 3);
         add_filter('style_loader_tag', array($this, 'add_preload_fonts'), 10, 4);
@@ -94,9 +94,9 @@ class SignalKit_Performance {
     }
     
     /**
-     * Add critical CSS inline for above-the-fold content
+     * Register critical CSS via wp_enqueue_scripts (correct hook for enqueues).
      */
-    public function add_critical_css() {
+    public function register_critical_css() {
         if (!$this->has_active_banners()) {
             return;
         }
@@ -115,7 +115,7 @@ class SignalKit_Performance {
             @media(max-width:768px){.signalkit-banner{left:10px!important;right:10px!important;max-width:calc(100vw - 20px)!important;transform:none!important}}
         ';
         
-        // Register a dummy handle as anchor for the inline style
+        // Register and enqueue with inline style
         wp_register_style('signalkit-critical', false, array(), SIGNALKIT_VERSION);
         wp_enqueue_style('signalkit-critical');
         wp_add_inline_style('signalkit-critical', wp_strip_all_tags($this->minify_css($critical_css)));

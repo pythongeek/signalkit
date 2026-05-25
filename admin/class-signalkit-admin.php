@@ -80,8 +80,8 @@ class SignalKit_Admin {
         // Initialize settings page
         $this->settings_page = new SignalKit_Settings($plugin_name, $version);
         
-        // Register AJAX handlers immediately
-        $this->register_ajax_handlers();
+        // AJAX handlers are registered via SignalKit_Core::define_admin_hooks()
+        // Do NOT register them here to avoid double-registration.
     }
 
     /**
@@ -1286,7 +1286,29 @@ class SignalKit_Admin {
                         'class' => true,
                         'aria-label' => true,
                         'data-banner' => true,
+                        'data-banner-type' => true,
+                        'data-banner-id' => true,
+                        'data-banner-style' => true,
                         'id' => true,
+                    ),
+                    'div' => array(
+                        'class' => true,
+                        'id' => true,
+                        'style' => true,
+                        'data-banner-type' => true,
+                        'data-banner-id' => true,
+                        'data-banner-style' => true,
+                        'data-stack-order' => true,
+                        'data-delay' => true,
+                        'data-scroll-trigger' => true,
+                        'data-scroll-percentage' => true,
+                        'data-exit-intent' => true,
+                        'data-success-message' => true,
+                        'data-dismissible' => true,
+                        'data-dismiss-duration' => true,
+                        'data-animate' => true,
+                        'data-position' => true,
+                        'data-mobile-position' => true,
                     ),
                     'svg' => array(
                         'xmlns' => true,
@@ -1296,11 +1318,45 @@ class SignalKit_Admin {
                         'width' => true,
                         'height' => true,
                         'aria-hidden' => true,
+                        'id' => true,
                     ),
                     'path' => array(
                         'd' => true,
                         'fill' => true,
                         'stroke' => true,
+                        'stroke-width' => true,
+                        'class' => true,
+                    ),
+                    'circle' => array(
+                        'cx' => true,
+                        'cy' => true,
+                        'r' => true,
+                        'fill' => true,
+                        'class' => true,
+                    ),
+                    'rect' => array(
+                        'x' => true,
+                        'y' => true,
+                        'width' => true,
+                        'height' => true,
+                        'fill' => true,
+                        'rx' => true,
+                        'class' => true,
+                    ),
+                    'lineargradient' => array(
+                        'id' => true,
+                        'x1' => true,
+                        'y1' => true,
+                        'x2' => true,
+                        'y2' => true,
+                    ),
+                    'stop' => array(
+                        'offset' => true,
+                        'stop-color' => true,
+                    ),
+                    'g' => array(
+                        'class' => true,
+                        'transform' => true,
                     ),
                     'input' => array(
                         'type' => true,
@@ -1310,12 +1366,16 @@ class SignalKit_Admin {
                         'class' => true,
                         'id' => true,
                         'aria-label' => true,
+                        'value' => true,
                     ),
                     'form' => array(
                         'class' => true,
                         'id' => true,
                         'method' => true,
                         'action' => true,
+                        'data-ajax-url' => true,
+                        'data-nonce' => true,
+                        'data-redirect' => true,
                     ),
                 )
             );

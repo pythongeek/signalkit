@@ -276,6 +276,7 @@ $data_attrs = array(
                     <?php wp_nonce_field('signalkit_custom_submit', 'signalkit_custom_nonce'); ?>
                     <input type="hidden" name="action" value="signalkit_custom_submit">
                     <input type="hidden" name="banner_type" value="newsletter">
+                    <input type="hidden" name="signalkit_redirect_url" value="<?php echo esc_url($settings['custom_redirect_url'] ?? ''); ?>">
                     
                     <?php if ($show_name): ?>
                         <input type="text" 
@@ -319,6 +320,7 @@ $data_attrs = array(
                     <?php wp_nonce_field('signalkit_custom_submit', 'signalkit_custom_nonce'); ?>
                     <input type="hidden" name="action" value="signalkit_custom_submit">
                     <input type="hidden" name="banner_type" value="lead">
+                    <input type="hidden" name="signalkit_redirect_url" value="<?php echo esc_url($settings['custom_redirect_url'] ?? ''); ?>">
                     
                     <div class="signalkit-form-fields">
                         <input type="text" 

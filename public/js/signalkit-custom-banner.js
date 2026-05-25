@@ -356,6 +356,7 @@
             ajaxData.append('email', email);
             ajaxData.append('name', name);
             ajaxData.append('banner_type', this.settings.bannerType);
+            ajaxData.append('page_url', window.location.href);
             ajaxData.append('nonce', form.querySelector('[name="signalkit_custom_nonce"]')?.value || '');
 
             fetch(signalkitData?.ajaxUrl || '/wp-admin/admin-ajax.php', {

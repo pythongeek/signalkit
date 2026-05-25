@@ -124,3 +124,16 @@ function signalkit_initialize_plugin_core() {
 
 // Run the plugin after all plugins are loaded
 add_action('plugins_loaded', 'signalkit_initialize_plugin_core');
+
+/**
+ * Load plugin textdomain for translations.
+ * Explicit best practice per WordPress plugin developer handbook.
+ */
+function signalkit_load_textdomain() {
+    load_plugin_textdomain(
+        'signalkit',
+        false,
+        dirname(SIGNALKIT_PLUGIN_BASENAME) . '/languages/'
+    );
+}
+add_action('init', 'signalkit_load_textdomain');
