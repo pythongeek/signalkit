@@ -35,20 +35,22 @@ delete_option('signalkit_activated_at');
 // Delete transients (cleanup any remaining)
 global $wpdb;
 $like = $wpdb->esc_like('_transient_signalkit_') . '%';
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared
 $wpdb->query($wpdb->prepare(
     "DELETE FROM `{$wpdb->options}` WHERE `option_name` LIKE %s",
     $like
 ));
 
 $like_timeout = $wpdb->esc_like('_transient_timeout_signalkit_') . '%';
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared
 $wpdb->query($wpdb->prepare(
     "DELETE FROM `{$wpdb->options}` WHERE `option_name` LIKE %s",
     $like_timeout
 ));
 
 // Drop custom submissions table if it exists
-$table_name = $wpdb->prefix . 'signalkit_submissions';
-$wpdb->query($wpdb->prepare(
-    "DROP TABLE IF EXISTS `%s`",
-    $table_name
-));
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared
+$wpdb->query("DROP TABLE IF EXISTS `" . esc_sql($wpdb->prefix . 'signalkit_submissions') . "`");
