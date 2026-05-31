@@ -1553,7 +1553,4 @@ class SignalKit_Admin {
         }
         return $links;
     }
-
-    /**
-     * Register AJAX handlers - CRITICAL: Must be called in constructor
 }
