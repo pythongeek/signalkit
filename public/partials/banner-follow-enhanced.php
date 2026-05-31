@@ -196,13 +196,15 @@ $banner_classes = implode(' ', array_filter($all_classes));
 
         <div class="signalkit-actions">
             <?php if (!empty($google_news_url)): ?>
-                <?php /* translators: %s: button text */ ?>
                 <a href="<?php echo esc_url($google_news_url); ?>"
                    class="signalkit-button <?php echo esc_attr($button_style_class); ?>"
                    target="_blank"
                    rel="noopener noreferrer nofollow"
                    data-banner-type="follow"
-                   aria-label="<?php echo esc_attr(sprintf(__('%s - Opens in new tab', 'signalkit'), $button_text)); ?>">
+                   aria-label="<?php 
+                       /* translators: %s: button text */
+                       echo esc_attr(sprintf(__('%s - Opens in new tab', 'signalkit'), $button_text)); 
+                   ?>">
                     <span class="signalkit-button-text"><?php echo esc_html($button_text); ?></span>
                     <svg class="signalkit-icon-arrow" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
                         <path d="M8.5 2.5L13 7H1v2h12l-4.5 4.5L10 15l6-6-6-6-1.5 1.5z"/>

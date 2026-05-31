@@ -202,13 +202,15 @@ $banner_classes = implode(' ', array_filter($all_classes));
 
         <div class="signalkit-actions">
             <?php if (!empty($google_preferences_url)): ?>
-                <?php /* translators: %s: button text */ ?>
                 <a href="<?php echo esc_url($google_preferences_url); ?>"
                    class="signalkit-button <?php echo esc_attr($button_style_class); ?>"
                    target="_blank"
                    rel="noopener noreferrer nofollow"
                    data-banner-type="preferred"
-                   aria-label="<?php echo esc_attr(sprintf(__('%s - Opens in new tab', 'signalkit'), $button_text)); ?>">
+                   aria-label="<?php 
+                       /* translators: %s: button text */
+                       echo esc_attr(sprintf(__('%s - Opens in new tab', 'signalkit'), $button_text)); 
+                   ?>">
                     <span class="signalkit-button-text"><?php echo esc_html($button_text); ?></span>
                     <svg class="signalkit-icon-star" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
                         <path d="M8 1L9.79 5.69L14.76 5.69L10.74 8.69L12.24 13.38L8 10.38L3.76 13.38L5.26 8.69L1.24 5.69L6.21 5.69L8 1Z"/>
@@ -221,12 +223,14 @@ $banner_classes = implode(' ', array_filter($all_classes));
             <?php endif; ?>
 
             <?php if ($show_educational_link): ?>
-                <?php /* translators: %s: educational link text */ ?>
                 <a href="<?php echo esc_url($educational_post_url); ?>"
                    class="signalkit-educational-link"
                    target="_blank"
                    rel="noopener noreferrer"
-                   aria-label="<?php echo esc_attr(sprintf(__('%s - Opens in new tab', 'signalkit'), $educational_text)); ?>">
+                   aria-label="<?php 
+                       /* translators: %s: educational link text */
+                       echo esc_attr(sprintf(__('%s - Opens in new tab', 'signalkit'), $educational_text)); 
+                   ?>">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
                         <path d="M7 0C3.13 0 0 3.13 0 7s3.13 7 7 7 7-3.13 7-7-3.13-7-7-7zm1 10H6V6h2v4zm0-5H6V3h2v2z"/>
                     </svg>
