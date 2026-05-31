@@ -64,62 +64,8 @@ define('SIGNALKIT_PLUGIN_BASENAME', plugin_basename(__FILE__));
  * Uses unique prefix to prevent conflicts with other plugins.
  */
 function signalkit_activate_plugin() {
-    $log_file = SIGNALKIT_PLUGIN_DIR . 'signalkit-activation-debug.log';
-    
-    // Custom error handler to capture PHP warnings/errors
-    set_error_handler(function($errno, $errstr, $errfile, $errline) use ($log_file) {
-        $message = sprintf(
-            "[%s] PHP Error (%d): %s in %s on line %d\n",
-            date('Y-m-d H:i:s'),
-            $errno,
-            $errstr,
-            $errfile,
-            $errline
-        );
-        error_log($message, 3, $log_file);
-        return false;
-    });
-
-    try {
-        error_log(sprintf("[%s] Activation started\n", date('Y-m-d H:i:s')), 3, $log_file);
-        
-        require_once SIGNALKIT_PLUGIN_DIR . 'includes/class-signalkit-activator.php';
-        SignalKit_Activator::activate();
-        
-        error_log(sprintf("[%s] Activation completed successfully\n", date('Y-m-d H:i:s')), 3, $log_file);
-    } catch (Throwable $e) {
-        $message = sprintf(
-            "[%s] PHP Fatal Error/Exception: %s in %s on line %d\nStack Trace:\n%s\n",
-            date('Y-m-d H:i:s'),
-            $e->getMessage(),
-            $e->getFile(),
-            $e->getLine(),
-            $e->getTraceAsString()
-        );
-        error_log($message, 3, $log_file);
-        
-        wp_die(
-            esc_html__('SignalKit activation failed. Please check signalkit-activation-debug.log in the plugin folder for details.', 'signalkit') . 
-            '<br><br>Error: ' . esc_html($e->getMessage())
-        );
-    } catch (Exception $e) {
-        $message = sprintf(
-            "[%s] PHP Exception: %s in %s on line %d\nStack Trace:\n%s\n",
-            date('Y-m-d H:i:s'),
-            $e->getMessage(),
-            $e->getFile(),
-            $e->getLine(),
-            $e->getTraceAsString()
-        );
-        error_log($message, 3, $log_file);
-        
-        wp_die(
-            esc_html__('SignalKit activation failed. Please check signalkit-activation-debug.log in the plugin folder for details.', 'signalkit') . 
-            '<br><br>Error: ' . esc_html($e->getMessage())
-        );
-    } finally {
-        restore_error_handler();
-    }
+    require_once SIGNALKIT_PLUGIN_DIR . 'includes/class-signalkit-activator.php';
+    SignalKit_Activator::activate();
 }
 
 /**
@@ -175,15 +121,4 @@ function signalkit_initialize_plugin_core() {
 // Run the plugin after all plugins are loaded
 add_action('plugins_loaded', 'signalkit_initialize_plugin_core');
 
-/**
- * Load plugin textdomain for translations.
- * Explicit best practice per WordPress plugin developer handbook.
- */
-function signalkit_load_textdomain() {
-    load_plugin_textdomain(
-        'signalkit',
-        false,
-        dirname(SIGNALKIT_PLUGIN_BASENAME) . '/languages/'
-    );
-}
-add_action('init', 'signalkit_load_textdomain');
+// Removed discouraged load_plugin_textdomain as WordPress.org handles translation loading automatically
