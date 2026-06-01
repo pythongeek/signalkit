@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) { exit; }
  * Plugin Name: SignalKit
  * Description: News publisher notification plugin with Follow, Preferred Source, and Lead Capture banners to help grow your audience and collect leads.
  * Version: 2.0.3
- * Requires at least: 5.0
+ * Requires at least: 5.3
  * Author: N4Nion
  * Author URI: https://n4nion.com
  * License: GPL v2 or later

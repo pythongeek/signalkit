@@ -14,22 +14,22 @@ if (!defined('ABSPATH')) {
 
 // Template partial variables - intentionally unprefixed as these are passed from including context
 // Include advanced style settings partial (v2.0)
-$advanced_settings_file = SIGNALKIT_PLUGIN_DIR . 'admin/partials/advanced-style-settings.php';
-if (file_exists($advanced_settings_file)) {
-    include_once $advanced_settings_file;
+$signalkit_advanced_settings_file = SIGNALKIT_PLUGIN_DIR . 'admin/partials/advanced-style-settings.php';
+if (file_exists($signalkit_advanced_settings_file)) {
+    include_once $signalkit_advanced_settings_file;
 }
 
 // Include custom banner settings partial (v2.1)
-$custom_banner_settings_file = SIGNALKIT_PLUGIN_DIR . 'admin/partials/custom-banner-settings.php';
-if (file_exists($custom_banner_settings_file)) {
-    include_once $custom_banner_settings_file;
+$signalkit_custom_banner_settings_file = SIGNALKIT_PLUGIN_DIR . 'admin/partials/custom-banner-settings.php';
+if (file_exists($signalkit_custom_banner_settings_file)) {
+    include_once $signalkit_custom_banner_settings_file;
 }
 
 // Get current settings with proper sanitization
-$settings = get_option('signalkit_settings', array());
+$signalkit_settings = get_option('signalkit_settings', array());
 
 // Enhanced defaults with new customization options - WordPress and Envato compatible
-$defaults = array(
+$signalkit_defaults = array(
     'site_name' => get_bloginfo('name'),
     
     // Follow Banner Settings
@@ -147,7 +147,7 @@ $defaults = array(
 );
 
 // Merge settings with defaults - WordPress best practice
-$settings = wp_parse_args($settings, $defaults);
+$signalkit_settings = wp_parse_args($signalkit_settings, $signalkit_defaults);
 ?>
 
 
@@ -156,9 +156,9 @@ $settings = wp_parse_args($settings, $defaults);
     <div class="signalkit-admin-header-logo">
         <?php
         // Include the branding logo component
-        $logo_file = SIGNALKIT_PLUGIN_DIR . 'admin/partials/branding-logo.php';
-        if (file_exists($logo_file)) {
-            include $logo_file;
+        $signalkit_logo_file = SIGNALKIT_PLUGIN_DIR . 'admin/partials/branding-logo.php';
+        if (file_exists($signalkit_logo_file)) {
+            include $signalkit_logo_file;
         }
         ?>
     </div>
@@ -212,7 +212,7 @@ $settings = wp_parse_args($settings, $defaults);
                                     <input type="checkbox" 
                                            name="signalkit_settings[follow_enabled]" 
                                            value="1" 
-                                           <?php checked($settings['follow_enabled'], 1); ?>
+                                           <?php checked($signalkit_settings['follow_enabled'], 1); ?>
                                            class="signalkit-preview-trigger"
                                            data-banner="follow"
                                            aria-describedby="follow-enabled-desc">
@@ -229,7 +229,7 @@ $settings = wp_parse_args($settings, $defaults);
                                 <input type="url" 
                                        id="follow_google_news_url"
                                        name="signalkit_settings[follow_google_news_url]" 
-                                       value="<?php echo esc_url($settings['follow_google_news_url']); ?>" 
+                                       value="<?php echo esc_url($signalkit_settings['follow_google_news_url']); ?>" 
                                        class="regular-text signalkit-preview-trigger" 
                                        data-banner="follow"
                                        placeholder="https://news.google.com/publications/..."
@@ -247,7 +247,7 @@ $settings = wp_parse_args($settings, $defaults);
                                 <input type="text" 
                                        id="follow_banner_headline"
                                        name="signalkit_settings[follow_banner_headline]" 
-                                       value="<?php echo esc_attr($settings['follow_banner_headline']); ?>" 
+                                       value="<?php echo esc_attr($signalkit_settings['follow_banner_headline']); ?>" 
                                        class="regular-text signalkit-preview-trigger"
                                        data-banner="follow"
                                        placeholder="<?php echo esc_attr__('Stay Updated with [site_name]', 'signalkit'); ?>"
@@ -261,7 +261,7 @@ $settings = wp_parse_args($settings, $defaults);
                                           name="signalkit_settings[follow_banner_description]" 
                                           rows="3" 
                                           class="large-text signalkit-preview-trigger"
-                                          data-banner="follow"><?php echo esc_textarea($settings['follow_banner_description']); ?></textarea>
+                                          data-banner="follow"><?php echo esc_textarea($signalkit_settings['follow_banner_description']); ?></textarea>
                             </div>
                             
                             <div class="signalkit-setting-row">
@@ -269,7 +269,7 @@ $settings = wp_parse_args($settings, $defaults);
                                 <input type="text" 
                                        id="follow_button_text"
                                        name="signalkit_settings[follow_button_text]" 
-                                       value="<?php echo esc_attr($settings['follow_button_text']); ?>" 
+                                       value="<?php echo esc_attr($signalkit_settings['follow_button_text']); ?>" 
                                        class="regular-text signalkit-preview-trigger"
                                        data-banner="follow"
                                        placeholder="<?php echo esc_attr__('Follow Us On Google News', 'signalkit'); ?>">
@@ -287,7 +287,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="text" 
                                                id="follow_primary_color"
                                                name="signalkit_settings[follow_primary_color]" 
-                                               value="<?php echo esc_attr($settings['follow_primary_color']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['follow_primary_color']); ?>" 
                                                class="signalkit-color-picker signalkit-preview-trigger"
                                                data-banner="follow">
                                     </div>
@@ -296,7 +296,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="text" 
                                                id="follow_secondary_color"
                                                name="signalkit_settings[follow_secondary_color]" 
-                                               value="<?php echo esc_attr($settings['follow_secondary_color']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['follow_secondary_color']); ?>" 
                                                class="signalkit-color-picker signalkit-preview-trigger"
                                                data-banner="follow">
                                     </div>
@@ -305,7 +305,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="text" 
                                                id="follow_accent_color"
                                                name="signalkit_settings[follow_accent_color]" 
-                                               value="<?php echo esc_attr($settings['follow_accent_color']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['follow_accent_color']); ?>" 
                                                class="signalkit-color-picker signalkit-preview-trigger"
                                                data-banner="follow">
                                     </div>
@@ -314,7 +314,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="text" 
                                                id="follow_text_color"
                                                name="signalkit_settings[follow_text_color]" 
-                                               value="<?php echo esc_attr($settings['follow_text_color']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['follow_text_color']); ?>" 
                                                class="signalkit-color-picker signalkit-preview-trigger"
                                                data-banner="follow">
                                     </div>
@@ -323,7 +323,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="text" 
                                                id="follow_button_text_color"
                                                name="signalkit_settings[follow_button_text_color]" 
-                                               value="<?php echo esc_attr($settings['follow_button_text_color'] ?? '#ffffff'); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['follow_button_text_color'] ?? '#ffffff'); ?>" 
                                                class="signalkit-color-picker signalkit-preview-trigger"
                                                data-banner="follow">
                                     </div>
@@ -332,7 +332,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="text" 
                                                id="follow_button_bg_color"
                                                name="signalkit_settings[follow_button_bg_color]" 
-                                               value="<?php echo esc_attr($settings['follow_button_bg_color'] ?? '#4285f4'); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['follow_button_bg_color'] ?? '#4285f4'); ?>" 
                                                class="signalkit-color-picker signalkit-preview-trigger"
                                                data-banner="follow">
                                     </div>
@@ -347,36 +347,36 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="number" 
                                                id="follow_banner_width"
                                                name="signalkit_settings[follow_banner_width]" 
-                                               value="<?php echo esc_attr($settings['follow_banner_width']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['follow_banner_width']); ?>" 
                                                min="280" 
                                                max="600" 
                                                class="small-text signalkit-preview-trigger"
                                                data-banner="follow">
-                                        <span class="signalkit-range-value"><?php echo esc_html($settings['follow_banner_width']); ?>px</span>
+                                        <span class="signalkit-range-value"><?php echo esc_html($signalkit_settings['follow_banner_width']); ?>px</span>
                                     </div>
                                     <div class="signalkit-size-input">
                                         <label for="follow_banner_padding"><?php esc_html_e('Padding (px)', 'signalkit'); ?></label>
                                         <input type="number" 
                                                id="follow_banner_padding"
                                                name="signalkit_settings[follow_banner_padding]" 
-                                               value="<?php echo esc_attr($settings['follow_banner_padding']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['follow_banner_padding']); ?>" 
                                                min="8" 
                                                max="32" 
                                                class="small-text signalkit-preview-trigger"
                                                data-banner="follow">
-                                        <span class="signalkit-range-value"><?php echo esc_html($settings['follow_banner_padding']); ?>px</span>
+                                        <span class="signalkit-range-value"><?php echo esc_html($signalkit_settings['follow_banner_padding']); ?>px</span>
                                     </div>
                                     <div class="signalkit-size-input">
                                         <label for="follow_border_radius"><?php esc_html_e('Border Radius (px)', 'signalkit'); ?></label>
                                         <input type="number" 
                                                id="follow_border_radius"
                                                name="signalkit_settings[follow_border_radius]" 
-                                               value="<?php echo esc_attr($settings['follow_border_radius']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['follow_border_radius']); ?>" 
                                                min="0" 
                                                max="32" 
                                                class="small-text signalkit-preview-trigger"
                                                data-banner="follow">
-                                        <span class="signalkit-range-value"><?php echo esc_html($settings['follow_border_radius']); ?>px</span>
+                                        <span class="signalkit-range-value"><?php echo esc_html($signalkit_settings['follow_border_radius']); ?>px</span>
                                     </div>
                                 </div>
                             </div>
@@ -389,36 +389,36 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="number" 
                                                id="follow_font_size_headline"
                                                name="signalkit_settings[follow_font_size_headline]" 
-                                               value="<?php echo esc_attr($settings['follow_font_size_headline']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['follow_font_size_headline']); ?>" 
                                                min="12" 
                                                max="24" 
                                                class="small-text signalkit-preview-trigger"
                                                data-banner="follow">
-                                        <span class="signalkit-range-value"><?php echo esc_html($settings['follow_font_size_headline']); ?>px</span>
+                                        <span class="signalkit-range-value"><?php echo esc_html($signalkit_settings['follow_font_size_headline']); ?>px</span>
                                     </div>
                                     <div class="signalkit-typography-input">
                                         <label for="follow_font_size_description"><?php esc_html_e('Description Size (px)', 'signalkit'); ?></label>
                                         <input type="number" 
                                                id="follow_font_size_description"
                                                name="signalkit_settings[follow_font_size_description]" 
-                                               value="<?php echo esc_attr($settings['follow_font_size_description']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['follow_font_size_description']); ?>" 
                                                min="10" 
                                                max="18" 
                                                class="small-text signalkit-preview-trigger"
                                                data-banner="follow">
-                                        <span class="signalkit-range-value"><?php echo esc_html($settings['follow_font_size_description']); ?>px</span>
+                                        <span class="signalkit-range-value"><?php echo esc_html($signalkit_settings['follow_font_size_description']); ?>px</span>
                                     </div>
                                     <div class="signalkit-typography-input">
                                         <label for="follow_font_size_button"><?php esc_html_e('Button Size (px)', 'signalkit'); ?></label>
                                         <input type="number" 
                                                id="follow_font_size_button"
                                                name="signalkit_settings[follow_font_size_button]" 
-                                               value="<?php echo esc_attr($settings['follow_font_size_button']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['follow_font_size_button']); ?>" 
                                                min="11" 
                                                max="18" 
                                                class="small-text signalkit-preview-trigger"
                                                data-banner="follow">
-                                        <span class="signalkit-range-value"><?php echo esc_html($settings['follow_font_size_button']); ?>px</span>
+                                        <span class="signalkit-range-value"><?php echo esc_html($signalkit_settings['follow_font_size_button']); ?>px</span>
                                     </div>
                                 </div>
                             </div>
@@ -426,7 +426,7 @@ $settings = wp_parse_args($settings, $defaults);
                             <?php 
                             // Enhanced Style Options - v2.0
                             if (function_exists('signalkit_render_advanced_style_settings')) {
-                                signalkit_render_advanced_style_settings($settings, 'follow');
+                                signalkit_render_advanced_style_settings($signalkit_settings, 'follow');
                             }
                             ?>
                             
@@ -442,12 +442,12 @@ $settings = wp_parse_args($settings, $defaults);
                                                 name="signalkit_settings[follow_position]" 
                                                 class="signalkit-preview-trigger"
                                                 data-banner="follow">
-                                            <option value="bottom_left" <?php selected($settings['follow_position'], 'bottom_left'); ?>><?php esc_html_e('Bottom Left', 'signalkit'); ?></option>
-                                            <option value="bottom_right" <?php selected($settings['follow_position'], 'bottom_right'); ?>><?php esc_html_e('Bottom Right', 'signalkit'); ?></option>
-                                            <option value="bottom_center" <?php selected($settings['follow_position'], 'bottom_center'); ?>><?php esc_html_e('Bottom Center', 'signalkit'); ?></option>
-                                            <option value="top_left" <?php selected($settings['follow_position'], 'top_left'); ?>><?php esc_html_e('Top Left', 'signalkit'); ?></option>
-                                            <option value="top_right" <?php selected($settings['follow_position'], 'top_right'); ?>><?php esc_html_e('Top Right', 'signalkit'); ?></option>
-                                            <option value="top_center" <?php selected($settings['follow_position'], 'top_center'); ?>><?php esc_html_e('Top Center', 'signalkit'); ?></option>
+                                            <option value="bottom_left" <?php selected($signalkit_settings['follow_position'], 'bottom_left'); ?>><?php esc_html_e('Bottom Left', 'signalkit'); ?></option>
+                                            <option value="bottom_right" <?php selected($signalkit_settings['follow_position'], 'bottom_right'); ?>><?php esc_html_e('Bottom Right', 'signalkit'); ?></option>
+                                            <option value="bottom_center" <?php selected($signalkit_settings['follow_position'], 'bottom_center'); ?>><?php esc_html_e('Bottom Center', 'signalkit'); ?></option>
+                                            <option value="top_left" <?php selected($signalkit_settings['follow_position'], 'top_left'); ?>><?php esc_html_e('Top Left', 'signalkit'); ?></option>
+                                            <option value="top_right" <?php selected($signalkit_settings['follow_position'], 'top_right'); ?>><?php esc_html_e('Top Right', 'signalkit'); ?></option>
+                                            <option value="top_center" <?php selected($signalkit_settings['follow_position'], 'top_center'); ?>><?php esc_html_e('Top Center', 'signalkit'); ?></option>
                                         </select>
                                     </div>
                                     
@@ -457,8 +457,8 @@ $settings = wp_parse_args($settings, $defaults);
                                                 name="signalkit_settings[follow_mobile_position]" 
                                                 class="signalkit-preview-trigger"
                                                 data-banner="follow">
-                                            <option value="top" <?php selected($settings['follow_mobile_position'], 'top'); ?>><?php esc_html_e('Top of Screen', 'signalkit'); ?></option>
-                                            <option value="bottom" <?php selected($settings['follow_mobile_position'], 'bottom'); ?>><?php esc_html_e('Bottom of Screen', 'signalkit'); ?></option>
+                                            <option value="top" <?php selected($signalkit_settings['follow_mobile_position'], 'top'); ?>><?php esc_html_e('Top of Screen', 'signalkit'); ?></option>
+                                            <option value="bottom" <?php selected($signalkit_settings['follow_mobile_position'], 'bottom'); ?>><?php esc_html_e('Bottom of Screen', 'signalkit'); ?></option>
                                         </select>
                                     </div>
                                     
@@ -466,8 +466,8 @@ $settings = wp_parse_args($settings, $defaults);
                                         <label for="follow_mobile_stack_order"><?php esc_html_e('Mobile Stack Order', 'signalkit'); ?></label>
                                         <select id="follow_mobile_stack_order" 
                                                 name="signalkit_settings[follow_mobile_stack_order]">
-                                            <option value="1" <?php selected($settings['follow_mobile_stack_order'], 1); ?>><?php esc_html_e('First (Top/Bottom)', 'signalkit'); ?></option>
-                                            <option value="2" <?php selected($settings['follow_mobile_stack_order'], 2); ?>><?php esc_html_e('Second', 'signalkit'); ?></option>
+                                            <option value="1" <?php selected($signalkit_settings['follow_mobile_stack_order'], 1); ?>><?php esc_html_e('First (Top/Bottom)', 'signalkit'); ?></option>
+                                            <option value="2" <?php selected($signalkit_settings['follow_mobile_stack_order'], 2); ?>><?php esc_html_e('Second', 'signalkit'); ?></option>
                                         </select>
                                         <p class="description"><?php esc_html_e('Order when both banners are active on mobile', 'signalkit'); ?></p>
                                     </div>
@@ -478,9 +478,9 @@ $settings = wp_parse_args($settings, $defaults);
                                                 name="signalkit_settings[follow_animation]" 
                                                 class="signalkit-preview-trigger"
                                                 data-banner="follow">
-                                            <option value="slide_in" <?php selected($settings['follow_animation'], 'slide_in'); ?>><?php esc_html_e('Slide In', 'signalkit'); ?></option>
-                                            <option value="fade_in" <?php selected($settings['follow_animation'], 'fade_in'); ?>><?php esc_html_e('Fade In', 'signalkit'); ?></option>
-                                            <option value="bounce" <?php selected($settings['follow_animation'], 'bounce'); ?>><?php esc_html_e('Bounce', 'signalkit'); ?></option>
+                                            <option value="slide_in" <?php selected($signalkit_settings['follow_animation'], 'slide_in'); ?>><?php esc_html_e('Slide In', 'signalkit'); ?></option>
+                                            <option value="fade_in" <?php selected($signalkit_settings['follow_animation'], 'fade_in'); ?>><?php esc_html_e('Fade In', 'signalkit'); ?></option>
+                                            <option value="bounce" <?php selected($signalkit_settings['follow_animation'], 'bounce'); ?>><?php esc_html_e('Bounce', 'signalkit'); ?></option>
                                         </select>
                                     </div>
                                     
@@ -488,9 +488,9 @@ $settings = wp_parse_args($settings, $defaults);
                                         <label for="follow_show_frequency"><?php esc_html_e('Show Frequency', 'signalkit'); ?></label>
                                         <select id="follow_show_frequency" 
                                                 name="signalkit_settings[follow_show_frequency]">
-                                            <option value="always" <?php selected($settings['follow_show_frequency'], 'always'); ?>><?php esc_html_e('Always', 'signalkit'); ?></option>
-                                            <option value="once_per_session" <?php selected($settings['follow_show_frequency'], 'once_per_session'); ?>><?php esc_html_e('Once Per Session', 'signalkit'); ?></option>
-                                            <option value="once_per_day" <?php selected($settings['follow_show_frequency'], 'once_per_day'); ?>><?php esc_html_e('Once Per Day', 'signalkit'); ?></option>
+                                            <option value="always" <?php selected($signalkit_settings['follow_show_frequency'], 'always'); ?>><?php esc_html_e('Always', 'signalkit'); ?></option>
+                                            <option value="once_per_session" <?php selected($signalkit_settings['follow_show_frequency'], 'once_per_session'); ?>><?php esc_html_e('Once Per Session', 'signalkit'); ?></option>
+                                            <option value="once_per_day" <?php selected($signalkit_settings['follow_show_frequency'], 'once_per_day'); ?>><?php esc_html_e('Once Per Day', 'signalkit'); ?></option>
                                         </select>
                                     </div>
                                 </div>
@@ -501,7 +501,7 @@ $settings = wp_parse_args($settings, $defaults);
                                     <input type="checkbox" 
                                            name="signalkit_settings[follow_dismissible]" 
                                            value="1" 
-                                           <?php checked($settings['follow_dismissible'], 1); ?>
+                                           <?php checked($signalkit_settings['follow_dismissible'], 1); ?>
                                            class="signalkit-preview-trigger"
                                            data-banner="follow"
                                            aria-describedby="follow-dismissible-desc">
@@ -519,13 +519,13 @@ $settings = wp_parse_args($settings, $defaults);
                                     <input type="range" 
                                            id="follow_close_button_size"
                                            name="signalkit_settings[follow_close_button_size]" 
-                                           value="<?php echo esc_attr(isset($settings['follow_close_button_size']) ? $settings['follow_close_button_size'] : 28); ?>" 
+                                           value="<?php echo esc_attr(isset($signalkit_settings['follow_close_button_size']) ? $signalkit_settings['follow_close_button_size'] : 28); ?>" 
                                            min="20" 
                                            max="40" 
                                            step="1"
                                            class="signalkit-range signalkit-preview-trigger"
                                            data-banner="follow">
-                                    <span class="signalkit-range-value"><?php echo esc_html(isset($settings['follow_close_button_size']) ? $settings['follow_close_button_size'] : 28); ?>px</span>
+                                    <span class="signalkit-range-value"><?php echo esc_html(isset($signalkit_settings['follow_close_button_size']) ? $signalkit_settings['follow_close_button_size'] : 28); ?>px</span>
                                 </div>
                             </div>
                             
@@ -534,7 +534,7 @@ $settings = wp_parse_args($settings, $defaults);
                                 <input type="number" 
                                        id="follow_dismiss_duration"
                                        name="signalkit_settings[follow_dismiss_duration]" 
-                                       value="<?php echo esc_attr($settings['follow_dismiss_duration']); ?>" 
+                                       value="<?php echo esc_attr($signalkit_settings['follow_dismiss_duration']); ?>" 
                                        min="1" 
                                        max="365" 
                                        class="small-text"
@@ -549,7 +549,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="checkbox" 
                                                name="signalkit_settings[follow_mobile_enabled]" 
                                                value="1" 
-                                               <?php checked($settings['follow_mobile_enabled'], 1); ?>
+                                               <?php checked($signalkit_settings['follow_mobile_enabled'], 1); ?>
                                                class="signalkit-preview-trigger"
                                                data-banner="follow">
                                         <span class="dashicons dashicons-smartphone" aria-hidden="true"></span>
@@ -559,7 +559,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="checkbox" 
                                                name="signalkit_settings[follow_desktop_enabled]" 
                                                value="1" 
-                                               <?php checked($settings['follow_desktop_enabled'], 1); ?>
+                                               <?php checked($signalkit_settings['follow_desktop_enabled'], 1); ?>
                                                class="signalkit-preview-trigger"
                                                data-banner="follow">
                                         <span class="dashicons dashicons-desktop" aria-hidden="true"></span>
@@ -575,28 +575,28 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="checkbox" 
                                                name="signalkit_settings[follow_show_on_posts]" 
                                                value="1" 
-                                               <?php checked($settings['follow_show_on_posts'], 1); ?>>
+                                               <?php checked($signalkit_settings['follow_show_on_posts'], 1); ?>>
                                         <?php esc_html_e('Show on Posts', 'signalkit'); ?>
                                     </label>
                                     <label>
                                         <input type="checkbox" 
                                                name="signalkit_settings[follow_show_on_pages]" 
                                                value="1" 
-                                               <?php checked($settings['follow_show_on_pages'], 1); ?>>
+                                               <?php checked($signalkit_settings['follow_show_on_pages'], 1); ?>>
                                         <?php esc_html_e('Show on Pages', 'signalkit'); ?>
                                     </label>
                                     <label>
                                         <input type="checkbox" 
                                                name="signalkit_settings[follow_show_on_homepage]" 
                                                value="1" 
-                                               <?php checked($settings['follow_show_on_homepage'], 1); ?>>
+                                               <?php checked($signalkit_settings['follow_show_on_homepage'], 1); ?>>
                                         <?php esc_html_e('Show on Homepage', 'signalkit'); ?>
                                     </label>
                                     <label>
                                         <input type="checkbox" 
                                                name="signalkit_settings[follow_show_on_archive]" 
                                                value="1" 
-                                               <?php checked($settings['follow_show_on_archive'], 1); ?>>
+                                               <?php checked($signalkit_settings['follow_show_on_archive'], 1); ?>>
                                         <?php esc_html_e('Show on Archive Pages', 'signalkit'); ?>
                                     </label>
                                 </div>
@@ -613,7 +613,7 @@ $settings = wp_parse_args($settings, $defaults);
                                     <input type="checkbox" 
                                            name="signalkit_settings[preferred_enabled]" 
                                            value="1" 
-                                           <?php checked($settings['preferred_enabled'], 1); ?>
+                                           <?php checked($signalkit_settings['preferred_enabled'], 1); ?>
                                            class="signalkit-preview-trigger"
                                            data-banner="preferred"
                                            aria-describedby="preferred-enabled-desc">
@@ -630,7 +630,7 @@ $settings = wp_parse_args($settings, $defaults);
                                 <input type="url" 
                                        id="preferred_google_preferences_url"
                                        name="signalkit_settings[preferred_google_preferences_url]" 
-                                       value="<?php echo esc_url($settings['preferred_google_preferences_url']); ?>" 
+                                       value="<?php echo esc_url($signalkit_settings['preferred_google_preferences_url']); ?>" 
                                        class="regular-text signalkit-preview-trigger"
                                        data-banner="preferred"
                                        placeholder="https://news.google.com/preferences"
@@ -644,7 +644,7 @@ $settings = wp_parse_args($settings, $defaults);
                                 <input type="url" 
                                        id="preferred_educational_post_url"
                                        name="signalkit_settings[preferred_educational_post_url]" 
-                                       value="<?php echo esc_url($settings['preferred_educational_post_url']); ?>" 
+                                       value="<?php echo esc_url($signalkit_settings['preferred_educational_post_url']); ?>" 
                                        class="regular-text signalkit-preview-trigger"
                                        data-banner="preferred"
                                        placeholder="https://yoursite.com/how-to-add-preferred-sources"
@@ -657,7 +657,7 @@ $settings = wp_parse_args($settings, $defaults);
                                     <input type="checkbox" 
                                            name="signalkit_settings[preferred_show_educational_link]" 
                                            value="1" 
-                                           <?php checked($settings['preferred_show_educational_link'], 1); ?>
+                                           <?php checked($signalkit_settings['preferred_show_educational_link'], 1); ?>
                                            class="signalkit-preview-trigger"
                                            data-banner="preferred"
                                            aria-describedby="preferred-show-edu-desc">
@@ -674,7 +674,7 @@ $settings = wp_parse_args($settings, $defaults);
                                 <input type="text" 
                                        id="preferred_educational_text"
                                        name="signalkit_settings[preferred_educational_text]" 
-                                       value="<?php echo esc_attr($settings['preferred_educational_text']); ?>" 
+                                       value="<?php echo esc_attr($signalkit_settings['preferred_educational_text']); ?>" 
                                        class="regular-text signalkit-preview-trigger"
                                        data-banner="preferred"
                                        placeholder="<?php echo esc_attr__('Learn More', 'signalkit'); ?>">
@@ -689,7 +689,7 @@ $settings = wp_parse_args($settings, $defaults);
                                 <input type="text" 
                                        id="preferred_banner_headline"
                                        name="signalkit_settings[preferred_banner_headline]" 
-                                       value="<?php echo esc_attr($settings['preferred_banner_headline']); ?>" 
+                                       value="<?php echo esc_attr($signalkit_settings['preferred_banner_headline']); ?>" 
                                        class="regular-text signalkit-preview-trigger"
                                        data-banner="preferred"
                                        placeholder="<?php echo esc_attr__('Add [site_name] As A Trusted Source', 'signalkit'); ?>"
@@ -703,7 +703,7 @@ $settings = wp_parse_args($settings, $defaults);
                                           name="signalkit_settings[preferred_banner_description]" 
                                           rows="3" 
                                           class="large-text signalkit-preview-trigger"
-                                          data-banner="preferred"><?php echo esc_textarea($settings['preferred_banner_description']); ?></textarea>
+                                          data-banner="preferred"><?php echo esc_textarea($signalkit_settings['preferred_banner_description']); ?></textarea>
                             </div>
                             
                             <div class="signalkit-setting-row">
@@ -711,7 +711,7 @@ $settings = wp_parse_args($settings, $defaults);
                                 <input type="text" 
                                        id="preferred_button_text"
                                        name="signalkit_settings[preferred_button_text]" 
-                                       value="<?php echo esc_attr($settings['preferred_button_text']); ?>" 
+                                       value="<?php echo esc_attr($signalkit_settings['preferred_button_text']); ?>" 
                                        class="regular-text signalkit-preview-trigger"
                                        data-banner="preferred"
                                        placeholder="<?php echo esc_attr__('Add As A Preferred Source', 'signalkit'); ?>">
@@ -729,7 +729,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="text" 
                                                id="preferred_primary_color"
                                                name="signalkit_settings[preferred_primary_color]" 
-                                               value="<?php echo esc_attr($settings['preferred_primary_color']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['preferred_primary_color']); ?>" 
                                                class="signalkit-color-picker signalkit-preview-trigger"
                                                data-banner="preferred">
                                     </div>
@@ -738,7 +738,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="text" 
                                                id="preferred_secondary_color"
                                                name="signalkit_settings[preferred_secondary_color]" 
-                                               value="<?php echo esc_attr($settings['preferred_secondary_color']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['preferred_secondary_color']); ?>" 
                                                class="signalkit-color-picker signalkit-preview-trigger"
                                                data-banner="preferred">
                                     </div>
@@ -747,7 +747,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="text" 
                                                id="preferred_accent_color"
                                                name="signalkit_settings[preferred_accent_color]" 
-                                               value="<?php echo esc_attr($settings['preferred_accent_color']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['preferred_accent_color']); ?>" 
                                                class="signalkit-color-picker signalkit-preview-trigger"
                                                data-banner="preferred">
                                     </div>
@@ -756,7 +756,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="text" 
                                                id="preferred_text_color"
                                                name="signalkit_settings[preferred_text_color]" 
-                                               value="<?php echo esc_attr($settings['preferred_text_color']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['preferred_text_color']); ?>" 
                                                class="signalkit-color-picker signalkit-preview-trigger"
                                                data-banner="preferred">
                                     </div>
@@ -765,7 +765,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="text" 
                                                id="preferred_button_text_color"
                                                name="signalkit_settings[preferred_button_text_color]" 
-                                               value="<?php echo esc_attr($settings['preferred_button_text_color'] ?? '#ffffff'); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['preferred_button_text_color'] ?? '#ffffff'); ?>" 
                                                class="signalkit-color-picker signalkit-preview-trigger"
                                                data-banner="preferred">
                                     </div>
@@ -774,7 +774,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="text" 
                                                id="preferred_button_bg_color"
                                                name="signalkit_settings[preferred_button_bg_color]" 
-                                               value="<?php echo esc_attr($settings['preferred_button_bg_color'] ?? '#ea4335'); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['preferred_button_bg_color'] ?? '#ea4335'); ?>" 
                                                class="signalkit-color-picker signalkit-preview-trigger"
                                                data-banner="preferred">
                                     </div>
@@ -789,36 +789,36 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="number" 
                                                id="preferred_banner_width"
                                                name="signalkit_settings[preferred_banner_width]" 
-                                               value="<?php echo esc_attr($settings['preferred_banner_width']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['preferred_banner_width']); ?>" 
                                                min="280" 
                                                max="600" 
                                                class="small-text signalkit-preview-trigger"
                                                data-banner="preferred">
-                                        <span class="signalkit-range-value"><?php echo esc_html($settings['preferred_banner_width']); ?>px</span>
+                                        <span class="signalkit-range-value"><?php echo esc_html($signalkit_settings['preferred_banner_width']); ?>px</span>
                                     </div>
                                     <div class="signalkit-size-input">
                                         <label for="preferred_banner_padding"><?php esc_html_e('Padding (px)', 'signalkit'); ?></label>
                                         <input type="number" 
                                                id="preferred_banner_padding"
                                                name="signalkit_settings[preferred_banner_padding]" 
-                                               value="<?php echo esc_attr($settings['preferred_banner_padding']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['preferred_banner_padding']); ?>" 
                                                min="8" 
                                                max="32" 
                                                class="small-text signalkit-preview-trigger"
                                                data-banner="preferred">
-                                        <span class="signalkit-range-value"><?php echo esc_html($settings['preferred_banner_padding']); ?>px</span>
+                                        <span class="signalkit-range-value"><?php echo esc_html($signalkit_settings['preferred_banner_padding']); ?>px</span>
                                     </div>
                                     <div class="signalkit-size-input">
                                         <label for="preferred_border_radius"><?php esc_html_e('Border Radius (px)', 'signalkit'); ?></label>
                                         <input type="number" 
                                                id="preferred_border_radius"
                                                name="signalkit_settings[preferred_border_radius]" 
-                                               value="<?php echo esc_attr($settings['preferred_border_radius']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['preferred_border_radius']); ?>" 
                                                min="0" 
                                                max="32" 
                                                class="small-text signalkit-preview-trigger"
                                                data-banner="preferred">
-                                        <span class="signalkit-range-value"><?php echo esc_html($settings['preferred_border_radius']); ?>px</span>
+                                        <span class="signalkit-range-value"><?php echo esc_html($signalkit_settings['preferred_border_radius']); ?>px</span>
                                     </div>
                                 </div>
                             </div>
@@ -831,36 +831,36 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="number" 
                                                id="preferred_font_size_headline"
                                                name="signalkit_settings[preferred_font_size_headline]" 
-                                               value="<?php echo esc_attr($settings['preferred_font_size_headline']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['preferred_font_size_headline']); ?>" 
                                                min="12" 
                                                max="24" 
                                                class="small-text signalkit-preview-trigger"
                                                data-banner="preferred">
-                                        <span class="signalkit-range-value"><?php echo esc_html($settings['preferred_font_size_headline']); ?>px</span>
+                                        <span class="signalkit-range-value"><?php echo esc_html($signalkit_settings['preferred_font_size_headline']); ?>px</span>
                                     </div>
                                     <div class="signalkit-typography-input">
                                         <label for="preferred_font_size_description"><?php esc_html_e('Description Size (px)', 'signalkit'); ?></label>
                                         <input type="number" 
                                                id="preferred_font_size_description"
                                                name="signalkit_settings[preferred_font_size_description]" 
-                                               value="<?php echo esc_attr($settings['preferred_font_size_description']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['preferred_font_size_description']); ?>" 
                                                min="10" 
                                                max="18" 
                                                class="small-text signalkit-preview-trigger"
                                                data-banner="preferred">
-                                        <span class="signalkit-range-value"><?php echo esc_html($settings['preferred_font_size_description']); ?>px</span>
+                                        <span class="signalkit-range-value"><?php echo esc_html($signalkit_settings['preferred_font_size_description']); ?>px</span>
                                     </div>
                                     <div class="signalkit-typography-input">
                                         <label for="preferred_font_size_button"><?php esc_html_e('Button Size (px)', 'signalkit'); ?></label>
                                         <input type="number" 
                                                id="preferred_font_size_button"
                                                name="signalkit_settings[preferred_font_size_button]" 
-                                               value="<?php echo esc_attr($settings['preferred_font_size_button']); ?>" 
+                                               value="<?php echo esc_attr($signalkit_settings['preferred_font_size_button']); ?>" 
                                                min="11" 
                                                max="18" 
                                                class="small-text signalkit-preview-trigger"
                                                data-banner="preferred">
-                                        <span class="signalkit-range-value"><?php echo esc_html($settings['preferred_font_size_button']); ?>px</span>
+                                        <span class="signalkit-range-value"><?php echo esc_html($signalkit_settings['preferred_font_size_button']); ?>px</span>
                                     </div>
                                 </div>
                             </div>
@@ -868,7 +868,7 @@ $settings = wp_parse_args($settings, $defaults);
                             <?php 
                             // Enhanced Style Options - v2.0
                             if (function_exists('signalkit_render_advanced_style_settings')) {
-                                signalkit_render_advanced_style_settings($settings, 'preferred');
+                                signalkit_render_advanced_style_settings($signalkit_settings, 'preferred');
                             }
                             ?>
                             
@@ -884,12 +884,12 @@ $settings = wp_parse_args($settings, $defaults);
                                                 name="signalkit_settings[preferred_position]" 
                                                 class="signalkit-preview-trigger"
                                                 data-banner="preferred">
-                                            <option value="bottom_left" <?php selected($settings['preferred_position'], 'bottom_left'); ?>><?php esc_html_e('Bottom Left', 'signalkit'); ?></option>
-                                            <option value="bottom_right" <?php selected($settings['preferred_position'], 'bottom_right'); ?>><?php esc_html_e('Bottom Right', 'signalkit'); ?></option>
-                                            <option value="bottom_center" <?php selected($settings['preferred_position'], 'bottom_center'); ?>><?php esc_html_e('Bottom Center', 'signalkit'); ?></option>
-                                            <option value="top_left" <?php selected($settings['preferred_position'], 'top_left'); ?>><?php esc_html_e('Top Left', 'signalkit'); ?></option>
-                                            <option value="top_right" <?php selected($settings['preferred_position'], 'top_right'); ?>><?php esc_html_e('Top Right', 'signalkit'); ?></option>
-                                            <option value="top_center" <?php selected($settings['preferred_position'], 'top_center'); ?>><?php esc_html_e('Top Center', 'signalkit'); ?></option>
+                                            <option value="bottom_left" <?php selected($signalkit_settings['preferred_position'], 'bottom_left'); ?>><?php esc_html_e('Bottom Left', 'signalkit'); ?></option>
+                                            <option value="bottom_right" <?php selected($signalkit_settings['preferred_position'], 'bottom_right'); ?>><?php esc_html_e('Bottom Right', 'signalkit'); ?></option>
+                                            <option value="bottom_center" <?php selected($signalkit_settings['preferred_position'], 'bottom_center'); ?>><?php esc_html_e('Bottom Center', 'signalkit'); ?></option>
+                                            <option value="top_left" <?php selected($signalkit_settings['preferred_position'], 'top_left'); ?>><?php esc_html_e('Top Left', 'signalkit'); ?></option>
+                                            <option value="top_right" <?php selected($signalkit_settings['preferred_position'], 'top_right'); ?>><?php esc_html_e('Top Right', 'signalkit'); ?></option>
+                                            <option value="top_center" <?php selected($signalkit_settings['preferred_position'], 'top_center'); ?>><?php esc_html_e('Top Center', 'signalkit'); ?></option>
                                         </select>
                                     </div>
                                     
@@ -899,8 +899,8 @@ $settings = wp_parse_args($settings, $defaults);
                                                 name="signalkit_settings[preferred_mobile_position]" 
                                                 class="signalkit-preview-trigger"
                                                 data-banner="preferred">
-                                            <option value="top" <?php selected($settings['preferred_mobile_position'], 'top'); ?>><?php esc_html_e('Top of Screen', 'signalkit'); ?></option>
-                                            <option value="bottom" <?php selected($settings['preferred_mobile_position'], 'bottom'); ?>><?php esc_html_e('Bottom of Screen', 'signalkit'); ?></option>
+                                            <option value="top" <?php selected($signalkit_settings['preferred_mobile_position'], 'top'); ?>><?php esc_html_e('Top of Screen', 'signalkit'); ?></option>
+                                            <option value="bottom" <?php selected($signalkit_settings['preferred_mobile_position'], 'bottom'); ?>><?php esc_html_e('Bottom of Screen', 'signalkit'); ?></option>
                                         </select>
                                     </div>
                                     
@@ -908,8 +908,8 @@ $settings = wp_parse_args($settings, $defaults);
                                         <label for="preferred_mobile_stack_order"><?php esc_html_e('Mobile Stack Order', 'signalkit'); ?></label>
                                         <select id="preferred_mobile_stack_order" 
                                                 name="signalkit_settings[preferred_mobile_stack_order]">
-                                            <option value="1" <?php selected($settings['preferred_mobile_stack_order'], 1); ?>><?php esc_html_e('First (Top/Bottom)', 'signalkit'); ?></option>
-                                            <option value="2" <?php selected($settings['preferred_mobile_stack_order'], 2); ?>><?php esc_html_e('Second', 'signalkit'); ?></option>
+                                            <option value="1" <?php selected($signalkit_settings['preferred_mobile_stack_order'], 1); ?>><?php esc_html_e('First (Top/Bottom)', 'signalkit'); ?></option>
+                                            <option value="2" <?php selected($signalkit_settings['preferred_mobile_stack_order'], 2); ?>><?php esc_html_e('Second', 'signalkit'); ?></option>
                                         </select>
                                         <p class="description"><?php esc_html_e('Order when both banners are active on mobile', 'signalkit'); ?></p>
                                     </div>
@@ -920,9 +920,9 @@ $settings = wp_parse_args($settings, $defaults);
                                                 name="signalkit_settings[preferred_animation]" 
                                                 class="signalkit-preview-trigger"
                                                 data-banner="preferred">
-                                            <option value="slide_in" <?php selected($settings['preferred_animation'], 'slide_in'); ?>><?php esc_html_e('Slide In', 'signalkit'); ?></option>
-                                            <option value="fade_in" <?php selected($settings['preferred_animation'], 'fade_in'); ?>><?php esc_html_e('Fade In', 'signalkit'); ?></option>
-                                            <option value="bounce" <?php selected($settings['preferred_animation'], 'bounce'); ?>><?php esc_html_e('Bounce', 'signalkit'); ?></option>
+                                            <option value="slide_in" <?php selected($signalkit_settings['preferred_animation'], 'slide_in'); ?>><?php esc_html_e('Slide In', 'signalkit'); ?></option>
+                                            <option value="fade_in" <?php selected($signalkit_settings['preferred_animation'], 'fade_in'); ?>><?php esc_html_e('Fade In', 'signalkit'); ?></option>
+                                            <option value="bounce" <?php selected($signalkit_settings['preferred_animation'], 'bounce'); ?>><?php esc_html_e('Bounce', 'signalkit'); ?></option>
                                         </select>
                                     </div>
                                     
@@ -930,9 +930,9 @@ $settings = wp_parse_args($settings, $defaults);
                                         <label for="preferred_show_frequency"><?php esc_html_e('Show Frequency', 'signalkit'); ?></label>
                                         <select id="preferred_show_frequency" 
                                                 name="signalkit_settings[preferred_show_frequency]">
-                                            <option value="always" <?php selected($settings['preferred_show_frequency'], 'always'); ?>><?php esc_html_e('Always', 'signalkit'); ?></option>
-                                            <option value="once_per_session" <?php selected($settings['preferred_show_frequency'], 'once_per_session'); ?>><?php esc_html_e('Once Per Session', 'signalkit'); ?></option>
-                                            <option value="once_per_day" <?php selected($settings['preferred_show_frequency'], 'once_per_day'); ?>><?php esc_html_e('Once Per Day', 'signalkit'); ?></option>
+                                            <option value="always" <?php selected($signalkit_settings['preferred_show_frequency'], 'always'); ?>><?php esc_html_e('Always', 'signalkit'); ?></option>
+                                            <option value="once_per_session" <?php selected($signalkit_settings['preferred_show_frequency'], 'once_per_session'); ?>><?php esc_html_e('Once Per Session', 'signalkit'); ?></option>
+                                            <option value="once_per_day" <?php selected($signalkit_settings['preferred_show_frequency'], 'once_per_day'); ?>><?php esc_html_e('Once Per Day', 'signalkit'); ?></option>
                                         </select>
                                     </div>
                                 </div>
@@ -943,7 +943,7 @@ $settings = wp_parse_args($settings, $defaults);
                                     <input type="checkbox" 
                                            name="signalkit_settings[preferred_dismissible]" 
                                            value="1" 
-                                           <?php checked($settings['preferred_dismissible'], 1); ?>
+                                           <?php checked($signalkit_settings['preferred_dismissible'], 1); ?>
                                            class="signalkit-preview-trigger"
                                            data-banner="preferred"
                                            aria-describedby="preferred-dismissible-desc">
@@ -961,13 +961,13 @@ $settings = wp_parse_args($settings, $defaults);
                                     <input type="range" 
                                            id="preferred_close_button_size"
                                            name="signalkit_settings[preferred_close_button_size]" 
-                                           value="<?php echo esc_attr(isset($settings['preferred_close_button_size']) ? $settings['preferred_close_button_size'] : 28); ?>" 
+                                           value="<?php echo esc_attr(isset($signalkit_settings['preferred_close_button_size']) ? $signalkit_settings['preferred_close_button_size'] : 28); ?>" 
                                            min="20" 
                                            max="40" 
                                            step="1"
                                            class="signalkit-range signalkit-preview-trigger"
                                            data-banner="preferred">
-                                    <span class="signalkit-range-value"><?php echo esc_html(isset($settings['preferred_close_button_size']) ? $settings['preferred_close_button_size'] : 28); ?>px</span>
+                                    <span class="signalkit-range-value"><?php echo esc_html(isset($signalkit_settings['preferred_close_button_size']) ? $signalkit_settings['preferred_close_button_size'] : 28); ?>px</span>
                                 </div>
                             </div>
                             
@@ -976,7 +976,7 @@ $settings = wp_parse_args($settings, $defaults);
                                 <input type="number" 
                                        id="preferred_dismiss_duration"
                                        name="signalkit_settings[preferred_dismiss_duration]" 
-                                       value="<?php echo esc_attr($settings['preferred_dismiss_duration']); ?>" 
+                                       value="<?php echo esc_attr($signalkit_settings['preferred_dismiss_duration']); ?>" 
                                        min="1" 
                                        max="365" 
                                        class="small-text"
@@ -991,7 +991,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="checkbox" 
                                                name="signalkit_settings[preferred_mobile_enabled]" 
                                                value="1" 
-                                               <?php checked($settings['preferred_mobile_enabled'], 1); ?>
+                                               <?php checked($signalkit_settings['preferred_mobile_enabled'], 1); ?>
                                                class="signalkit-preview-trigger"
                                                data-banner="preferred">
                                         <span class="dashicons dashicons-smartphone" aria-hidden="true"></span>
@@ -1001,7 +1001,7 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="checkbox" 
                                                name="signalkit_settings[preferred_desktop_enabled]" 
                                                value="1" 
-                                               <?php checked($settings['preferred_desktop_enabled'], 1); ?>
+                                               <?php checked($signalkit_settings['preferred_desktop_enabled'], 1); ?>
                                                class="signalkit-preview-trigger"
                                                data-banner="preferred">
                                         <span class="dashicons dashicons-desktop" aria-hidden="true"></span>
@@ -1017,28 +1017,28 @@ $settings = wp_parse_args($settings, $defaults);
                                         <input type="checkbox" 
                                                name="signalkit_settings[preferred_show_on_posts]" 
                                                value="1" 
-                                               <?php checked($settings['preferred_show_on_posts'], 1); ?>>
+                                               <?php checked($signalkit_settings['preferred_show_on_posts'], 1); ?>>
                                         <?php esc_html_e('Show on Posts', 'signalkit'); ?>
                                     </label>
                                     <label>
                                         <input type="checkbox" 
                                                name="signalkit_settings[preferred_show_on_pages]" 
                                                value="1" 
-                                               <?php checked($settings['preferred_show_on_pages'], 1); ?>>
+                                               <?php checked($signalkit_settings['preferred_show_on_pages'], 1); ?>>
                                         <?php esc_html_e('Show on Pages', 'signalkit'); ?>
                                     </label>
                                     <label>
                                         <input type="checkbox" 
                                                name="signalkit_settings[preferred_show_on_homepage]" 
                                                value="1" 
-                                               <?php checked($settings['preferred_show_on_homepage'], 1); ?>>
+                                               <?php checked($signalkit_settings['preferred_show_on_homepage'], 1); ?>>
                                         <?php esc_html_e('Show on Homepage', 'signalkit'); ?>
                                     </label>
                                     <label>
                                         <input type="checkbox" 
                                                name="signalkit_settings[preferred_show_on_archive]" 
                                                value="1" 
-                                               <?php checked($settings['preferred_show_on_archive'], 1); ?>>
+                                               <?php checked($signalkit_settings['preferred_show_on_archive'], 1); ?>>
                                         <?php esc_html_e('Show on Archive Pages', 'signalkit'); ?>
                                     </label>
                                 </div>
@@ -1050,7 +1050,7 @@ $settings = wp_parse_args($settings, $defaults);
                     <?php 
                     // Custom Banner Tab Content (v2.1)
                     if (function_exists('signalkit_render_custom_banner_settings')) {
-                        signalkit_render_custom_banner_settings($settings);
+                        signalkit_render_custom_banner_settings($signalkit_settings);
                     }
                     ?>
                     
@@ -1062,7 +1062,7 @@ $settings = wp_parse_args($settings, $defaults);
                                 <input type="text" 
                                        id="site_name"
                                        name="signalkit_settings[site_name]" 
-                                       value="<?php echo esc_attr($settings['site_name']); ?>"
+                                       value="<?php echo esc_attr($signalkit_settings['site_name']); ?>"
                                        class="regular-text signalkit-preview-trigger"
                                        data-banner="both"
                                        placeholder="<?php echo esc_attr(get_bloginfo('name')); ?>"
@@ -1075,13 +1075,13 @@ $settings = wp_parse_args($settings, $defaults);
                                 <p><strong><?php esc_html_e('Version:', 'signalkit'); ?></strong> <?php echo esc_html(SIGNALKIT_VERSION); ?></p>
                                 <p><strong><?php esc_html_e('Status:', 'signalkit'); ?></strong> 
                                     <?php 
-                                    $follow_enabled = !empty($settings['follow_enabled']);
-                                    $preferred_enabled = !empty($settings['preferred_enabled']);
-                                    if ($follow_enabled && $preferred_enabled) {
+                                    $signalkit_follow_enabled = !empty($signalkit_settings['follow_enabled']);
+                                    $signalkit_preferred_enabled = !empty($signalkit_settings['preferred_enabled']);
+                                    if ($signalkit_follow_enabled && $signalkit_preferred_enabled) {
                                         echo '<span style="color: #46b450;">✓ ' . esc_html__('Both banners enabled', 'signalkit') . '</span>';
-                                    } elseif ($follow_enabled) {
+                                    } elseif ($signalkit_follow_enabled) {
                                         echo '<span style="color: #46b450;">✓ ' . esc_html__('Follow banner enabled', 'signalkit') . '</span>';
-                                    } elseif ($preferred_enabled) {
+                                    } elseif ($signalkit_preferred_enabled) {
                                         echo '<span style="color: #46b450;">✓ ' . esc_html__('Preferred banner enabled', 'signalkit') . '</span>';
                                     } else {
                                         echo '<span style="color: #dc3232;">✗ ' . esc_html__('No banners enabled', 'signalkit') . '</span>';
@@ -1098,9 +1098,9 @@ $settings = wp_parse_args($settings, $defaults);
                                 <label for="mobile_banner_strategy"><?php esc_html_e('Mobile Display Mode', 'signalkit'); ?></label>
                                 <select id="mobile_banner_strategy" 
                                         name="signalkit_settings[mobile_banner_strategy]">
-                                    <option value="show_all" <?php selected($settings['mobile_banner_strategy'] ?? 'show_all', 'show_all'); ?>><?php esc_html_e('Show All Enabled Banners', 'signalkit'); ?></option>
-                                    <option value="priority_only" <?php selected($settings['mobile_banner_strategy'] ?? 'show_all', 'priority_only'); ?>><?php esc_html_e('Show Highest Priority Only', 'signalkit'); ?></option>
-                                    <option value="rotate" <?php selected($settings['mobile_banner_strategy'] ?? 'show_all', 'rotate'); ?>><?php esc_html_e('Rotate/Shuffle Banners', 'signalkit'); ?></option>
+                                    <option value="show_all" <?php selected($signalkit_settings['mobile_banner_strategy'] ?? 'show_all', 'show_all'); ?>><?php esc_html_e('Show All Enabled Banners', 'signalkit'); ?></option>
+                                    <option value="priority_only" <?php selected($signalkit_settings['mobile_banner_strategy'] ?? 'show_all', 'priority_only'); ?>><?php esc_html_e('Show Highest Priority Only', 'signalkit'); ?></option>
+                                    <option value="rotate" <?php selected($signalkit_settings['mobile_banner_strategy'] ?? 'show_all', 'rotate'); ?>><?php esc_html_e('Rotate/Shuffle Banners', 'signalkit'); ?></option>
                                 </select>
                                 <p class="description"><?php esc_html_e('Choose how multiple banners behave on mobile devices.', 'signalkit'); ?></p>
                             </div>
@@ -1173,7 +1173,7 @@ $settings = wp_parse_args($settings, $defaults);
                                     <input type="checkbox" 
                                            name="signalkit_settings[enable_rate_limiting]" 
                                            value="1" 
-                                           <?php checked($settings['enable_rate_limiting'], 1); ?>
+                                           <?php checked($signalkit_settings['enable_rate_limiting'], 1); ?>
                                            aria-describedby="rate-limit-desc">
                                     <span class="signalkit-toggle-slider" aria-hidden="true"></span>
                                 </label>
@@ -1192,7 +1192,7 @@ $settings = wp_parse_args($settings, $defaults);
                                     <input type="checkbox"
                                            name="signalkit_settings[enable_google_fonts]"
                                            value="1"
-                                           <?php checked($settings['enable_google_fonts'], 1); ?>
+                                           <?php checked($signalkit_settings['enable_google_fonts'], 1); ?>
                                            aria-describedby="google-fonts-desc">
                                     <span class="signalkit-toggle-slider" aria-hidden="true"></span>
                                 </label>
@@ -1215,7 +1215,7 @@ $settings = wp_parse_args($settings, $defaults);
                                     <input type="checkbox" 
                                            name="signalkit_settings[analytics_tracking]" 
                                            value="1" 
-                                           <?php checked($settings['analytics_tracking'], 1); ?>
+                                           <?php checked($signalkit_settings['analytics_tracking'], 1); ?>
                                            aria-describedby="analytics-desc">
                                     <span class="signalkit-toggle-slider" aria-hidden="true"></span>
                                 </label>
@@ -1230,7 +1230,7 @@ $settings = wp_parse_args($settings, $defaults);
                                 <input type="password" 
                                        id="import_export_key"
                                        name="signalkit_settings[import_export_key]" 
-                                       value="<?php echo esc_attr($settings['import_export_key']); ?>" 
+                                       value="<?php echo esc_attr($signalkit_settings['import_export_key']); ?>" 
                                        class="regular-text"
                                        placeholder="<?php esc_attr_e('Leave empty for auto-generated', 'signalkit'); ?>"
                                        aria-describedby="export-key-desc"
@@ -1247,7 +1247,7 @@ $settings = wp_parse_args($settings, $defaults);
                                     <input type="checkbox" 
                                            name="signalkit_settings[delete_data_on_uninstall]" 
                                            value="1" 
-                                           <?php checked($settings['delete_data_on_uninstall'], 1); ?>
+                                           <?php checked($signalkit_settings['delete_data_on_uninstall'], 1); ?>
                                            aria-describedby="delete-data-desc">
                                     <span class="signalkit-toggle-slider" aria-hidden="true"></span>
                                 </label>

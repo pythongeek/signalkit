@@ -17,6 +17,7 @@ class SignalKit_Activator {
      */
     public static function activate() {
         // Multisite support: activate for all blogs if network-activated
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Plugin activation is handled by WordPress core which verifies nonces.
         if (is_multisite() && !empty($_GET['networkwide'])) {
             self::activate_multisite();
             return;
@@ -78,6 +79,7 @@ class SignalKit_Activator {
      */
     private static function activate_multisite() {
         global $wpdb;
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Multisite activation.
         $blog_ids = $wpdb->get_col("SELECT blog_id FROM {$wpdb->blogs}");
         foreach ($blog_ids as $blog_id) {
             self::activate_single_site($blog_id);
@@ -350,8 +352,7 @@ class SignalKit_Activator {
         $charset_collate = $wpdb->get_charset_collate();
         
         // Atomic CREATE TABLE with IF NOT EXISTS (eliminates race condition)
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table names cannot be prepared, esc_sql is required
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.SchemaChange -- Table names cannot be prepared, esc_sql is required
         $sql = "CREATE TABLE IF NOT EXISTS {$table_name} (
             id bigint(20) NOT NULL AUTO_INCREMENT,
             email varchar(255) NOT NULL,

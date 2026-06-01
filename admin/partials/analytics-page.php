@@ -20,15 +20,15 @@ wp_enqueue_style(
 
 // Template partial variables - intentionally unprefixed as these are passed from including context
 // Get analytics data
-$analytics = SignalKit_Analytics::get_analytics('all');
+$signalkit_analytics_data = SignalKit_Analytics::get_analytics('all');
 
 // Calculate combined stats (all banners)
-$combined = array(
-    'impressions' => ($analytics['follow']['impressions'] ?? 0) + ($analytics['preferred']['impressions'] ?? 0) + ($analytics['custom']['impressions'] ?? 0),
-    'clicks' => ($analytics['follow']['clicks'] ?? 0) + ($analytics['preferred']['clicks'] ?? 0) + ($analytics['custom']['clicks'] ?? 0),
-    'dismissals' => ($analytics['follow']['dismissals'] ?? 0) + ($analytics['preferred']['dismissals'] ?? 0) + ($analytics['custom']['dismissals'] ?? 0),
+$signalkit_combined = array(
+    'impressions' => ($signalkit_analytics_data['follow']['impressions'] ?? 0) + ($signalkit_analytics_data['preferred']['impressions'] ?? 0) + ($signalkit_analytics_data['custom']['impressions'] ?? 0),
+    'clicks' => ($signalkit_analytics_data['follow']['clicks'] ?? 0) + ($signalkit_analytics_data['preferred']['clicks'] ?? 0) + ($signalkit_analytics_data['custom']['clicks'] ?? 0),
+    'dismissals' => ($signalkit_analytics_data['follow']['dismissals'] ?? 0) + ($signalkit_analytics_data['preferred']['dismissals'] ?? 0) + ($signalkit_analytics_data['custom']['dismissals'] ?? 0),
 );
-$combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $combined['impressions']) * 100, 2) : 0;
+$signalkit_combined['ctr'] = $signalkit_combined['impressions'] > 0 ? round(($signalkit_combined['clicks'] / $signalkit_combined['impressions']) * 100, 2) : 0;
 ?>
 
 
@@ -37,15 +37,15 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
     <div class="signalkit-analytics-header-logo">
         <?php
         // Include the branding logo component
-        $logo_file = SIGNALKIT_PLUGIN_DIR . 'admin/partials/branding-logo.php';
-        if (file_exists($logo_file)) {
+        $signalkit_logo_file = SIGNALKIT_PLUGIN_DIR . 'admin/partials/branding-logo.php';
+        if (file_exists($signalkit_logo_file)) {
             // Pass custom arguments for analytics page (smaller size)
-            $args = array(
+            $signalkit_args = array(
                 'size' => 'small',
                 'show_text' => true,
                 'animate' => true
             );
-            include $logo_file;
+            include $signalkit_logo_file;
         }
         ?>
     </div>
@@ -63,25 +63,25 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
             <div class="signalkit-stats-grid">
                 <div class="signalkit-stat-box">
                     <div class="signalkit-stat-icon">👁️</div>
-                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($combined['impressions'])); ?></div>
+                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($signalkit_combined['impressions'])); ?></div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Total Impressions', 'signalkit'); ?></div>
                 </div>
                 
                 <div class="signalkit-stat-box">
                     <div class="signalkit-stat-icon">👆</div>
-                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($combined['clicks'])); ?></div>
+                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($signalkit_combined['clicks'])); ?></div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Total Clicks', 'signalkit'); ?></div>
                 </div>
                 
                 <div class="signalkit-stat-box signalkit-stat-highlight">
                     <div class="signalkit-stat-icon">📈</div>
-                    <div class="signalkit-stat-value"><?php echo esc_html($combined['ctr']); ?>%</div>
+                    <div class="signalkit-stat-value"><?php echo esc_html($signalkit_combined['ctr']); ?>%</div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Overall CTR', 'signalkit'); ?></div>
                 </div>
                 
                 <div class="signalkit-stat-box">
                     <div class="signalkit-stat-icon" aria-hidden="true"><span class="dashicons dashicons-dismiss"></span></div>
-                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($combined['dismissals'])); ?></div>
+                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($signalkit_combined['dismissals'])); ?></div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Total Dismissals', 'signalkit'); ?></div>
                 </div>
             </div>
@@ -97,33 +97,33 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
             
             <div class="signalkit-stats-grid">
                 <div class="signalkit-stat-box">
-                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($analytics['follow']['impressions'] ?? 0)); ?></div>
+                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($signalkit_analytics_data['follow']['impressions'] ?? 0)); ?></div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Impressions', 'signalkit'); ?></div>
                 </div>
                 
                 <div class="signalkit-stat-box">
-                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($analytics['follow']['clicks'] ?? 0)); ?></div>
+                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($signalkit_analytics_data['follow']['clicks'] ?? 0)); ?></div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Clicks', 'signalkit'); ?></div>
                 </div>
                 
                 <div class="signalkit-stat-box signalkit-stat-highlight">
-                    <div class="signalkit-stat-value"><?php echo esc_html($analytics['follow']['ctr'] ?? 0); ?>%</div>
+                    <div class="signalkit-stat-value"><?php echo esc_html($signalkit_analytics_data['follow']['ctr'] ?? 0); ?>%</div>
                     <div class="signalkit-stat-label"><?php esc_html_e('CTR', 'signalkit'); ?></div>
                 </div>
                 
                 <div class="signalkit-stat-box">
-                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($analytics['follow']['dismissals'] ?? 0)); ?></div>
+                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($signalkit_analytics_data['follow']['dismissals'] ?? 0)); ?></div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Dismissals', 'signalkit'); ?></div>
                 </div>
             </div>
             
-            <?php if (isset($analytics['follow']['last_updated'])): ?>
+            <?php if (isset($signalkit_analytics_data['follow']['last_updated'])): ?>
                 <div class="signalkit-last-updated">
                     <?php
                     printf(
                         /* translators: %s: Last updated date/time */
                         esc_html__('Last updated: %s', 'signalkit'),
-                        esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), strtotime($analytics['follow']['last_updated'])))
+                        esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), strtotime($signalkit_analytics_data['follow']['last_updated'])))
                     );
                     ?>
                 </div>
@@ -140,33 +140,33 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
             
             <div class="signalkit-stats-grid">
                 <div class="signalkit-stat-box">
-                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($analytics['preferred']['impressions'] ?? 0)); ?></div>
+                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($signalkit_analytics_data['preferred']['impressions'] ?? 0)); ?></div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Impressions', 'signalkit'); ?></div>
                 </div>
                 
                 <div class="signalkit-stat-box">
-                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($analytics['preferred']['clicks'] ?? 0)); ?></div>
+                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($signalkit_analytics_data['preferred']['clicks'] ?? 0)); ?></div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Clicks', 'signalkit'); ?></div>
                 </div>
                 
                 <div class="signalkit-stat-box signalkit-stat-highlight">
-                    <div class="signalkit-stat-value"><?php echo esc_html($analytics['preferred']['ctr'] ?? 0); ?>%</div>
+                    <div class="signalkit-stat-value"><?php echo esc_html($signalkit_analytics_data['preferred']['ctr'] ?? 0); ?>%</div>
                     <div class="signalkit-stat-label"><?php esc_html_e('CTR', 'signalkit'); ?></div>
                 </div>
                 
                 <div class="signalkit-stat-box">
-                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($analytics['preferred']['dismissals'] ?? 0)); ?></div>
+                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($signalkit_analytics_data['preferred']['dismissals'] ?? 0)); ?></div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Dismissals', 'signalkit'); ?></div>
                 </div>
             </div>
             
-            <?php if (isset($analytics['preferred']['last_updated'])): ?>
+            <?php if (isset($signalkit_analytics_data['preferred']['last_updated'])): ?>
                 <div class="signalkit-last-updated">
                     <?php
                     printf(
                         /* translators: %s: Last updated date/time */
                         esc_html__('Last updated: %s', 'signalkit'),
-                        esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), strtotime($analytics['preferred']['last_updated'])))
+                        esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), strtotime($signalkit_analytics_data['preferred']['last_updated'])))
                     );
                     ?>
                 </div>
@@ -175,34 +175,34 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
         
         <?php 
         // Get custom banner stats
-        $settings = get_option('signalkit_settings', array());
-        $custom_enabled = !empty($settings['custom_enabled']);
+        $signalkit_settings = get_option('signalkit_settings', array());
+        $signalkit_custom_enabled = !empty($signalkit_settings['custom_enabled']);
         
         // Get submission count from database
         global $wpdb;
-        $submissions_table = $wpdb->prefix . 'signalkit_submissions';
-        $submission_count = 0;
+        $signalkit_submissions_table = $wpdb->prefix . 'signalkit_submissions';
+        $signalkit_submission_count = 0;
         
-        $table_check = $wpdb->get_var(
-            $wpdb->prepare("SHOW TABLES LIKE %s", $submissions_table)
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Schema check
+        $signalkit_table_check = $wpdb->get_var(
+            $wpdb->prepare("SHOW TABLES LIKE %s", $signalkit_submissions_table)
         );
         
-        if ($table_check === $submissions_table) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
-            $submission_count = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM `%s`", $submissions_table));
+        if ($signalkit_table_check === $signalkit_submissions_table) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
+            $signalkit_submission_count = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM `%s`", $signalkit_submissions_table));
         }
         
         // Calculate custom banner conversion rate
-        $custom_impressions = $analytics['custom']['impressions'] ?? 0;
-        $custom_conversion = $custom_impressions > 0 ? round(($submission_count / $custom_impressions) * 100, 2) : 0;
+        $signalkit_custom_impressions = $signalkit_analytics_data['custom']['impressions'] ?? 0;
+        $signalkit_custom_conversion = $signalkit_custom_impressions > 0 ? round(($signalkit_submission_count / $signalkit_custom_impressions) * 100, 2) : 0;
         ?>
         
         <div class="signalkit-analytics-card">
             <div class="signalkit-card-header">
                 <h2><span aria-hidden="true">📧</span> <?php esc_html_e('Custom Banner (Lead Capture)', 'signalkit'); ?></h2>
                 <div class="signalkit-card-actions">
-                    <?php if ($custom_enabled): ?>
+                    <?php if ($signalkit_custom_enabled): ?>
                         <span class="signalkit-status-badge signalkit-status-active"><?php esc_html_e('Active', 'signalkit'); ?></span>
                     <?php else: ?>
                         <span class="signalkit-status-badge signalkit-status-inactive"><?php esc_html_e('Inactive', 'signalkit'); ?></span>
@@ -216,49 +216,48 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
             <div class="signalkit-stats-grid">
                 <div class="signalkit-stat-box">
                     <div class="signalkit-stat-icon">👁️</div>
-                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($analytics['custom']['impressions'] ?? 0)); ?></div>
+                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($signalkit_analytics_data['custom']['impressions'] ?? 0)); ?></div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Impressions', 'signalkit'); ?></div>
                 </div>
                 
                 <div class="signalkit-stat-box signalkit-stat-success">
                     <div class="signalkit-stat-icon">📨</div>
-                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($submission_count)); ?></div>
+                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($signalkit_submission_count)); ?></div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Submissions', 'signalkit'); ?></div>
                 </div>
                 
                 <div class="signalkit-stat-box signalkit-stat-highlight">
                     <div class="signalkit-stat-icon" aria-hidden="true"><span class="dashicons dashicons-chart-bar"></span></div>
-                    <div class="signalkit-stat-value"><?php echo esc_html($custom_conversion); ?>%</div>
+                    <div class="signalkit-stat-value"><?php echo esc_html($signalkit_custom_conversion); ?>%</div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Conversion Rate', 'signalkit'); ?></div>
                 </div>
                 
                 <div class="signalkit-stat-box">
                     <div class="signalkit-stat-icon" aria-hidden="true"><span class="dashicons dashicons-dismiss"></span></div>
-                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($analytics['custom']['dismissals'] ?? 0)); ?></div>
+                    <div class="signalkit-stat-value"><?php echo esc_html(number_format($signalkit_analytics_data['custom']['dismissals'] ?? 0)); ?></div>
                     <div class="signalkit-stat-label"><?php esc_html_e('Dismissals', 'signalkit'); ?></div>
                 </div>
             </div>
             
-            <?php if (isset($analytics['custom']['last_updated'])): ?>
+            <?php if (isset($signalkit_analytics_data['custom']['last_updated'])): ?>
                 <div class="signalkit-last-updated">
                     <?php
                     printf(
                         /* translators: %s: Last updated date/time */
                         esc_html__('Last updated: %s', 'signalkit'),
-                        esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), strtotime($analytics['custom']['last_updated'])))
+                        esc_html(wp_date(get_option('date_format') . ' ' . get_option('time_format'), strtotime($signalkit_analytics_data['custom']['last_updated'])))
                     );
                     ?>
                 </div>
             <?php endif; ?>
             
-            <?php if ($submission_count > 0): ?>
+            <?php if ($signalkit_submission_count > 0): ?>
                 
                 <?php 
                 // Fetch recent leads
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
-                $recent_leads = $wpdb->get_results($wpdb->prepare("SELECT id, email, name, submitted_at FROM `%s` ORDER BY submitted_at DESC LIMIT 5", $submissions_table));
-                if ($recent_leads): 
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
+                $signalkit_recent_leads = $wpdb->get_results($wpdb->prepare("SELECT id, email, name, submitted_at FROM `%s` ORDER BY submitted_at DESC LIMIT 5", $signalkit_submissions_table));
+                if ($signalkit_recent_leads): 
                 ?>
                 <div class="signalkit-recent-leads">
                     <h3><?php esc_html_e('Recent Leads', 'signalkit'); ?></h3>
@@ -271,11 +270,11 @@ $combined['ctr'] = $combined['impressions'] > 0 ? round(($combined['clicks'] / $
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($recent_leads as $lead): ?>
+                            <?php foreach ($signalkit_recent_leads as $signalkit_lead): ?>
                                 <tr>
-                                    <td><?php echo esc_html($lead->email); ?></td>
-                                    <td><?php echo esc_html($lead->name ?: '-'); ?></td>
-                                    <td><?php echo esc_html(wp_date(get_option('date_format'), strtotime($lead->submitted_at))); ?></td>
+                                    <td><?php echo esc_html($signalkit_lead->email); ?></td>
+                                    <td><?php echo esc_html($signalkit_lead->name ?: '-'); ?></td>
+                                    <td><?php echo esc_html(wp_date(get_option('date_format'), strtotime($signalkit_lead->submitted_at))); ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

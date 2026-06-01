@@ -12,206 +12,209 @@ if (!defined('ABSPATH')) {
 }
 
 // Template partial variables - intentionally unprefixed as these are passed from including context
-if (!isset($banner) || !is_array($banner)) {
+if (!isset($signalkit_banner) || !is_array($signalkit_banner)) {
     return;
 }
 
 // SECURITY FIX: No HTML allowed in user-controlled content
-$allowed_html = array();
+$signalkit_allowed_html = array();
 
 // Extract banner data with strict escaping
-$site_name        = esc_html($banner['site_name'] ?? get_bloginfo('name'));
-$banner_id        = 'signalkit-preferred-banner-' . uniqid();
-$device           = $banner['device'] ?? 'desktop';
+$signalkit_site_name        = esc_html($signalkit_banner['site_name'] ?? get_bloginfo('name'));
+$signalkit_banner_id        = 'signalkit-preferred-banner-' . uniqid();
+$signalkit_device           = $signalkit_banner['device'] ?? 'desktop';
 
 // Content - SECURITY: No HTML tags allowed
-$headline         = str_replace('[site_name]', $site_name, wp_kses($banner['headline'] ?? '', $allowed_html));
-$description      = wp_kses($banner['description'] ?? '', $allowed_html);
-$button_text      = esc_html($banner['button_text'] ?? '');
-$educational_text = esc_html($banner['educational_text'] ?? '');
-$google_preferences_url = esc_url_raw($banner['button_url'] ?? '');
-$educational_post_url   = esc_url_raw($banner['educational_url'] ?? '');
-$show_educational_link  = !empty($banner['show_educational']) && !empty($educational_post_url);
+$signalkit_headline         = str_replace('[site_name]', $signalkit_site_name, wp_kses($signalkit_banner['headline'] ?? '', $signalkit_allowed_html));
+$signalkit_description      = wp_kses($signalkit_banner['description'] ?? '', $signalkit_allowed_html);
+$signalkit_button_text      = esc_html($signalkit_banner['button_text'] ?? '');
+$signalkit_educational_text = esc_html($signalkit_banner['educational_text'] ?? '');
+$signalkit_google_preferences_url = esc_url_raw($signalkit_banner['button_url'] ?? '');
+$signalkit_educational_post_url   = esc_url_raw($signalkit_banner['educational_url'] ?? '');
+$signalkit_show_educational_link  = !empty($signalkit_banner['show_educational']) && !empty($signalkit_educational_post_url);
 
 // Validate URLs
-if (!empty($google_preferences_url) && !filter_var($google_preferences_url, FILTER_VALIDATE_URL)) {
-    $google_preferences_url = '';
+if (!empty($signalkit_google_preferences_url) && !filter_var($signalkit_google_preferences_url, FILTER_VALIDATE_URL)) {
+    $signalkit_google_preferences_url = '';
 }
-if (!empty($educational_post_url) && !filter_var($educational_post_url, FILTER_VALIDATE_URL)) {
-    $educational_post_url = '';
+if (!empty($signalkit_educational_post_url) && !filter_var($signalkit_educational_post_url, FILTER_VALIDATE_URL)) {
+    $signalkit_educational_post_url = '';
 }
 
 // Display Settings
-$position        = $banner['position'] ?? 'bottom_right';
-$mobile_position = $banner['mobile_position'] ?? 'bottom';
-$animation       = $banner['animation'] ?? 'slide_in';
-$dismissible     = !empty($banner['dismissible']);
-$stack_order     = intval($banner['mobile_stack_order'] ?? 2);
+$signalkit_position        = $signalkit_banner['position'] ?? 'bottom_right';
+$signalkit_mobile_position = $signalkit_banner['mobile_position'] ?? 'bottom';
+$signalkit_animation       = $signalkit_banner['animation'] ?? 'slide_in';
+$signalkit_dismissible     = !empty($signalkit_banner['dismissible']);
+$signalkit_stack_order     = intval($signalkit_banner['mobile_stack_order'] ?? 2);
 
 // NEW: Enhanced Style Settings
-$banner_style    = sanitize_html_class($banner['banner_style'] ?? 'modern-card');
-$button_style    = sanitize_html_class($banner['button_style'] ?? 'default');
-$icon_style      = sanitize_html_class($banner['icon_style'] ?? 'circle');
-$enable_glow     = !empty($banner['enable_glow']);
-$enable_float    = !empty($banner['enable_float']);
-$visibility_mode = sanitize_html_class($banner['visibility_mode'] ?? 'auto');
+$signalkit_banner_style    = sanitize_html_class($signalkit_banner['banner_style'] ?? 'modern-card');
+$signalkit_button_style    = sanitize_html_class($signalkit_banner['button_style'] ?? 'default');
+$signalkit_icon_style      = sanitize_html_class($signalkit_banner['icon_style'] ?? 'circle');
+$signalkit_enable_glow     = !empty($signalkit_banner['enable_glow']);
+$signalkit_enable_float    = !empty($signalkit_banner['enable_float']);
+$signalkit_visibility_mode = sanitize_html_class($signalkit_banner['visibility_mode'] ?? 'auto');
 
 // Size Settings - Enhanced
-$banner_width        = max(320, min(500, absint($banner['banner_width'] ?? 380)));
-$banner_padding      = max(12, min(32, absint($banner['banner_padding'] ?? 20)));
-$font_size_headline  = max(14, min(28, absint($banner['font_size_headline'] ?? 16)));
-$font_size_desc      = max(12, min(20, absint($banner['font_size_description'] ?? 14)));
-$font_size_button    = max(12, min(20, absint($banner['font_size_button'] ?? 14)));
-$border_radius       = max(0, min(40, absint($banner['border_radius'] ?? 16)));
-$icon_size           = max(40, min(72, absint($banner['icon_size'] ?? 52)));
+$signalkit_banner_width        = max(320, min(500, absint($signalkit_banner['banner_width'] ?? 380)));
+$signalkit_banner_padding      = max(12, min(32, absint($signalkit_banner['banner_padding'] ?? 20)));
+$signalkit_font_size_headline  = max(14, min(28, absint($signalkit_banner['font_size_headline'] ?? 16)));
+$signalkit_font_size_desc      = max(12, min(20, absint($signalkit_banner['font_size_description'] ?? 14)));
+$signalkit_font_size_button    = max(12, min(20, absint($signalkit_banner['font_size_button'] ?? 14)));
+$signalkit_border_radius       = max(0, min(40, absint($signalkit_banner['border_radius'] ?? 16)));
+$signalkit_icon_size           = max(40, min(72, absint($signalkit_banner['icon_size'] ?? 52)));
 
 // Colors
-$primary_color   = sanitize_hex_color($banner['primary_color'] ?? '#ea4335');
-$secondary_color = sanitize_hex_color($banner['secondary_color'] ?? '#ffffff');
-$accent_color    = sanitize_hex_color($banner['accent_color'] ?? '#fbbc04');
-$text_color      = sanitize_hex_color($banner['text_color'] ?? '#202124');
+$signalkit_primary_color   = sanitize_hex_color($signalkit_banner['primary_color'] ?? '#ea4335');
+$signalkit_secondary_color = sanitize_hex_color($signalkit_banner['secondary_color'] ?? '#ffffff');
+$signalkit_accent_color    = sanitize_hex_color($signalkit_banner['accent_color'] ?? '#fbbc04');
+$signalkit_text_color      = sanitize_hex_color($signalkit_banner['text_color'] ?? '#202124');
 
 // NEW: Advanced Color Settings
-$gradient_start  = sanitize_hex_color($banner['gradient_start'] ?? $primary_color);
-$gradient_end    = sanitize_hex_color($banner['gradient_end'] ?? $accent_color);
-$gradient_angle  = max(0, min(360, absint($banner['gradient_angle'] ?? 135)));
-$border_color    = sanitize_hex_color($banner['border_color'] ?? '');
-$glow_intensity  = max(0, min(50, absint($banner['glow_intensity'] ?? 20)));
-$backdrop_blur   = max(0, min(30, absint($banner['backdrop_blur'] ?? 12)));
-$backdrop_opacity = max(50, min(100, absint($banner['backdrop_opacity'] ?? 95)));
+$signalkit_gradient_start  = sanitize_hex_color($signalkit_banner['gradient_start'] ?? $signalkit_primary_color);
+$signalkit_gradient_end    = sanitize_hex_color($signalkit_banner['gradient_end'] ?? $signalkit_accent_color);
+$signalkit_gradient_angle  = max(0, min(360, absint($signalkit_banner['gradient_angle'] ?? 135)));
+$signalkit_border_color    = sanitize_hex_color($signalkit_banner['border_color'] ?? '');
+$signalkit_glow_intensity  = max(0, min(50, absint($signalkit_banner['glow_intensity'] ?? 20)));
+$signalkit_backdrop_blur   = max(0, min(30, absint($signalkit_banner['backdrop_blur'] ?? 12)));
+$signalkit_backdrop_opacity = max(50, min(100, absint($signalkit_banner['backdrop_opacity'] ?? 95)));
 
 // Helper function - Convert hex to RGB
 // Function now loaded from includes/signalkit-helpers.php
-$primary_rgb   = signalkit_hex_to_rgb($primary_color);
-$secondary_rgb = signalkit_hex_to_rgb($secondary_color);
-$accent_rgb    = signalkit_hex_to_rgb($accent_color);
-$text_rgb      = signalkit_hex_to_rgb($text_color);
+$signalkit_primary_rgb   = signalkit_hex_to_rgb($signalkit_primary_color);
+$signalkit_secondary_rgb = signalkit_hex_to_rgb($signalkit_secondary_color);
+$signalkit_accent_rgb    = signalkit_hex_to_rgb($signalkit_accent_color);
+$signalkit_text_rgb      = signalkit_hex_to_rgb($signalkit_text_color);
 
 // Device-specific classes
-$device_class = $device === 'mobile' ? 'signalkit-device-mobile' : 'signalkit-device-desktop';
-$position_class = $device === 'mobile'
-    ? 'signalkit-position-mobile-' . sanitize_html_class($mobile_position)
-    : 'signalkit-position-' . sanitize_html_class($position);
-$animation_class = 'signalkit-animation-' . sanitize_html_class($animation);
-$stack_class = $device === 'mobile' ? 'signalkit-stack-order-' . $stack_order : '';
-$style_class = 'signalkit-style-' . $banner_style;
-$button_style_class = 'signalkit-button-style-' . $button_style;
-$icon_style_class = 'signalkit-icon-style-' . $icon_style;
-$visibility_class = $visibility_mode !== 'auto' ? 'signalkit-contrast-' . $visibility_mode : '';
+$signalkit_device_class = $signalkit_device === 'mobile' ? 'signalkit-device-mobile' : 'signalkit-device-desktop';
+$signalkit_position_class = $signalkit_device === 'mobile'
+    ? 'signalkit-position-mobile-' . sanitize_html_class($signalkit_mobile_position)
+    : 'signalkit-position-' . sanitize_html_class($signalkit_position);
+$signalkit_animation_class = 'signalkit-animation-' . sanitize_html_class($signalkit_animation);
+$signalkit_stack_class = $signalkit_device === 'mobile' ? 'signalkit-stack-order-' . $signalkit_stack_order : '';
+$signalkit_style_class = 'signalkit-style-' . $signalkit_banner_style;
+$signalkit_button_style_class = 'signalkit-button-style-' . $signalkit_button_style;
+$signalkit_icon_style_class = 'signalkit-icon-style-' . $signalkit_icon_style;
+$signalkit_visibility_class = $signalkit_visibility_mode !== 'auto' ? 'signalkit-contrast-' . $signalkit_visibility_mode : '';
 
 // Width value
-$width_value = $device === 'desktop' ? $banner_width . 'px' : '100%';
+$signalkit_width_value = $signalkit_device === 'desktop' ? $signalkit_banner_width . 'px' : '100%';
 
 // Build CSS custom properties
-$css_vars = array(
-    '--signalkit-primary: ' . $primary_color,
-    '--signalkit-primary-rgb: ' . $primary_rgb,
-    '--signalkit-secondary: ' . $secondary_color,
-    '--signalkit-secondary-rgb: ' . $secondary_rgb,
-    '--signalkit-accent: ' . $accent_color,
-    '--signalkit-accent-rgb: ' . $accent_rgb,
-    '--signalkit-text: ' . $text_color,
-    '--signalkit-text-rgb: ' . $text_rgb,
-    '--signalkit-gradient-start: ' . $gradient_start,
-    '--signalkit-gradient-end: ' . $gradient_end,
-    '--signalkit-gradient-angle: ' . $gradient_angle . 'deg',
-    '--signalkit-width: ' . $width_value,
-    '--signalkit-padding: ' . $banner_padding . 'px',
-    '--signalkit-headline-size: ' . $font_size_headline . 'px',
-    '--signalkit-description-size: ' . $font_size_desc . 'px',
-    '--signalkit-button-size: ' . $font_size_button . 'px',
-    '--signalkit-radius: ' . $border_radius . 'px',
-    '--signalkit-icon-size: ' . $icon_size . 'px',
-    '--signalkit-glow-intensity: ' . ($enable_glow ? $glow_intensity . 'px' : '0px'),
-    '--signalkit-backdrop-blur: ' . $backdrop_blur . 'px',
-    '--signalkit-backdrop-opacity: ' . ($backdrop_opacity / 100),
+$signalkit_css_vars = array(
+    '--signalkit-primary: ' . $signalkit_primary_color,
+    '--signalkit-primary-rgb: ' . $signalkit_primary_rgb,
+    '--signalkit-secondary: ' . $signalkit_secondary_color,
+    '--signalkit-secondary-rgb: ' . $signalkit_secondary_rgb,
+    '--signalkit-accent: ' . $signalkit_accent_color,
+    '--signalkit-accent-rgb: ' . $signalkit_accent_rgb,
+    '--signalkit-text: ' . $signalkit_text_color,
+    '--signalkit-text-rgb: ' . $signalkit_text_rgb,
+    '--signalkit-gradient-start: ' . $signalkit_gradient_start,
+    '--signalkit-gradient-end: ' . $signalkit_gradient_end,
+    '--signalkit-gradient-angle: ' . $signalkit_gradient_angle . 'deg',
+    '--signalkit-width: ' . $signalkit_width_value,
+    '--signalkit-padding: ' . $signalkit_banner_padding . 'px',
+    '--signalkit-headline-size: ' . $signalkit_font_size_headline . 'px',
+    '--signalkit-description-size: ' . $signalkit_font_size_desc . 'px',
+    '--signalkit-button-size: ' . $signalkit_font_size_button . 'px',
+    '--signalkit-radius: ' . $signalkit_border_radius . 'px',
+    '--signalkit-icon-size: ' . $signalkit_icon_size . 'px',
+    '--signalkit-glow-intensity: ' . ($signalkit_enable_glow ? $signalkit_glow_intensity . 'px' : '0px'),
+    '--signalkit-backdrop-blur: ' . $signalkit_backdrop_blur . 'px',
+    '--signalkit-backdrop-opacity: ' . ($signalkit_backdrop_opacity / 100),
 );
 
-if (!empty($border_color)) {
-    $css_vars[] = '--signalkit-border-color: ' . $border_color;
+if (!empty($signalkit_border_color)) {
+    $signalkit_css_vars[] = '--signalkit-border-color: ' . $signalkit_border_color;
 }
 
-$inline_styles = esc_attr(implode('; ', $css_vars));
+$signalkit_inline_styles = esc_attr(implode('; ', $signalkit_css_vars));
 
 // Apply filters
-$extra_classes = apply_filters('signalkit_preferred_banner_classes', [], $banner);
-$extra_classes = array_map('sanitize_html_class', (array)$extra_classes);
+$signalkit_extra_classes = apply_filters('signalkit_preferred_banner_classes', [], $signalkit_banner);
+$signalkit_extra_classes = array_map('sanitize_html_class', (array)$signalkit_extra_classes);
 
 // Build class list
-$base_classes = array(
+$signalkit_base_classes = array(
     'signalkit-banner',
     'signalkit-banner-preferred',
-    $position_class,
-    $animation_class,
-    $device_class,
-    $stack_class,
-    $style_class,
-    $visibility_class,
+    $signalkit_position_class,
+    $signalkit_animation_class,
+    $signalkit_device_class,
+    $signalkit_stack_class,
+    $signalkit_style_class,
+    $signalkit_visibility_class,
 );
 
 // Add optional effect classes
-if ($enable_glow) {
-    $base_classes[] = 'signalkit-pulse-glow';
+if ($signalkit_enable_glow) {
+    $signalkit_base_classes[] = 'signalkit-pulse-glow';
 }
-if ($enable_float) {
-    $base_classes[] = 'signalkit-float-enabled';
+if ($signalkit_enable_float) {
+    $signalkit_base_classes[] = 'signalkit-float-enabled';
 }
 
-$all_classes = array_merge($base_classes, $extra_classes);
-$banner_classes = implode(' ', array_filter($all_classes));
+$signalkit_all_classes = array_merge($signalkit_base_classes, $signalkit_extra_classes);
+$signalkit_banner_classes = implode(' ', array_filter($signalkit_all_classes));
 ?>
 
-<div id="<?php echo esc_attr($banner_id); ?>"
-     class="<?php echo esc_attr($banner_classes); ?>"
+<div id="<?php echo esc_attr($signalkit_banner_id); ?>"
+     class="<?php echo esc_attr($signalkit_banner_classes); ?>"
      data-banner-type="preferred"
-     data-banner-id="<?php echo esc_attr($banner_id); ?>"
-     data-banner-style="<?php echo esc_attr($banner_style); ?>"
-     style="<?php echo esc_attr($inline_styles); ?>"
+     data-banner-id="<?php echo esc_attr($signalkit_banner_id); ?>"
+     data-banner-style="<?php echo esc_attr($signalkit_banner_style); ?>"
+     style="<?php echo esc_attr($signalkit_inline_styles); ?>"
      role="alertdialog"
-     aria-labelledby="<?php echo esc_attr($banner_id); ?>-headline"
-     aria-describedby="<?php echo esc_attr($banner_id); ?>-description"
+     aria-labelledby="<?php echo esc_attr($signalkit_banner_id); ?>-headline"
+     aria-describedby="<?php echo esc_attr($signalkit_banner_id); ?>-description"
      aria-live="polite"
      aria-modal="false"
      lang="<?php echo esc_attr(get_bloginfo('language')); ?>">
 
     <div class="signalkit-banner-content">
 
-        <div class="signalkit-icon <?php echo esc_attr($icon_style_class); ?>" role="img" aria-label="<?php esc_attr_e('Preferred Source Star Icon', 'signalkit'); ?>">
+        <div class="signalkit-icon <?php echo esc_attr($signalkit_icon_style_class); ?>" role="img" aria-label="<?php esc_attr_e('Preferred Source Star Icon', 'signalkit'); ?>">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                 <!-- Modern Star/Preferred Icon -->
                 <path d="M12 2L14.09 8.26L20.73 8.27L15.46 12.14L17.54 18.41L12 14.52L6.46 18.41L8.54 12.14L3.27 8.27L9.91 8.26L12 2Z" fill="currentColor"/>
                 <!-- Sparkle effects -->
-                <circle cx="19" cy="5" r="2" fill="<?php echo esc_attr($accent_color); ?>"/>
-                <circle cx="5" cy="5" r="1.5" fill="<?php echo esc_attr($accent_color); ?>" opacity="0.7"/>
+                <circle cx="19" cy="5" r="2" fill="<?php echo esc_attr($signalkit_accent_color); ?>"/>
+                <circle cx="5" cy="5" r="1.5" fill="<?php echo esc_attr($signalkit_accent_color); ?>" opacity="0.7"/>
             </svg>
         </div>
 
         <div class="signalkit-text">
-            <?php if (!empty($headline)): ?>
-                <h3 id="<?php echo esc_attr($banner_id); ?>-headline" class="signalkit-headline">
-                    <?php echo esc_html($headline); ?>
+            <?php if (!empty($signalkit_headline)): ?>
+                <h3 id="<?php echo esc_attr($signalkit_banner_id); ?>-headline" class="signalkit-headline">
+                    <?php echo esc_html($signalkit_headline); ?>
                 </h3>
             <?php endif; ?>
 
-            <?php if (!empty($description)): ?>
-                <p id="<?php echo esc_attr($banner_id); ?>-description" class="signalkit-description">
-                    <?php echo esc_html($description); ?>
+            <?php if (!empty($signalkit_description)): ?>
+                <p id="<?php echo esc_attr($signalkit_banner_id); ?>-description" class="signalkit-description">
+                    <?php echo esc_html($signalkit_description); ?>
                 </p>
             <?php endif; ?>
         </div>
 
         <div class="signalkit-actions">
-            <?php if (!empty($google_preferences_url)): ?>
-                <a href="<?php echo esc_url($google_preferences_url); ?>"
-                   class="signalkit-button <?php echo esc_attr($button_style_class); ?>"
+            <?php if (!empty($signalkit_google_preferences_url)): ?>
+                <a href="<?php echo esc_url($signalkit_google_preferences_url); ?>"
+                   class="signalkit-button <?php echo esc_attr($signalkit_button_style_class); ?>"
                    target="_blank"
                    rel="noopener noreferrer nofollow"
                    data-banner-type="preferred"
                    aria-label="<?php 
-                       /* translators: %s: button text */
-                       echo esc_attr(sprintf(__('%s - Opens in new tab', 'signalkit'), $button_text)); 
+                       echo esc_attr(sprintf(
+                           /* translators: %s: button text */
+                           __('%s - Opens in new tab', 'signalkit'), 
+                           $signalkit_button_text
+                       )); 
                    ?>">
-                    <span class="signalkit-button-text"><?php echo esc_html($button_text); ?></span>
+                    <span class="signalkit-button-text"><?php echo esc_html($signalkit_button_text); ?></span>
                     <svg class="signalkit-icon-star" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
                         <path d="M8 1L9.79 5.69L14.76 5.69L10.74 8.69L12.24 13.38L8 10.38L3.76 13.38L5.26 8.69L1.24 5.69L6.21 5.69L8 1Z"/>
                     </svg>
@@ -222,24 +225,27 @@ $banner_classes = implode(' ', array_filter($all_classes));
                 </span>
             <?php endif; ?>
 
-            <?php if ($show_educational_link): ?>
-                <a href="<?php echo esc_url($educational_post_url); ?>"
+            <?php if ($signalkit_show_educational_link): ?>
+                <a href="<?php echo esc_url($signalkit_educational_post_url); ?>"
                    class="signalkit-educational-link"
                    target="_blank"
                    rel="noopener noreferrer"
                    aria-label="<?php 
-                       /* translators: %s: educational link text */
-                       echo esc_attr(sprintf(__('%s - Opens in new tab', 'signalkit'), $educational_text)); 
+                       echo esc_attr(sprintf(
+                           /* translators: %s: educational link text */
+                           __('%s - Opens in new tab', 'signalkit'), 
+                           $signalkit_educational_text
+                       )); 
                    ?>">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
                         <path d="M7 0C3.13 0 0 3.13 0 7s3.13 7 7 7 7-3.13 7-7-3.13-7-7-7zm1 10H6V6h2v4zm0-5H6V3h2v2z"/>
                     </svg>
-                    <span class="signalkit-educational-text"><?php echo esc_html($educational_text); ?></span>
+                    <span class="signalkit-educational-text"><?php echo esc_html($signalkit_educational_text); ?></span>
                 </a>
             <?php endif; ?>
         </div>
 
-        <?php if ($dismissible): ?>
+        <?php if ($signalkit_dismissible): ?>
             <button type="button"
                     class="signalkit-close"
                     aria-label="<?php esc_attr_e('Dismiss notification', 'signalkit'); ?>"
@@ -258,6 +264,6 @@ $banner_classes = implode(' ', array_filter($all_classes));
 </div>
 
 <?php
-do_action('signalkit_after_preferred_banner', $banner, $banner_id);
+do_action('signalkit_after_preferred_banner', $signalkit_banner, $signalkit_banner_id);
 ?>
 

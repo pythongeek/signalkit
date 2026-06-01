@@ -15,37 +15,37 @@ if (!defined('ABSPATH')) {
 
 // Template partial variables - intentionally unprefixed as these are passed from including context
 // Default size options: 'small' (80px), 'medium' (120px), 'large' (180px), 'hero' (240px)
-$size = isset($args['size']) ? sanitize_text_field($args['size']) : 'medium';
-$show_text = isset($args['show_text']) ? (bool)$args['show_text'] : true;
-$animate = isset($args['animate']) ? (bool)$args['animate'] : true;
-$classes = isset($args['classes']) ? esc_attr($args['classes']) : '';
+$signalkit_size = isset($signalkit_args['size']) ? sanitize_text_field($signalkit_args['size']) : 'medium';
+$signalkit_show_text = isset($signalkit_args['show_text']) ? (bool)$signalkit_args['show_text'] : true;
+$signalkit_animate = isset($signalkit_args['animate']) ? (bool)$signalkit_args['animate'] : true;
+$signalkit_classes = isset($signalkit_args['classes']) ? esc_attr($signalkit_args['classes']) : '';
 
 // Size mappings
-$size_map = [
+$signalkit_size_map = [
     'small' => 80,
     'medium' => 120,
     'large' => 180,
     'hero' => 240
 ];
 
-$icon_size = isset($size_map[$size]) ? $size_map[$size] : 120;
-$text_size = $icon_size * 0.44; // Proportional text sizing
+$signalkit_icon_size = isset($signalkit_size_map[$signalkit_size]) ? $signalkit_size_map[$signalkit_size] : 120;
+$signalkit_text_size = $signalkit_icon_size * 0.44; // Proportional text sizing
 
 ?>
-<div class="signalkit-branding-logo <?php echo esc_attr($classes); ?>" 
-     data-size="<?php echo esc_attr($size); ?>" 
-     data-animate="<?php echo esc_attr($animate ? 'true' : 'false'); ?>">
+<div class="signalkit-branding-logo <?php echo esc_attr($signalkit_classes); ?>" 
+     data-size="<?php echo esc_attr($signalkit_size); ?>" 
+     data-animate="<?php echo esc_attr($signalkit_animate ? 'true' : 'false'); ?>">
     
     <!-- SVG ICON -->
     <svg class="signalkit-logo-icon" 
-         width="<?php echo esc_attr($icon_size); ?>" 
-         height="<?php echo esc_attr($icon_size); ?>" 
+         width="<?php echo esc_attr($signalkit_icon_size); ?>" 
+         height="<?php echo esc_attr($signalkit_icon_size); ?>" 
          viewBox="0 0 200 200" 
          xmlns="http://www.w3.org/2000/svg"
          aria-label="SignalKit Logo">
         <defs>
-            <?php $gradient_id = 'signalkit-gradient-' . wp_rand(1000, 9999); ?>
-            <linearGradient id="<?php echo esc_attr($gradient_id); ?>" x1="0%" y1="0%" x2="100%" y2="100%">
+            <?php $signalkit_gradient_id = 'signalkit-gradient-' . wp_rand(1000, 9999); ?>
+            <linearGradient id="<?php echo esc_attr($signalkit_gradient_id); ?>" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" style="stop-color:#2563eb" />
                 <stop offset="50%" style="stop-color:#9333ea" />
                 <stop offset="100%" style="stop-color:#0ea5e9" />
@@ -54,7 +54,7 @@ $text_size = $icon_size * 0.44; // Proportional text sizing
         
         <!-- Tech Polygon Core -->
         <path d="M100,60 L135,80 L135,120 L100,140 L65,120 L65,80 Z" 
-              fill="url(#<?php echo esc_attr($gradient_id); ?>)"
+              fill="url(#<?php echo esc_attr($signalkit_gradient_id); ?>)"
               stroke="rgba(255,255,255,0.2)" 
               stroke-width="1" />
         
@@ -64,12 +64,12 @@ $text_size = $icon_size * 0.44; // Proportional text sizing
         <!-- Orbital Rings (Crisp Strokes) -->
         <path d="M100,30 Q170,30 170,100" 
               fill="none" 
-              stroke="url(#<?php echo esc_attr($gradient_id); ?>)" 
+              stroke="url(#<?php echo esc_attr($signalkit_gradient_id); ?>)" 
               stroke-width="6"
               stroke-linecap="round" />
         <path d="M100,170 Q30,170 30,100" 
               fill="none" 
-              stroke="url(#<?php echo esc_attr($gradient_id); ?>)" 
+              stroke="url(#<?php echo esc_attr($signalkit_gradient_id); ?>)" 
               stroke-width="6"
               stroke-linecap="round" />
         
@@ -89,7 +89,7 @@ $text_size = $icon_size * 0.44; // Proportional text sizing
               stroke-linecap="round" 
               opacity="0.6" />
         
-        <?php if ($animate): ?>
+        <?php if ($signalkit_animate): ?>
         <!-- Animated Pulse Ring -->
         <circle cx="100" cy="100" r="60" 
                 class="signalkit-pulse-ring" 
@@ -99,12 +99,12 @@ $text_size = $icon_size * 0.44; // Proportional text sizing
         <?php endif; ?>
     </svg>
     
-    <?php if ($show_text): ?>
+    <?php if ($signalkit_show_text): ?>
     <!-- TEXT -->
     <div class="signalkit-brand-text-container">
         <div class="signalkit-brand-text" 
              data-text="SIGNALKIT" 
-             style="font-size: <?php echo esc_attr($text_size); ?>px;">
+             style="font-size: <?php echo esc_attr($signalkit_text_size); ?>px;">
             SIGNAL<span class="signalkit-text-light">KIT</span>
         </div>
     </div>

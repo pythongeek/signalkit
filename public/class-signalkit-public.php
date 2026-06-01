@@ -454,7 +454,7 @@ class SignalKit_Public {
             'mobile_stack_order' => absint($this->settings[$prefix . 'mobile_stack_order'] ?? ($banner_type === 'follow' ? 1 : 2)),
         );
 
-        $banner = apply_filters('signalkit_banner_data', $banner, $banner_type);
+        $signalkit_banner = apply_filters('signalkit_banner_data', $banner, $banner_type);
 
         ob_start();
         include $template_file;
@@ -558,7 +558,7 @@ class SignalKit_Public {
         }
         
         // Pass settings to template
-        $settings = $this->settings;
+        $signalkit_settings = $this->settings;
         
         ob_start();
         include $template_file;

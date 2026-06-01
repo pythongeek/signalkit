@@ -137,7 +137,7 @@ class SignalKit_Custom_Handler {
     private function store_submission($submission) {
         global $wpdb;
         
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table operations.
         $result = $wpdb->insert(
             $this->table_name,
             array(
@@ -249,8 +249,7 @@ class SignalKit_Custom_Handler {
     private function is_duplicate_submission($email) {
         global $wpdb;
         
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
         $count = $wpdb->get_var($wpdb->prepare(
             "SELECT COUNT(*) FROM `" . esc_sql($this->table_name) . "` 
              WHERE email = %s 
@@ -348,6 +347,7 @@ class SignalKit_Custom_Handler {
         if (isset($_POST['action']) && $_POST['action'] === 'delete' && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'] ?? '')), 'signalkit_delete_submission')) {
             $id = absint($_POST['submission_id'] ?? 0);
             if ($id > 0) {
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table operations
                 $wpdb->delete($this->table_name, array('id' => $id), array('%d'));
                 echo '<div class="notice notice-success"><p>' . esc_html__('Submission deleted.', 'signalkit') . '</p></div>';
             }
@@ -359,14 +359,12 @@ class SignalKit_Custom_Handler {
         $offset = ($current_page - 1) * $per_page;
         
         // Get total count
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
         $total = $wpdb->get_var("SELECT COUNT(*) FROM `" . esc_sql($this->table_name) . "`");
         $total_pages = ceil($total / $per_page);
         
         // Get submissions
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
         $submissions = $wpdb->get_results($wpdb->prepare(
             "SELECT id, email, name, banner_type, page_url, submitted_at FROM `" . esc_sql($this->table_name) . "` ORDER BY submitted_at DESC LIMIT %d OFFSET %d",
             $per_page,
@@ -480,8 +478,7 @@ class SignalKit_Custom_Handler {
         global $wpdb;
         
         // Get all submissions
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
         $submissions = $wpdb->get_results("SELECT id, email, name, banner_type, page_url, submitted_at FROM `" . esc_sql($this->table_name) . "` ORDER BY submitted_at DESC");
         
         // Generate filename

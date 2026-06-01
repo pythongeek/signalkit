@@ -1,8 +1,8 @@
 === SignalKit ===
 Contributors: N4Nion,BdowneerTech
 Tags: google news, notifications, banners, engagement, lead capture
-Requires at least: 5.0
-Tested up to: 6.9
+Requires at least: 5.3
+Tested up to: 7.0
 Requires PHP: 7.2
 Stable tag: 2.0.3
 License: GPLv2 or later
