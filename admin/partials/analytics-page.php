@@ -190,7 +190,7 @@ $signalkit_combined['ctr'] = $signalkit_combined['impressions'] > 0 ? round(($si
         
         if ($signalkit_table_check === $signalkit_submissions_table) {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
-            $signalkit_submission_count = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM `%s`", $signalkit_submissions_table));
+            $signalkit_submission_count = (int) $wpdb->get_var("SELECT COUNT(*) FROM `" . esc_sql($signalkit_submissions_table) . "`");
         }
         
         // Calculate custom banner conversion rate
@@ -256,7 +256,7 @@ $signalkit_combined['ctr'] = $signalkit_combined['impressions'] > 0 ? round(($si
                 <?php 
                 // Fetch recent leads
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name cannot be prepared, esc_sql is used
-                $signalkit_recent_leads = $wpdb->get_results($wpdb->prepare("SELECT id, email, name, submitted_at FROM `%s` ORDER BY submitted_at DESC LIMIT 5", $signalkit_submissions_table));
+                $signalkit_recent_leads = $wpdb->get_results("SELECT id, email, name, submitted_at FROM `" . esc_sql($signalkit_submissions_table) . "` ORDER BY submitted_at DESC LIMIT 5");
                 if ($signalkit_recent_leads): 
                 ?>
                 <div class="signalkit-recent-leads">
