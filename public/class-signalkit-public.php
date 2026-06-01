@@ -74,12 +74,11 @@ class SignalKit_Public {
             }
         }
 
+        // FIXED: Escape late with wp_strip_all_tags() at the point of output
         $custom_css = $this->get_custom_css();
         if (!empty($custom_css)) {
-            wp_add_inline_style('signalkit-public', wp_strip_all_tags($custom_css));
+            wp_add_inline_style( 'signalkit-public', wp_strip_all_tags( $custom_css ) );
         }
-
-
     }
 
 
