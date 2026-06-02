@@ -20,10 +20,10 @@ delete_option( 'signalkit_analytics' );
 global $wpdb;
 
 // Drop custom table.
-$table_name = $wpdb->prefix . 'signalkit_submissions';
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange
-$wpdb->query( "DROP TABLE IF EXISTS {$table_name}" );
+$signalkit_table_name = esc_sql( $wpdb->prefix . 'signalkit_submissions' );
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+$wpdb->query( "DROP TABLE IF EXISTS `{$signalkit_table_name}`" );
 
 // Delete plugin transients.
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_signalkit_%' OR option_name LIKE '_transient_timeout_signalkit_%'" );
