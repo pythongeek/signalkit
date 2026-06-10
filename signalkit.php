@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) { exit; }
  * Version: 2.0.3
  * Requires at least: 5.3
  * Author: N4Nion
- * Author URI: https://n4nion.com
+ * Author URI: https://signalkit.wikiofautomation.com/home/
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: signalkit
