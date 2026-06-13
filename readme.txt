@@ -2,7 +2,7 @@
 Contributors: n4nion
 Tags: news, notifications, banners, engagement, lead capture
 Requires at least: 5.3
-Tested up to: 6.7
+Tested up to: 7.0
 Requires PHP: 7.2
 Stable tag: 2.0.3
 License: GPLv2 or later
