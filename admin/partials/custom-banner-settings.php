@@ -178,7 +178,11 @@ function signalkit_render_custom_banner_settings($settings) {
                                    <?php checked($settings['custom_banner_type'], $value); ?>
                                    class="signalkit-preview-trigger"
                                    data-banner="custom">
-                            <span class="signalkit-type-icon" aria-hidden="true"><?php echo esc_html($type['icon']); ?></span>
+                            <?php if (strpos($type['icon'], 'dashicons') === 0): ?>
+                                <span class="signalkit-type-icon <?php echo esc_attr($type['icon']); ?>" aria-hidden="true"></span>
+                            <?php else: ?>
+                                <span class="signalkit-type-icon" aria-hidden="true"><?php echo esc_html($type['icon']); ?></span>
+                            <?php endif; ?>
                             <span class="signalkit-type-info">
                                 <strong><?php echo esc_html($type['label']); ?></strong>
                                 <small><?php echo esc_html($type['desc']); ?></small>
