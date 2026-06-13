@@ -1,8 +1,8 @@
 === SignalKit ===
-Contributors: N4Nion,BdowneerTech
-Tags: google news, notifications, banners, engagement, lead capture
+Contributors: n4nion
+Tags: news, notifications, banners, engagement, lead capture
 Requires at least: 5.3
-Tested up to: 7.0
+Tested up to: 6.7
 Requires PHP: 7.2
 Stable tag: 2.0.3
 License: GPLv2 or later
@@ -129,7 +129,11 @@ Yes! Go to SignalKit → Lead Submissions to view all captured leads and export 
 
 == Changelog ==
 
-= 2.0.0 (January 2026) =
+= 2.0.3 (2025-06-13) =
+*   **FIX:** Resolved analytics database locking to consistently use options table API.
+*   **FIX:** Corrected plugin header requirement parameters and readme.txt metadata constraints.
+
+= 2.0.0 (2025-01-20) =
 *   **SECURITY:** Removed custom update checker for full CodeCanyon/Envato marketplace compliance
 *   **PERFORMANCE:** Moved database table creation to activation hook (eliminates runtime database queries)
 *   **SECURITY:** All global functions renamed with unique prefixes to prevent namespace conflicts

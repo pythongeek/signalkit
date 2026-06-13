@@ -1,10 +1,10 @@
-# Copyright (C) 2026 SignalKit
+﻿# Copyright (C) 2026 SignalKit
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: SignalKit 2.0.0\n"
+"Project-Id-Version: SignalKit 2.0.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/signalkit\n"
-"POT-Creation-Date: 2025-01-23 00:00:00+00:00\n"
+"POT-Creation-Date: 2025-06-13 00:00:00+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,838 +18,1895 @@ msgstr ""
 msgid "SignalKit"
 msgstr ""
 
-#: signalkit.php
-msgid "SignalKit - News Publisher Engagement Suite"
-msgstr ""
-
 #. Plugin Description
-msgid "Display elegant, customizable engagement banners for news publishers. Features Follow, Preferred Source, and Lead Capture banners."
+msgid "News publisher notification plugin with Follow, Preferred Source, and Lead Capture banners to help grow your audience and collect leads."
 msgstr ""
 
-#: admin/class-signalkit-admin.php
-msgid "Are you sure you want to reset analytics? This cannot be undone."
+#: public/partials/banner-follow-enhanced.php:207
+#: public/partials/banner-follow.php:159
+#: public/partials/banner-preferred-enhanced.php:213
+#: public/partials/banner-preferred-enhanced.php:236
+#: public/partials/banner-preferred.php:165
+#: public/partials/banner-preferred.php:188
+msgid "%s - Opens in new tab"
 msgstr ""
 
-#: admin/class-signalkit-admin.php
-msgid "Settings saved successfully!"
+#: public/partials/banner-custom.php:423
+msgid "⏰ Limited time offer!"
 msgstr ""
 
-#: admin/class-signalkit-admin.php
-msgid "An error occurred. Please try again."
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "Color theme applied!"
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "SignalKit Error: Plugin configuration missing. Please refresh the page or contact support."
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "Failed to reset analytics. Please try again."
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "Exporting..."
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "Export Settings"
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "Export failed. Please try again."
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "Please select a valid JSON or TXT file."
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "File too large. Maximum size is 100KB."
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "Invalid settings file: Missing required fields"
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "Settings file contains too many entries (max 100)."
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "Import settings? This will overwrite your current settings."
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "Settings imported successfully!"
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "Import failed. Please try again."
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "Import failed:"
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "SignalKit Alert: Analytics Data Reset"
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "User %s reset the SignalKit analytics data (%s) at %s."
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "SignalKit Security Alert: Settings Exported"
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "User %s exported the SignalKit plugin settings at %s."
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "SignalKit Security Alert: Settings Imported"
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "User %s imported and overwrote the SignalKit plugin settings at %s. (Encrypted: %s)"
-msgstr ""
-
-#: admin/class-signalkit-admin.php
-msgid "Too many requests. Please wait a moment and try again."
-msgstr ""
-
-#: admin/class-signalkit-settings.php
-msgid "Settings"
-msgstr ""
-
-#: admin/class-signalkit-settings.php
-msgid "Analytics"
-msgstr ""
-
-#: admin/class-signalkit-settings.php
-msgid "Follow Us On Google News"
-msgstr ""
-
-#: admin/class-signalkit-settings.php
-msgid "Stay Updated with [site_name]"
-msgstr ""
-
-#: admin/class-signalkit-settings.php
-msgid "Follow us on Google News to get the latest stories directly in your feed."
-msgstr ""
-
-#: admin/class-signalkit-settings.php
-msgid "Add As A Preferred Source"
-msgstr ""
-
-#: admin/class-signalkit-settings.php
-msgid "Add [site_name] As A Trusted Source"
-msgstr ""
-
-#: admin/class-signalkit-settings.php
-msgid "Get priority access to our news and updates in your Google News feed."
-msgstr ""
-
-#: admin/class-signalkit-settings.php
-msgid "Learn More"
-msgstr ""
-
-#: admin/partials/analytics-page.php
-msgid "📊 Combined Performance"
-msgstr ""
-
-#: admin/partials/analytics-page.php
-msgid "Total Impressions"
-msgstr ""
-
-#: admin/partials/analytics-page.php
-msgid "Total Clicks"
-msgstr ""
-
-#: admin/partials/analytics-page.php
-msgid "Overall CTR"
-msgstr ""
-
-#: admin/partials/analytics-page.php
-msgid "Total Dismissals"
-msgstr ""
-
-#: admin/partials/analytics-page.php
-msgid "🔔 Follow Banner"
-msgstr ""
-
-#: admin/partials/analytics-page.php
-msgid "Reset"
-msgstr ""
-
-#: admin/partials/analytics-page.php
-msgid "Impressions"
-msgstr ""
-
-#: admin/partials/analytics-page.php
-msgid "Clicks"
-msgstr ""
-
-#: admin/partials/analytics-page.php
-msgid "CTR"
-msgstr ""
-
-#: admin/partials/analytics-page.php
-msgid "Dismissals"
-msgstr ""
-
-#: admin/partials/analytics-page.php
-msgid "Last updated: %s"
-msgstr ""
-
-#: admin/partials/analytics-page.php
-msgid "⭐ Preferred Source Banner"
-msgstr ""
-
-#: admin/partials/analytics-page.php
-msgid "🔄 Reset All Analytics"
-msgstr ""
-
-#: admin/partials/analytics-page.php
-msgid "This will reset analytics for both banners."
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Follow Banner"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Preferred Source"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Custom Banner"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Global Settings"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Advanced & Security"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Enable Follow Banner"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Display the Follow banner on your site to grow your news audience"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Google News URL"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "required"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Your Google News publication URL"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Content"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Banner Headline"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Use [site_name] as placeholder for your site name"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Banner Description"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Button Text"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Design & Appearance"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Colors"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Primary Color"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Secondary Color"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Accent Color"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Text Color"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Size & Spacing"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Banner Width (px)"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Padding (px)"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Border Radius (px)"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Typography"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Headline Size (px)"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Description Size (px)"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Button Size (px)"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Display Settings"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Desktop Position"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Bottom Left"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Bottom Right"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Bottom Center"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Top Left"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Top Right"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Top Center"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Mobile Position"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Top of Screen"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Bottom of Screen"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Mobile Stack Order"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "First (Top/Bottom)"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Second"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Order when both banners are active on mobile"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Animation"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Slide In"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Fade In"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Bounce"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Show Frequency"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Always"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Once Per Session"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Once Per Day"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Allow Dismissal"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Users can close the banner"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Dismiss Duration (days)"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "How long to hide the banner after dismissal"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Device Settings"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Show on Mobile"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Show on Desktop"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Page Types"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Show on Posts"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Show on Pages"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Show on Homepage"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Show on Archive Pages"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Enable Preferred Source Banner"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Display the Preferred Source banner on your site"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Google Preferences URL"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Google News preferences URL where users can add your site as preferred"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Educational Post URL"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Link to a post explaining how to add preferred sources"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Show Educational Link"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Display a link to learn more about preferred sources"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Educational Link Text"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Site Name"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Used in banner text when [site_name] placeholder is used"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Plugin Information"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Version:"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Status:"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Both banners enabled"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Follow banner enabled"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Preferred banner enabled"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "No banners enabled"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Mobile Display Information"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "When both banners are enabled on mobile devices:"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Banners will stack vertically based on their Mobile Stack Order"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Order 1 appears closest to the edge (top/bottom)"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Order 2 appears second with appropriate spacing"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Full-width display ensures optimal mobile experience"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Import/Export Settings"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Backup and restore your settings easily"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Export Settings"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Choose settings file to import"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Import Settings"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Security Settings"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Content Security Policy (CSP) - Deprecated"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "The global CSP header feature has been removed because it could break:"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Google Analytics, Ads, and Tag Manager"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Other WordPress plugins"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Theme functionality and external fonts"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "CDN resources"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Recommendation:"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "For CSP protection, configure headers at your server level (nginx/Apache) or use a dedicated security plugin like Wordfence or Sucuri."
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Enable Rate Limiting for Analytics"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Limit AJAX requests to prevent abuse"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Analytics Settings"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Enable Analytics Tracking"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Track impressions, clicks, and dismissals for both banners"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Import/Export Encryption Key"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Leave empty for auto-generated"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Optional key for encrypting exported settings (for Envato/WordPress.org compatibility)"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Data Management"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "Delete All Data on Uninstall"
-msgstr ""
-
-#: admin/partials/settings-page.php
-msgid "When enabled, all plugin settings, analytics data, and transients will be permanently deleted when the plugin is uninstalled."
-msgstr ""
-
-#: admin/partials/settings-page.php
+#: admin/partials/settings-page.php:1258
 msgid "⚠ Warning: This action cannot be undone!"
 msgstr ""
 
-#: admin/partials/settings-page.php
-msgid "Tip: Keep this option disabled if you plan to reinstall the plugin for troubleshooting. Your settings and analytics data will be preserved."
+#: admin/partials/custom-banner-settings.php:502
+#: admin/partials/settings-page.php:304
+#: admin/partials/settings-page.php:746
+msgid "Accent Color"
 msgstr ""
 
-#: admin/partials/settings-page.php
-msgid "Save Settings"
+#: includes/class-signalkit-custom-handler.php:406
+msgid "Actions"
 msgstr ""
 
-#: admin/partials/settings-page.php
-msgid "Live Preview"
+#: admin/partials/analytics-page.php:206
+msgid "Active"
 msgstr ""
 
-#: admin/partials/settings-page.php
-msgid "Preview device switcher"
+#: admin/class-signalkit-admin.php:385
+#: admin/partials/settings-page.php:89
+#: admin/partials/settings-page.php:695
+#: includes/class-signalkit-activator.php:190
+msgid "Add [site_name] As A Trusted Source"
 msgstr ""
 
-#: admin/partials/settings-page.php
-msgid "Desktop"
+#: admin/partials/custom-banner-settings.php:253
+msgid "Add a name input field to the form"
 msgstr ""
 
-#: admin/partials/settings-page.php
-msgid "Mobile"
+#: admin/class-signalkit-admin.php:381
+#: admin/partials/settings-page.php:88
+#: admin/partials/settings-page.php:717
+#: includes/class-signalkit-activator.php:189
+msgid "Add As A Preferred Source"
 msgstr ""
 
-#: admin/partials/settings-page.php
-msgid "Your website content appears here"
+#: admin/partials/settings-page.php:195
+msgid "Advanced & Security"
 msgstr ""
 
-#: admin/partials/settings-page.php
-msgid "Follow banner preview"
+#: admin/partials/advanced-style-settings.php:55
+msgid "Advanced Style Options"
 msgstr ""
 
-#: admin/partials/settings-page.php
-msgid "Preferred source banner preview"
+#: admin/partials/custom-banner-settings.php:704
+msgid "Allow Dismiss"
 msgstr ""
 
-#: admin/partials/settings-page.php
-msgid "Changes appear instantly in the preview. Click Save Settings to apply changes to your live site."
+#: admin/partials/settings-page.php:511
+#: admin/partials/settings-page.php:953
+msgid "Allow Dismissal"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Style Presets"
+#: admin/partials/settings-page.php:491
+#: admin/partials/settings-page.php:933
+msgid "Always"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Modern Card"
+#: admin/class-signalkit-admin.php:221
+msgid "An error occurred. Please try again."
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Glass"
+#: admin/class-signalkit-admin.php:269
+#: admin/class-signalkit-admin.php:270
+#: admin/class-signalkit-admin.php:1551
+msgid "Analytics"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Solid"
+#: admin/class-signalkit-settings.php:259
+msgid "Analytics reset successfully!"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Gradient"
+#: admin/partials/settings-page.php:1210
+msgid "Analytics Settings"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Dark"
+#: admin/partials/advanced-style-settings.php:219
+msgid "Angle (°)"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Toast"
+#: admin/partials/custom-banner-settings.php:610
+#: admin/partials/settings-page.php:476
+#: admin/partials/settings-page.php:918
+msgid "Animation"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Bubble"
+#: admin/partials/custom-banner-settings.php:133
+msgid "Announcement"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Neon"
+#: admin/partials/custom-banner-settings.php:689
+msgid "Archives"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Visibility Mode"
+#: admin/class-signalkit-admin.php:219
+msgid "Are you sure you want to reset analytics? This cannot be undone."
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Auto"
+#: admin/partials/advanced-style-settings.php:147
+msgid "Auto (Adapts to Theme)"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Light"
+#: admin/partials/advanced-style-settings.php:234
+msgid "Background Effects"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
+#: admin/partials/advanced-style-settings.php:250
+msgid "Background Opacity"
+msgstr ""
+
+#: admin/partials/settings-page.php:1123
+msgid "Backup and restore your settings easily"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:208
+#: admin/partials/settings-page.php:259
+#: admin/partials/settings-page.php:701
+msgid "Banner Description"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:56
+msgid "Banner design customization"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:197
+#: admin/partials/settings-page.php:246
+#: admin/partials/settings-page.php:688
+msgid "Banner Headline"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:61
+msgid "Banner Style Preset"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:168
+#: includes/class-signalkit-custom-handler.php:403
+msgid "Banner Type"
+msgstr ""
+
+#: admin/partials/settings-page.php:346
+#: admin/partials/settings-page.php:788
+msgid "Banner Width (px)"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:237
+msgid "Blur Intensity"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:436
+msgid "Body Weight"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:112
+msgid "Bold (700)"
+msgstr ""
+
+#: admin/partials/settings-page.php:370
+#: admin/partials/settings-page.php:812
+msgid "Border Radius (px)"
+msgstr ""
+
+#: admin/partials/settings-page.php:1081
+msgid "Both banners enabled"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:1540
+msgid "Both banners have the same mobile stack order and will overlap."
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:601
+#: admin/partials/settings-page.php:447
+#: admin/partials/settings-page.php:889
+msgid "Bottom Center"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:599
+#: admin/partials/settings-page.php:445
+#: admin/partials/settings-page.php:887
+msgid "Bottom Left"
+msgstr ""
+
+#: admin/partials/settings-page.php:461
+#: admin/partials/settings-page.php:903
+msgid "Bottom of Screen"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:600
+#: admin/partials/settings-page.php:446
+#: admin/partials/settings-page.php:888
+msgid "Bottom Right"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:617
+#: admin/partials/settings-page.php:483
+#: admin/partials/settings-page.php:925
+msgid "Bounce"
+msgstr ""
+
+#: admin/partials/settings-page.php:331
+#: admin/partials/settings-page.php:773
+msgid "Button BG Color"
+msgstr ""
+
+#: admin/partials/settings-page.php:412
+#: admin/partials/settings-page.php:854
+msgid "Button Size (px)"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:156
 msgid "Button Style"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Default"
+#: admin/partials/custom-banner-settings.php:217
+#: admin/partials/settings-page.php:268
+#: admin/partials/settings-page.php:710
+msgid "Button Text"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Pill"
+#: admin/partials/settings-page.php:322
+#: admin/partials/settings-page.php:764
+msgid "Button Text Color"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Sharp"
+#: admin/partials/custom-banner-settings.php:128
+msgid "Call to Action"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Outline"
+#: admin/partials/custom-banner-settings.php:125
+msgid "Capture leads with name & email"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Icon Style"
+#: admin/partials/settings-page.php:1159
+msgid "CDN resources"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
+#: admin/partials/custom-banner-settings.php:605
+msgid "Center (Modal)"
+msgstr ""
+
+#: admin/partials/settings-page.php:1314
+msgid "Changes appear instantly in the preview. Click Save Settings to apply changes to your live site."
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:151
+msgid "Choose banner contrast mode for optimal visibility on any background"
+msgstr ""
+
+#: admin/partials/settings-page.php:1105
+msgid "Choose how multiple banners behave on mobile devices."
+msgstr ""
+
+#: admin/partials/settings-page.php:1129
+msgid "Choose settings file to import"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:176
 msgid "Circle"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Rounded"
+#: public/partials/banner-custom.php:53
+msgid "Claim Offer"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Square"
+#: admin/partials/advanced-style-settings.php:82
+msgid "Clean, elevated card with subtle shadow"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Icon Size"
+#: admin/class-signalkit-settings.php:82
+#: admin/class-signalkit-settings.php:369
+#: admin/class-signalkit-settings.php:414
+#: admin/partials/analytics-page.php:106
+#: admin/partials/analytics-page.php:149
+msgid "Clicks"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Gradient Colors"
+#: public/class-signalkit-public.php:143
+#: public/partials/banner-follow-enhanced.php:228
+#: public/partials/banner-follow.php:180
+#: public/partials/banner-preferred-enhanced.php:253
+#: public/partials/banner-preferred.php:205
+msgid "Close"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Gradient Start"
+#: public/partials/banner-custom.php:442
+msgid "Close banner"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Gradient End"
+#: admin/partials/custom-banner-settings.php:710
+#: admin/partials/settings-page.php:517
+#: admin/partials/settings-page.php:959
+msgid "Close Button Size (px)"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Gradient Angle"
+#: admin/partials/custom-banner-settings.php:120
+msgid "Collect email subscribers"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Glass Effects"
+#: admin/class-signalkit-admin.php:222
+msgid "Color theme applied!"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Backdrop Blur"
+#: admin/partials/custom-banner-settings.php:478
+#: admin/partials/settings-page.php:283
+#: admin/partials/settings-page.php:725
+msgid "Colors"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Backdrop Opacity"
+#: admin/class-signalkit-settings.php:337
+msgid "Combined CTR"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Special Effects"
+#: admin/class-signalkit-settings.php:309
+#: admin/partials/analytics-page.php:60
+msgid "Combined Performance"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Enable Glow Effect"
+#: admin/partials/advanced-style-settings.php:107
+msgid "Compact notification style"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Enable Float Animation"
+#: admin/class-signalkit-settings.php:42
+msgid "Configure basic plugin settings."
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
+#: public/partials/banner-follow-enhanced.php:218
+#: public/partials/banner-follow.php:170
+msgid "Configure Google News URL in settings"
+msgstr ""
+
+#: public/partials/banner-preferred-enhanced.php:224
+#: public/partials/banner-preferred.php:176
+msgid "Configure Google Preferences URL in settings"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:1523
+#: admin/class-signalkit-admin.php:1527
+msgid "Configure now"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:193
+#: admin/partials/settings-page.php:242
+#: admin/partials/settings-page.php:684
+msgid "Content"
+msgstr ""
+
+#: admin/partials/settings-page.php:1150
+msgid "Content Security Policy (CSP) - Deprecated"
+msgstr ""
+
+#: admin/class-signalkit-settings.php:63
+msgid "Control when and where the banner is displayed."
+msgstr ""
+
+#: admin/partials/analytics-page.php:232
+msgid "Conversion Rate"
+msgstr ""
+
+#: public/class-signalkit-public.php:139
+msgid "Copied!"
+msgstr ""
+
+#: public/partials/banner-custom.php:408
+msgid "Copy code"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:162
+msgid "Create a custom banner for lead capture, newsletters, or promotions"
+msgstr ""
+
+#: admin/class-signalkit-settings.php:86
+#: admin/class-signalkit-settings.php:374
+#: admin/class-signalkit-settings.php:419
+#: admin/partials/analytics-page.php:111
+#: admin/partials/analytics-page.php:154
+msgid "CTR"
+msgstr ""
+
+#: admin/partials/settings-page.php:187
+msgid "Custom Banner"
+msgstr ""
+
+#: admin/partials/analytics-page.php:203
+msgid "Custom Banner (Lead Capture)"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:314
+msgid "Custom Border Color (Optional)"
+msgstr ""
+
+#: admin/class-signalkit-settings.php:49
+msgid "Customize the text and links displayed in your banner."
+msgstr ""
+
+#: admin/class-signalkit-settings.php:56
+msgid "Customize the visual appearance of your banner."
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:77
+msgid "Dark gradient with gradient text - ideal for forms"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:101
+msgid "Dark Mode"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:102
+msgid "Dark theme for light backgrounds"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:117
+msgid "Dark with glowing border effect"
+msgstr ""
+
+#: admin/partials/settings-page.php:1242
+msgid "Data Management"
+msgstr ""
+
+#: admin/partials/analytics-page.php:269
+#: includes/class-signalkit-custom-handler.php:405
+msgid "Date"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:734
+msgid "days"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:988
+msgid "Decryption failed: Invalid key or corrupt data."
+msgstr ""
+
+#: admin/class-signalkit-admin.php:981
+msgid "Decryption failed: Please set your Import/Export Key before importing."
+msgstr ""
+
+#: admin/partials/settings-page.php:1255
+msgid "Delete All Data on Uninstall"
+msgstr ""
+
+#: includes/class-signalkit-custom-handler.php:442
+msgid "Delete this submission?"
+msgstr ""
+
+#: admin/partials/settings-page.php:400
+#: admin/partials/settings-page.php:842
+msgid "Description Size (px)"
+msgstr ""
+
+#: admin/partials/settings-page.php:279
+#: admin/partials/settings-page.php:721
+msgid "Design & Appearance"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:647
+#: admin/partials/settings-page.php:1285
+msgid "Desktop"
+msgstr ""
+
+#: admin/partials/settings-page.php:1115
+msgid "Desktop always shows all enabled banners in their configured positions."
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:594
+#: admin/partials/settings-page.php:440
+#: admin/partials/settings-page.php:882
+msgid "Desktop Position"
+msgstr ""
+
+#: admin/partials/settings-page.php:546
+#: admin/partials/settings-page.php:988
+msgid "Device Settings"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:639
+msgid "Device Visibility"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:400
+msgid "Discount code that visitors can copy (displays on promotional banners)"
+msgstr ""
+
+#: admin/partials/settings-page.php:533
+#: admin/partials/settings-page.php:975
+msgid "Dismiss Duration (days)"
+msgstr ""
+
+#: public/class-signalkit-public.php:142
+#: public/partials/banner-follow-enhanced.php:226
+#: public/partials/banner-follow.php:178
+#: public/partials/banner-preferred-enhanced.php:251
+#: public/partials/banner-preferred.php:203
+msgid "Dismiss notification"
+msgstr ""
+
+#: admin/class-signalkit-settings.php:90
+#: admin/class-signalkit-settings.php:379
+#: admin/class-signalkit-settings.php:424
+#: admin/partials/analytics-page.php:116
+#: admin/partials/analytics-page.php:159
+#: admin/partials/analytics-page.php:238
+msgid "Dismissals"
+msgstr ""
+
+#: admin/partials/settings-page.php:668
+msgid "Display a link to learn more about preferred sources"
+msgstr ""
+
+#: admin/partials/settings-page.php:1111
+msgid "Display all enabled banners stacked on mobile (default)"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:588
+#: admin/partials/settings-page.php:434
+#: admin/partials/settings-page.php:876
+msgid "Display Settings"
+msgstr ""
+
+#: admin/partials/settings-page.php:223
+msgid "Display the Follow banner on your site to grow your news audience"
+msgstr ""
+
+#: admin/partials/settings-page.php:624
+msgid "Display the Preferred Source banner on your site"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:531
+msgid "Display Triggers"
+msgstr ""
+
+#: public/partials/banner-custom.php:52
+msgid "Don't miss out on this deal. Save big today!"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:130
+msgid "Drive action with a button"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:72
+msgid "Educational card with star icon and accent border"
+msgstr ""
+
+#: admin/partials/settings-page.php:673
+msgid "Educational Link Text"
+msgstr ""
+
+#: admin/partials/settings-page.php:643
+msgid "Educational Post URL"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:618
+msgid "Elastic"
+msgstr ""
+
+#: admin/partials/analytics-page.php:267
+#: includes/class-signalkit-custom-handler.php:401
+msgid "Email"
+msgstr ""
+
+#: public/partials/banner-custom.php:295
+#: public/partials/banner-custom.php:338
+msgid "Email address"
+msgstr ""
+
+#: public/partials/banner-custom.php:336
+msgid "Email Address *"
+msgstr ""
+
+#: public/class-signalkit-public.php:129
+msgid "Email address is required"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:234
+msgid "Email Placeholder"
+msgstr ""
+
+#: admin/partials/settings-page.php:1223
+msgid "Enable Analytics Tracking"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:161
+msgid "Enable Custom Banner"
+msgstr ""
+
+#: admin/partials/settings-page.php:1200
+msgid "Enable External Fonts (Google)"
+msgstr ""
+
+#: admin/partials/settings-page.php:222
+msgid "Enable Follow Banner"
+msgstr ""
+
+#: admin/partials/settings-page.php:623
+msgid "Enable Preferred Source Banner"
+msgstr ""
+
+#: admin/partials/settings-page.php:1181
+msgid "Enable Rate Limiting for Analytics"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:210
+msgid "End Color"
+msgstr ""
+
+#: public/partials/banner-custom.php:28
+msgid "Enter your details below to get instant access."
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:30
+#: admin/partials/custom-banner-settings.php:240
+#: public/partials/banner-custom.php:66
+msgid "Enter your email"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:315
+msgid "Error Message"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:628
+msgid "Every Page Visit"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:581
+msgid "Exit Intent (Desktop)"
+msgstr ""
+
+#: includes/class-signalkit-custom-handler.php:386
+msgid "Export CSV"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:230
+msgid "Export failed. Please try again."
+msgstr ""
+
+#: includes/class-signalkit-custom-handler.php:511
+msgid "Export failed: Could not open output stream."
+msgstr ""
+
+#: includes/class-signalkit-custom-handler.php:494
+msgid "Export failed: Headers already sent. Please contact support."
+msgstr ""
+
+#: admin/class-signalkit-admin.php:229
+#: admin/partials/settings-page.php:1127
+msgid "Export Settings"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:228
+msgid "Exporting..."
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:113
+msgid "Extra Bold (800)"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:616
+#: admin/partials/settings-page.php:482
+#: admin/partials/settings-page.php:924
+msgid "Fade In"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:226
+msgid "Failed to reset analytics. Please try again."
+msgstr ""
+
+#: public/class-signalkit-public.php:853
+msgid "Failed to track impression"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:969
+msgid "File too large (max 100KB)"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:232
+msgid "File too large. Maximum size is 100KB."
+msgstr ""
+
+#: admin/partials/settings-page.php:469
+#: admin/partials/settings-page.php:911
+msgid "First (Top/Bottom)"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:1540
+msgid "Fix now"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:291
+msgid "Floating Animation"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:111
+msgid "Floating Bubble"
+msgstr ""
+
+#: admin/class-signalkit-settings.php:353
+#: admin/partials/analytics-page.php:92
+#: admin/partials/settings-page.php:179
+msgid "Follow Banner"
+msgstr ""
+
+#: admin/partials/settings-page.php:1083
+msgid "Follow banner enabled"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:1523
+msgid "Follow banner enabled but Google News URL missing."
+msgstr ""
+
+#: admin/partials/settings-page.php:1303
+msgid "Follow banner preview"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:323
+#: admin/partials/settings-page.php:38
+#: admin/partials/settings-page.php:275
+#: includes/class-signalkit-activator.php:116
+msgid "Follow Us On Google News"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:332
+#: admin/partials/settings-page.php:40
+#: includes/class-signalkit-activator.php:118
+msgid "Follow us on Google News to get the latest stories directly in your feed."
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:409
+msgid "Font Family"
+msgstr ""
+
+#: admin/partials/settings-page.php:1163
+msgid "For CSP protection, configure headers at your server level (nginx/Apache) or use a dedicated security plugin like Wordfence or Sucuri."
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:149
+msgid "Force Dark (For Light Backgrounds)"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:148
+msgid "Force Light (For Dark Backgrounds)"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:230
+msgid "Form Fields"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:86
+msgid "Frosted Glass"
+msgstr ""
+
+#: public/partials/banner-custom.php:331
+msgid "Full name"
+msgstr ""
+
+#: public/partials/banner-custom.php:329
+msgid "Full Name *"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:292
+msgid "Gentle floating motion"
+msgstr ""
+
+#: public/partials/banner-custom.php:29
+msgid "Get Access"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:389
+#: admin/partials/settings-page.php:90
+#: includes/class-signalkit-activator.php:191
+msgid "Get priority access to our news and updates in your Google News feed."
+msgstr ""
+
+#: public/partials/banner-custom.php:37
+msgid "Get Started"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:26
+#: public/partials/banner-custom.php:20
+msgid "Get the latest news and updates delivered to your inbox."
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:66
+msgid "Glassmorphism"
+msgstr ""
+
+#: admin/partials/settings-page.php:191
+msgid "Global Settings"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:298
 msgid "Glow Intensity"
 msgstr ""
 
-#: admin/partials/advanced-style-settings.php
-msgid "Border Color"
+#: admin/partials/settings-page.php:1156
+msgid "Google Analytics, Ads, and Tag Manager"
 msgstr ""
 
-#: admin/partials/custom-banner-settings.php
-msgid "Enable Custom Banner"
+#: admin/partials/custom-banner-settings.php:418
+msgid "Google Fonts are loaded only when this banner is active"
+msgstr ""
+
+#: public/partials/banner-follow-enhanced.php:173
+#: public/partials/banner-follow.php:128
+msgid "Google News Icon"
+msgstr ""
+
+#: admin/partials/settings-page.php:639
+msgid "Google News preferences URL where users can add your site as preferred"
+msgstr ""
+
+#: admin/partials/settings-page.php:228
+msgid "Google News URL"
+msgstr ""
+
+#: admin/partials/settings-page.php:629
+msgid "Google Preferences URL"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:96
+msgid "Gradient"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:198
+msgid "Gradient Colors"
+msgstr ""
+
+#: admin/partials/settings-page.php:388
+#: admin/partials/settings-page.php:830
+msgid "Headline Size (px)"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:424
+msgid "Headline Weight"
+msgstr ""
+
+#: admin/partials/settings-page.php:1112
+msgid "Highest Priority Only:"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:668
+msgid "Homepage"
+msgstr ""
+
+#: admin/partials/settings-page.php:542
+#: admin/partials/settings-page.php:984
+msgid "How long to hide the banner after dismissal"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:374
+msgid "I Consent to Sending Data to External Webhook"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:170
+msgid "Icon Style"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:359
+msgid "If you configure a webhook URL above, user data (email addresses and names) will be sent to that external service. Please ensure you have appropriate privacy policies and user consent mechanisms in place before enabling webhook integration."
+msgstr ""
+
+#: admin/class-signalkit-admin.php:237
+msgid "Import failed. Please try again."
+msgstr ""
+
+#: admin/class-signalkit-admin.php:238
+msgid "Import failed:"
+msgstr ""
+
+#: admin/partials/settings-page.php:1132
+msgid "Import Settings"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:235
+msgid "Import settings? This will overwrite your current settings."
+msgstr ""
+
+#: admin/partials/settings-page.php:1229
+msgid "Import/Export Encryption Key"
+msgstr ""
+
+#: admin/partials/settings-page.php:1119
+msgid "Import/Export Settings"
+msgstr ""
+
+#: admin/class-signalkit-settings.php:78
+#: admin/class-signalkit-settings.php:364
+#: admin/class-signalkit-settings.php:409
+#: admin/partials/analytics-page.php:101
+#: admin/partials/analytics-page.php:144
+#: admin/partials/analytics-page.php:220
+msgid "Impressions"
+msgstr ""
+
+#: admin/partials/analytics-page.php:208
+msgid "Inactive"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:326
+msgid "Integration"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:839
+#: admin/class-signalkit-admin.php:1319
+#: public/class-signalkit-public.php:825
+#: public/class-signalkit-public.php:885
+#: public/class-signalkit-public.php:926
+msgid "Invalid banner type"
+msgstr ""
+
+#: public/class-signalkit-public.php:814
+#: public/class-signalkit-public.php:875
+#: public/class-signalkit-public.php:916
+msgid "Invalid session"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:233
+msgid "Invalid settings file: Missing required fields"
+msgstr ""
+
+#: admin/class-signalkit-settings.php:387
+#: admin/class-signalkit-settings.php:432
+#: admin/partials/analytics-page.php:125
+#: admin/partials/analytics-page.php:168
+#: admin/partials/analytics-page.php:247
+msgid "Last updated: %s"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:123
+msgid "Lead Capture"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:76
+msgid "Lead Gradient"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:393
+#: admin/partials/settings-page.php:91
+#: admin/partials/settings-page.php:680
+#: includes/class-signalkit-activator.php:192
+#: public/partials/banner-custom.php:45
+msgid "Learn More"
+msgstr ""
+
+#: admin/partials/settings-page.php:1235
+msgid "Leave empty for auto-generated"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:322
+msgid "Leave empty to use default based on style"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:448
+msgid "Letter Spacing"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:108
+msgid "Light (300)"
+msgstr ""
+
+#: admin/partials/settings-page.php:1182
+msgid "Limit AJAX requests to prevent abuse"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:462
+msgid "Line Height"
+msgstr ""
+
+#: admin/partials/settings-page.php:652
+msgid "Link to a post explaining how to add preferred sources"
+msgstr ""
+
+#: admin/partials/settings-page.php:1281
+msgid "Live Preview"
+msgstr ""
+
+#: admin/partials/settings-page.php:1201
+msgid "Load Google Fonts for enhanced branding (Orbitron font for plugin branding)"
+msgstr ""
+
+#: public/class-signalkit-public.php:146
+msgid "Loading..."
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:110
+msgid "Medium (500)"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:301
+msgid "Messages"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:106
+msgid "Minimal Toast"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:655
+#: admin/partials/settings-page.php:1289
+msgid "Mobile"
+msgstr ""
+
+#: admin/partials/settings-page.php:1094
+msgid "Mobile Banner Strategy"
+msgstr ""
+
+#: admin/partials/settings-page.php:1098
+msgid "Mobile Display Mode"
+msgstr ""
+
+#: admin/partials/settings-page.php:1109
+msgid "Mobile Display Strategy Options"
+msgstr ""
+
+#: admin/partials/settings-page.php:455
+#: admin/partials/settings-page.php:897
+msgid "Mobile Position"
+msgstr ""
+
+#: admin/partials/settings-page.php:466
+#: admin/partials/settings-page.php:908
+msgid "Mobile Stack Order"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:81
+msgid "Modern Card"
+msgstr ""
+
+#: admin/partials/analytics-page.php:268
+#: includes/class-signalkit-custom-handler.php:402
+msgid "Name"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:258
+msgid "Name Placeholder"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:67
+msgid "Native Google News style with gradient accent"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:116
+msgid "Neon Glow"
+msgstr ""
+
+#: public/class-signalkit-public.php:133
+msgid "Network error. Please check your connection."
+msgstr ""
+
+#: public/partials/banner-custom.php:385
+msgid "NEW"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:118
+msgid "Newsletter Signup"
+msgstr ""
+
+#: admin/partials/settings-page.php:1087
+msgid "No banners enabled"
+msgstr ""
+
+#: public/class-signalkit-public.php:1185
+msgid "No banners to display"
+msgstr ""
+
+#: includes/class-signalkit-custom-handler.php:394
+msgid "No submissions yet"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:997
+msgid "No valid settings provided or JSON is corrupt."
+msgstr ""
+
+#: admin/class-signalkit-admin.php:613
+msgid "Note: You can only have a maximum of 2 banners active at once. The \"Preferred Source\" banner has been automatically disabled."
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:631
+msgid "Once (Until Submitted)"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:630
+#: admin/partials/settings-page.php:493
+#: admin/partials/settings-page.php:935
+msgid "Once Per Day"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:629
+#: admin/partials/settings-page.php:492
+#: admin/partials/settings-page.php:934
+msgid "Once Per Session"
+msgstr ""
+
+#: public/class-signalkit-public.php:154
+msgid "Opens in new tab"
+msgstr ""
+
+#: admin/partials/settings-page.php:1238
+msgid "Optional key for encrypting exported settings (for Envato/WordPress.org compatibility)"
+msgstr ""
+
+#: admin/partials/settings-page.php:472
+#: admin/partials/settings-page.php:914
+msgid "Order when both banners are active on mobile"
+msgstr ""
+
+#: admin/partials/settings-page.php:1157
+msgid "Other WordPress plugins"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:164
+msgid "Outline Only"
+msgstr ""
+
+#: admin/partials/analytics-page.php:79
+msgid "Overall CTR"
+msgstr ""
+
+#: admin/partials/settings-page.php:358
+#: admin/partials/settings-page.php:800
+msgid "Padding (px)"
+msgstr ""
+
+#: includes/class-signalkit-custom-handler.php:404
+msgid "Page"
+msgstr ""
+
+#: admin/partials/settings-page.php:572
+#: admin/partials/settings-page.php:1014
+msgid "Page Types"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:682
+msgid "Pages"
+msgstr ""
+
+#: public/partials/banner-custom.php:343
+msgid "Phone (optional)"
+msgstr ""
+
+#: public/partials/banner-custom.php:344
+msgid "Phone number"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:162
+msgid "Pill Shape"
+msgstr ""
+
+#: includes/class-signalkit-custom-handler.php:77
+#: public/class-signalkit-public.php:128
+msgid "Please enter a valid email address"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:231
+msgid "Please select a valid JSON or TXT file."
+msgstr ""
+
+#: admin/partials/settings-page.php:1074
+msgid "Plugin Information"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:675
+msgid "Posts"
+msgstr ""
+
+#: admin/partials/settings-page.php:1085
+msgid "Preferred banner enabled"
+msgstr ""
+
+#: admin/partials/settings-page.php:183
+msgid "Preferred Source"
+msgstr ""
+
+#: admin/class-signalkit-settings.php:398
+#: admin/partials/analytics-page.php:135
+msgid "Preferred Source Banner"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:1527
+msgid "Preferred Source banner enabled but URL missing."
+msgstr ""
+
+#: admin/partials/settings-page.php:1306
+msgid "Preferred source banner preview"
+msgstr ""
+
+#: public/partials/banner-preferred-enhanced.php:179
+#: public/partials/banner-preferred.php:134
+msgid "Preferred Source Star Icon"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:71
+msgid "Preferred Star"
+msgstr ""
+
+#: admin/partials/settings-page.php:1282
+msgid "Preview device switcher"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:484
+#: admin/partials/settings-page.php:286
+#: admin/partials/settings-page.php:728
+msgid "Primary Color"
+msgstr ""
+
+#: admin/partials/settings-page.php:1185
+msgid "Privacy Note: This feature temporarily processes User Agent strings and anonymized IP addresses for security purposes. No personal data is stored persistently."
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:358
+msgid "Privacy Notice:"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:289
+msgid "Privacy Text"
+msgstr ""
+
+#: public/class-signalkit-public.php:148
+msgid "Processing..."
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:392
+msgid "Promo Code"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:140
+msgid "Promote offers or discounts"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:138
+msgid "Promotional"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:277
+msgid "Pulse Glow"
+msgstr ""
+
+#: admin/partials/settings-page.php:1113
+msgid "Randomly show one banner per page load on mobile"
+msgstr ""
+
+#: admin/partials/analytics-page.php:263
+msgid "Recent Leads"
+msgstr ""
+
+#: admin/partials/settings-page.php:1162
+msgid "Recommendation:"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:380
+msgid "Redirect URL (Optional)"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:387
+msgid "Redirect users after successful submission"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:109
+msgid "Regular (400)"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:726
+msgid "Remember Dismiss For"
+msgstr ""
+
+#: public/class-signalkit-public.php:134
+msgid "Request timed out. Please try again."
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:271
+msgid "Require name field"
+msgstr ""
+
+#: admin/partials/settings-page.php:228
+#: admin/partials/settings-page.php:629
+msgid "required"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:375
+msgid "Required: You must explicitly consent to sending user data (email addresses and names) to the webhook URL configured above. Without this consent, no data will be transmitted to external services."
+msgstr ""
+
+#: admin/class-signalkit-settings.php:357
+#: admin/class-signalkit-settings.php:402
+#: admin/partials/analytics-page.php:94
+#: admin/partials/analytics-page.php:137
+#: admin/partials/analytics-page.php:211
+msgid "Reset"
+msgstr ""
+
+#: admin/partials/analytics-page.php:297
+msgid "Reset All Analytics"
+msgstr ""
+
+#: admin/class-signalkit-settings.php:94
+msgid "Reset Analytics"
+msgstr ""
+
+#: admin/partials/settings-page.php:1103
+msgid "Rotate/Shuffle Banners"
+msgstr ""
+
+#: admin/partials/settings-page.php:1113
+msgid "Rotate/Shuffle:"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:161
+msgid "Rounded (Default)"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:177
+msgid "Rounded Square"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:112
+msgid "Rounded with accent border glow"
+msgstr ""
+
+#: admin/partials/settings-page.php:1273
+msgid "Save Settings"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:339
+msgid "Save submissions in the WordPress database"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:398
+msgid "SAVE20"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:561
+msgid "Scroll Percentage"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:555
+msgid "Scroll Trigger"
+msgstr ""
+
+#: admin/partials/settings-page.php:470
+#: admin/partials/settings-page.php:912
+msgid "Second"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:493
+#: admin/partials/settings-page.php:295
+#: admin/partials/settings-page.php:737
+msgid "Secondary Color"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:543
+msgid "seconds"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:950
+#: admin/class-signalkit-admin.php:1297
+#: includes/class-signalkit-custom-handler.php:62
+msgid "Security check failed"
+msgstr ""
+
+#: admin/partials/settings-page.php:1144
+msgid "Security Settings"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:111
+msgid "Semi-Bold (600)"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:351
+msgid "Send submissions to Zapier, Make, or any webhook endpoint"
+msgstr ""
+
+#: public/class-signalkit-public.php:135
+msgid "Server error. Please try again later."
+msgstr ""
+
+#: admin/class-signalkit-admin.php:260
+#: admin/class-signalkit-admin.php:261
+#: admin/class-signalkit-admin.php:1507
+msgid "Settings"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:1251
+msgid "Settings file contains too many entries (max 100)"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:234
+msgid "Settings file contains too many entries (max 100)."
+msgstr ""
+
+#: admin/class-signalkit-admin.php:236
+msgid "Settings imported successfully!"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:220
+#: admin/class-signalkit-settings.php:249
+msgid "Settings saved successfully!"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:135
+msgid "Share important updates"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:163
+msgid "Sharp Corners"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:535
+msgid "Show After Delay"
+msgstr ""
+
+#: admin/partials/settings-page.php:1101
+msgid "Show All Enabled Banners"
+msgstr ""
+
+#: admin/partials/settings-page.php:1111
+msgid "Show All:"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:556
+msgid "Show banner after user scrolls a percentage of the page"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:582
+msgid "Show banner when user is about to leave the page"
+msgstr ""
+
+#: admin/partials/settings-page.php:667
+msgid "Show Educational Link"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:625
+#: admin/partials/settings-page.php:488
+#: admin/partials/settings-page.php:930
+msgid "Show Frequency"
+msgstr ""
+
+#: admin/partials/settings-page.php:1102
+msgid "Show Highest Priority Only"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:252
+msgid "Show Name Field"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:661
+msgid "Show On"
+msgstr ""
+
+#: admin/partials/settings-page.php:600
+#: admin/partials/settings-page.php:1042
+msgid "Show on Archive Pages"
+msgstr ""
+
+#: admin/partials/settings-page.php:566
+#: admin/partials/settings-page.php:1008
+msgid "Show on Desktop"
+msgstr ""
+
+#: admin/partials/settings-page.php:593
+#: admin/partials/settings-page.php:1035
+msgid "Show on Homepage"
+msgstr ""
+
+#: admin/partials/settings-page.php:556
+#: admin/partials/settings-page.php:998
+msgid "Show on Mobile"
+msgstr ""
+
+#: admin/partials/settings-page.php:586
+#: admin/partials/settings-page.php:1028
+msgid "Show on Pages"
+msgstr ""
+
+#: admin/partials/settings-page.php:579
+#: admin/partials/settings-page.php:1021
+msgid "Show on Posts"
+msgstr ""
+
+#: admin/partials/settings-page.php:1112
+msgid "Show only the banner with Stack Order 1 on mobile"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:284
+msgid "Show Privacy Notice"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:249
+#: admin/class-signalkit-admin.php:250
+msgid "SignalKit"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:852
+msgid "SignalKit Alert: Analytics Data Reset"
+msgstr ""
+
+#: admin/class-signalkit-settings.php:302
+#: admin/partials/analytics-page.php:53
+msgid "SignalKit Analytics"
+msgstr ""
+
+#: signalkit.php:114
+msgid "SignalKit Error:"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:224
+msgid "SignalKit Error: Plugin configuration missing. Please refresh the page or contact support."
+msgstr ""
+
+#: includes/class-signalkit-activator.php:335
+msgid "SignalKit for Google requires PHP 7.2 or higher. You are running version %s."
+msgstr ""
+
+#: includes/class-signalkit-activator.php:324
+msgid "SignalKit for Google requires WordPress 5.0 or higher. You are running version %s."
+msgstr ""
+
+#: admin/class-signalkit-admin.php:890
+msgid "SignalKit Security Alert: Settings Exported"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:1266
+msgid "SignalKit Security Alert: Settings Imported"
+msgstr ""
+
+#: includes/class-signalkit-custom-handler.php:376
+msgid "SignalKit Submissions"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:1523
+#: admin/class-signalkit-admin.php:1527
+#: admin/class-signalkit-admin.php:1540
+msgid "SignalKit:"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:87
+msgid "Simple frosted glass with blur"
+msgstr ""
+
+#: admin/partials/settings-page.php:1061
+msgid "Site Name"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:182
+msgid "Size"
+msgstr ""
+
+#: admin/partials/settings-page.php:343
+#: admin/partials/settings-page.php:785
+msgid "Size & Spacing"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:615
+#: admin/partials/settings-page.php:481
+#: admin/partials/settings-page.php:923
+msgid "Slide In"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:91
+msgid "Solid Classic"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:29
+#: admin/partials/custom-banner-settings.php:321
+#: public/class-signalkit-public.php:132
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:266
+msgid "Special Effects"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:178
+msgid "Square"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:201
+msgid "Start Color"
+msgstr ""
+
+#: admin/partials/settings-page.php:1076
+msgid "Status:"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:327
+#: admin/partials/settings-page.php:39
+#: admin/partials/settings-page.php:253
+#: includes/class-signalkit-activator.php:117
+msgid "Stay Updated with [site_name]"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:338
+msgid "Store Submissions Locally"
+msgstr ""
+
+#: includes/class-signalkit-custom-handler.php:352
+msgid "Submission deleted."
+msgstr ""
+
+#: admin/partials/analytics-page.php:226
+#: includes/class-signalkit-custom-handler.php:301
+#: includes/class-signalkit-custom-handler.php:302
+msgid "Submissions"
+msgstr ""
+
+#: includes/class-signalkit-custom-handler.php:395
+msgid "Submissions from your custom banner will appear here."
+msgstr ""
+
+#: public/class-signalkit-public.php:147
+msgid "Submitting..."
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:27
+#: admin/partials/custom-banner-settings.php:224
+#: public/partials/banner-custom.php:21
+msgid "Subscribe"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:25
+#: admin/partials/custom-banner-settings.php:204
+msgid "Subscribe to Our Newsletter"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:278
+msgid "Subtle pulsing glow effect"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:305
+msgid "Success Message"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:619
+msgid "Swing In"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:90
+msgid "System Default"
+msgstr ""
+
+#: public/partials/banner-custom.php:36
+msgid "Take action now and transform your experience."
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:511
+#: admin/partials/settings-page.php:313
+#: admin/partials/settings-page.php:755
+msgid "Text Color"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:28
+#: admin/partials/custom-banner-settings.php:311
+#: includes/class-signalkit-custom-handler.php:83
+#: includes/class-signalkit-custom-handler.php:126
+#: public/class-signalkit-public.php:138
+msgid "Thank you for subscribing!"
+msgstr ""
+
+#: public/partials/banner-custom.php:72
+msgid "Thank you!"
+msgstr ""
+
+#: admin/partials/settings-page.php:1153
+msgid "The global CSP header feature has been removed because it could break:"
+msgstr ""
+
+#: admin/partials/settings-page.php:1158
+msgid "Theme functionality and external fonts"
+msgstr ""
+
+#: admin/partials/analytics-page.php:299
+msgid "This will reset analytics for all banners (does not delete submissions)."
+msgstr ""
+
+#: admin/partials/settings-page.php:1266
+msgid "Tip: Keep this option disabled if you plan to reinstall the plugin for troubleshooting. Your settings and analytics data will be preserved."
+msgstr ""
+
+#: public/class-signalkit-public.php:935
+msgid "Too many dismissals"
+msgstr ""
+
+#: public/class-signalkit-public.php:151
+msgid "Too many requests. Please try again later."
+msgstr ""
+
+#: admin/class-signalkit-admin.php:753
+msgid "Too many requests. Please wait a moment and try again."
+msgstr ""
+
+#: includes/class-signalkit-custom-handler.php:67
+msgid "Too many submissions. Please try again later."
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:604
+#: admin/partials/settings-page.php:450
+#: admin/partials/settings-page.php:892
+msgid "Top Center"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:602
+#: admin/partials/settings-page.php:448
+#: admin/partials/settings-page.php:890
+msgid "Top Left"
+msgstr ""
+
+#: admin/partials/settings-page.php:460
+#: admin/partials/settings-page.php:902
+msgid "Top of Screen"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:603
+#: admin/partials/settings-page.php:449
+#: admin/partials/settings-page.php:891
+msgid "Top Right"
+msgstr ""
+
+#: admin/class-signalkit-settings.php:326
+#: admin/partials/analytics-page.php:73
+msgid "Total Clicks"
+msgstr ""
+
+#: admin/class-signalkit-settings.php:345
+#: admin/partials/analytics-page.php:85
+msgid "Total Dismissals"
+msgstr ""
+
+#: admin/class-signalkit-settings.php:318
+#: admin/partials/analytics-page.php:67
+msgid "Total Impressions"
+msgstr ""
+
+#: includes/class-signalkit-custom-handler.php:380
+msgid "Total submissions: %d"
+msgstr ""
+
+#: admin/partials/settings-page.php:1224
+msgid "Track impressions, clicks, and dismissals for both banners"
+msgstr ""
+
+#: admin/class-signalkit-settings.php:74
+msgid "Track the performance of your banner."
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:92
+msgid "Traditional solid background with accent"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:405
+#: admin/partials/settings-page.php:385
+#: admin/partials/settings-page.php:827
+msgid "Typography"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:827
+#: admin/class-signalkit-admin.php:878
+#: admin/class-signalkit-admin.php:956
+#: admin/class-signalkit-admin.php:1304
+msgid "Unauthorized"
+msgstr ""
+
+#: admin/class-signalkit-settings.php:241
+#: admin/class-signalkit-settings.php:275
+msgid "Unauthorized access"
+msgstr ""
+
+#: admin/partials/settings-page.php:255
+#: admin/partials/settings-page.php:697
+msgid "Use [site_name] as placeholder for your site name"
+msgstr ""
+
+#: public/partials/banner-custom.php:406
+msgid "Use Code:"
+msgstr ""
+
+#: admin/partials/settings-page.php:1070
+msgid "Used in banner text when [site_name] placeholder is used"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:893
+msgid "User %1$s exported the SignalKit plugin settings at %2$s."
+msgstr ""
+
+#: admin/class-signalkit-admin.php:1269
+msgid "User %1$s imported and overwrote the SignalKit plugin settings at %2$s. (Encrypted: %3$s)"
+msgstr ""
+
+#: admin/class-signalkit-admin.php:855
+msgid "User %1$s reset the SignalKit analytics data (%2$s) at %3$s."
+msgstr ""
+
+#: admin/partials/settings-page.php:512
+#: admin/partials/settings-page.php:954
+msgid "Users can close the banner"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:705
+msgid "Users can close the banner with a button"
+msgstr ""
+
+#: admin/partials/settings-page.php:1075
+msgid "Version:"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:97
+msgid "Vibrant gradient background"
+msgstr ""
+
+#: admin/partials/analytics-page.php:287
+msgid "View All Submissions"
+msgstr ""
+
+#: admin/partials/advanced-style-settings.php:142
+msgid "Visibility Mode"
+msgstr ""
+
+#: public/partials/banner-custom.php:44
+msgid "We have some exciting news to share with you!"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:295
+msgid "We respect your privacy."
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:34
+msgid "We respect your privacy. Unsubscribe anytime."
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:344
+msgid "Webhook URL (Optional)"
+msgstr ""
+
+#: admin/partials/settings-page.php:1204
+msgid "When disabled, no external font resources are loaded. Default: Disabled for privacy."
+msgstr ""
+
+#: admin/partials/settings-page.php:1257
+msgid "When enabled, all plugin settings, analytics data, and transients will be permanently deleted when the plugin is uninstalled."
+msgstr ""
+
+#: admin/partials/settings-page.php:238
+msgid "Your Google News publication URL"
+msgstr ""
+
+#: public/partials/banner-custom.php:67
+#: public/partials/banner-custom.php:286
+msgid "Your name"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:31
+#: admin/partials/custom-banner-settings.php:264
+msgid "Your name (optional)"
+msgstr ""
+
+#: admin/partials/settings-page.php:1299
+msgid "Your website content appears here"
+msgstr ""
+
+#: admin/partials/custom-banner-settings.php:620
+msgid "Zoom In"
+msgstr ""
+
+#: public/partials/banner-custom.php:27
+msgid "🎯 Get Your Free Guide"
+msgstr ""
+
+#: public/partials/banner-custom.php:51
+msgid "🏷️ Limited Time Offer!"
+msgstr ""
+
+#: public/partials/banner-custom.php:43
+msgid "📢 Important Update"
+msgstr ""
+
+#: public/partials/banner-custom.php:19
+msgid "📧 Subscribe to Our Newsletter"
+msgstr ""
+
+#: public/partials/banner-custom.php:35
+msgid "🚀 Ready to Get Started?"
 msgstr ""

@@ -5,6 +5,7 @@ if (!defined('ABSPATH')) { exit; }
  * Description: News publisher notification plugin with Follow, Preferred Source, and Lead Capture banners to help grow your audience and collect leads.
  * Version: 2.0.3
  * Requires at least: 5.3
+ * Requires PHP: 7.2
  * Author: N4Nion
  * Author URI: https://signalkit.wikiofautomation.com/home/
  * License: GPL v2 or later
